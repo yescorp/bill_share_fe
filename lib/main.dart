@@ -1,6 +1,7 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/pages/sign_in/view/sign_in_screen.dart';
+import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const LoginIntroScreen(),
+      home: const SignupScreen(),
     );
   }
 }
