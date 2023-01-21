@@ -5,7 +5,7 @@ import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  registerDependencies();
+  DependencyProvider.registerDependencies();
 
   runApp(const MyApp());
 }
@@ -16,11 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: DependencyProvider.get<GlobalKey<NavigatorState>>(),
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SignupScreen(),
+      home: Builder(builder: (context) {
+        return const SignupScreen();
+      }),
     );
   }
 }

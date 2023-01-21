@@ -1,22 +1,40 @@
 import 'package:bill_share/services/network_client.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
-final container = GetIt.instance;
+class DependencyProvider {
+  static final container = GetIt.instance;
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
-bool _isRegistered = false;
-
-void registerDependencies() {
-  if (_isRegistered) {
-    return;
+  /// Every Dependency should be registered inside this 1 method.
+  static void registerDependencies() {
+    registerBuildContext();
+    registerNetworkClient();
   }
 
-  registerNetworkClient();
+  //=========================== Register Dependencies methods ===========================
 
-  _isRegistered = true;
-}
+  static void registerBuildContext() {
+    registerLazySingleton<GlobalKey<NavigatorState>>(() => navigatorKey);
+    registerLazySingleton<BuildContext>(() => navigatorKey.currentContext!);
+  }
 
-void registerNetworkClient() {
-  const baseUrl = '';
-  container
-      .registerFactory<NetworkClient>(() => NetworkClient(baseUrl: baseUrl));
+  static void registerNetworkClient() {
+    const baseUrl = '';
+    registerFactory<NetworkClient>(() => NetworkClient(baseUrl: baseUrl));
+  }
+
+  //=========================== Delegate Methods ===========================
+
+  static T get<T extends Object>() {
+    return container.get<T>();
+  }
+
+  static void registerFactory<T extends Object>(T Function() factory) {
+    container.registerFactory<T>(factory);
+  }
+
+  static void registerLazySingleton<T extends Object>(T Function() factory) {
+    container.registerLazySingleton<T>(factory);
+  }
 }
