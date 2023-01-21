@@ -16,6 +16,25 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
     final width = MediaQuery.of(context).size.width / 3;
 
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: cubit.onBackButtonPressed,
+        ),
+        title: const Text(''),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextButton(
+              onPressed: cubit.onSignupPressed,
+              child: const Text(
+                'Sign up',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
         child: ListView(

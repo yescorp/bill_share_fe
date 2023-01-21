@@ -24,4 +24,10 @@ class SigninCubit extends BlocBase<SigninScreenState> {
 
     super.close();
   }
+
+  void onBackButtonPressed() {
+  }
+
+  void onSignupPressed() {
+  }
 }
