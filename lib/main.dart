@@ -1,4 +1,5 @@
 import 'package:bill_share/di/dependency_injection.dart';
+import 'package:bill_share/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/pages/sign_in/view/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const SigninScreen(),
+      home: const LoginIntroScreen(),
     );
   }
 }

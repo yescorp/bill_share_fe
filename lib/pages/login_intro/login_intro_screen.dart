@@ -1,12 +1,15 @@
+import 'package:bill_share/abstract/base_screen.dart';
+import 'package:bill_share/pages/login_intro/login_intro_cubit.dart';
+import 'package:bill_share/pages/login_intro/login_intro_state.dart';
 import 'package:flutter/material.dart';
+import 'package:bill_share/styles/text_styles.dart';
 
-import '../../styles/text_styles.dart';
-
-class LoginIntroScreen extends StatelessWidget {
+class LoginIntroScreen
+    extends AbstractScreen<LoginIntroState, LoginIntroCubit> {
   const LoginIntroScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget buildPage(context, cubit, state) {
     final width = MediaQuery.of(context).size.width / 3;
 
     return Scaffold(
@@ -44,7 +47,9 @@ class LoginIntroScreen extends StatelessWidget {
                 style: TextStyles.h2,
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             const Center(
                 child: Text(
               'Managing expenses was never easier! \nHurry! Create an account to organize your spendings!',
@@ -55,19 +60,24 @@ class LoginIntroScreen extends StatelessWidget {
               height: 10,
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: cubit.onSigninPressed,
               child: const Text('Login'),
             ),
             const SizedBox(
               height: 10,
             ),
             OutlinedButton(
-              onPressed: () {},
+              onPressed: cubit.onSignupPressed,
               child: const Text('Signup'),
             ),
           ],
         ),
       ),
     );
+  }
+
+  @override
+  LoginIntroCubit createCubit() {
+    return LoginIntroCubit(LoginIntroState());
   }
 }
