@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Builder(builder: (context) {
-        return const SignupScreen();
+        return const SigninScreen();
       }),
     );
   }

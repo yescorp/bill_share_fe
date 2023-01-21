@@ -1,10 +1,16 @@
 import 'package:bill_share/abstract/base_screen.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_cubit.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_state.dart';
+import 'package:bill_share/pages/sign_up/view/sign_up_widget_params.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
-  const SignupScreen({super.key});
+  final SignupWidgetParams params;
+
+  const SignupScreen({
+    super.key,
+    required this.params,
+  });
 
   @override
   SignupCubit createCubit() {
