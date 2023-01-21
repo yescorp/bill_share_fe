@@ -17,5 +17,6 @@ void registerDependencies() {
 
 void registerNetworkClient() {
   const baseUrl = '';
-  container.registerFactory(() => NetworkClient(baseUrl: baseUrl));
+  container
+      .registerFactory<NetworkClient>(() => NetworkClient(baseUrl: baseUrl));
 }

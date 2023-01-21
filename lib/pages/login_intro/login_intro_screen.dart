@@ -9,6 +9,11 @@ class LoginIntroScreen
   const LoginIntroScreen({Key? key}) : super(key: key);
 
   @override
+  LoginIntroCubit createCubit() {
+    return LoginIntroCubit(LoginIntroState());
+  }
+
+  @override
   Widget buildPage(context, cubit, state) {
     final width = MediaQuery.of(context).size.width / 3;
 
@@ -74,10 +79,5 @@ class LoginIntroScreen
         ),
       ),
     );
-  }
-
-  @override
-  LoginIntroCubit createCubit() {
-    return LoginIntroCubit(LoginIntroState());
   }
 }
