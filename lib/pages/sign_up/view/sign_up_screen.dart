@@ -1,11 +1,11 @@
-import 'package:bill_share/abstract/base_screen.dart';
+import 'package:bill_share/pages/base_screen.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_cubit.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_widget_params.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
-  final SignupWidgetParams params;
+  final SignupScreenParams params;
 
   const SignupScreen({
     super.key,
@@ -27,7 +27,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
           icon: const Icon(Icons.arrow_back),
           onPressed: cubit.onBackButtonPressed,
         ),
-        title: const Text(''),
+        title: Text(params.data),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

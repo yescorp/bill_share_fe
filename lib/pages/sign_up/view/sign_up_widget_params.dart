@@ -1,8 +1,7 @@
-class AbstractWidgetParams {
-  const AbstractWidgetParams();
-}
+import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
+import 'package:bill_share/services/navigation/api/screen_parameters.dart';
 
-class SignupWidgetParams extends AbstractWidgetParams {
+class SignupScreenParams extends ScreenParams<SignupScreen> {
   final String data;
-  const SignupWidgetParams(this.data);
+  const SignupScreenParams(this.data);
 }

@@ -1,4 +1,4 @@
-import 'package:bill_share/abstract/base_screen.dart';
+import 'package:bill_share/pages/base_screen.dart';
 import 'package:bill_share/pages/login_intro/login_intro_cubit.dart';
 import 'package:bill_share/pages/login_intro/login_intro_state.dart';
 import 'package:flutter/material.dart';
