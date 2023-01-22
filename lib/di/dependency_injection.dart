@@ -2,7 +2,7 @@ import 'package:bill_share/di/application_platform.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
-import 'package:bill_share/services/network_client.dart';
+import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,7 +23,7 @@ class DependencyProvider {
     }
 
     registerBuildContext();
-    registerNetworkClient();
+    NetworkClientDependency.register();
     NavigationDependency.register();
   }
 
@@ -39,11 +39,6 @@ class DependencyProvider {
     registerLazySingleton<BuildContext>(() => navigatorKey.currentContext!);
     registerLazySingleton<NavigatorState>(
         () => Navigator.of(DependencyProvider.get<BuildContext>()));
-  }
-
-  static void registerNetworkClient() {
-    const baseUrl = '';
-    registerFactory<NetworkClient>(() => NetworkClient(baseUrl: baseUrl));
   }
 
   //=========================== Delegate Methods ===========================
