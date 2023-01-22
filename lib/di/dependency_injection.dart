@@ -1,7 +1,7 @@
 import 'package:bill_share/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_widget_params.dart';
-import 'package:bill_share/services/navigation/di/register_navigation.dart';
+import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
