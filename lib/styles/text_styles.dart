@@ -10,5 +10,4 @@ class TextStyles {
   static const p1 = TextStyle(
     fontSize: 16,
   );
-  
 }
