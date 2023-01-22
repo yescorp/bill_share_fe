@@ -39,9 +39,9 @@ class NavigationProviderImpl extends NavigationProvider {
   }
 
   @override
-  Future<void> replaceCurrent<Screen extends Widget>(
-    ScreenParams params,
-  ) async {
+  Future<void> replaceCurrent<Screen extends Widget>({
+    ScreenParams? params,
+  }) async {
     assert(
       DependencyProvider.container.isRegistered<Screen>(),
       'Screen must be registered in DI container',
@@ -54,9 +54,9 @@ class NavigationProviderImpl extends NavigationProvider {
   }
 
   @override
-  Future<T?> replaceCurrentWithResult<Screen extends Widget, T>(
-    ScreenParams params,
-  ) async {
+  Future<T?> replaceCurrentWithResult<Screen extends Widget, T>({
+    ScreenParams? params,
+  }) async {
     assert(
       DependencyProvider.container.isRegistered<Screen>(),
       'Screen must be registered in DI container',

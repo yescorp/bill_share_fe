@@ -32,6 +32,6 @@ class SigninCubit extends BlocBase<SigninScreenState> {
 
   void onSignupPressed() {
     final navigationProvider = DependencyProvider.get<NavigationProvider>();
-    navigationProvider.push<SignupScreen>();
+    navigationProvider.replaceCurrent<SignupScreen>();
   }
 }

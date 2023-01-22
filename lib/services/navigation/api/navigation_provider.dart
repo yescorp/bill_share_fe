@@ -12,8 +12,11 @@ abstract class NavigationProvider {
 
   void pop<T>(T? result);
 
-  Future<void> replaceCurrent<Screen extends Widget>(ScreenParams params);
+  Future<void> replaceCurrent<Screen extends Widget>({
+    ScreenParams? params,
+  });
 
-  Future<T?> replaceCurrentWithResult<Screen extends Widget, T>(
-      ScreenParams params);
+  Future<T?> replaceCurrentWithResult<Screen extends Widget, T>({
+    ScreenParams? params,
+  });
 }
