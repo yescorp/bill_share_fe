@@ -1,2 +1,1 @@
-class SigninScreenState {
-}
+class SigninScreenState {}
