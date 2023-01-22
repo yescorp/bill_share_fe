@@ -1,3 +1,4 @@
+import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/pages/base_screen.dart';
 import 'package:bill_share/pages/sign_in/view/sign_in_cubit.dart';
 import 'package:bill_share/pages/sign_in/view/sign_in_state.dart';
@@ -79,5 +80,10 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
         ),
       ),
     );
+  }
+
+  static void register() {
+    DependencyProvider.registerFactory<SigninScreen>(
+        () => const SigninScreen());
   }
 }

@@ -1,6 +1,5 @@
 import 'package:bill_share/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
-import 'package:bill_share/pages/sign_up/view/sign_up_widget_params.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,13 +11,11 @@ class DependencyProvider {
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies() {
-    registerFactory<SigninScreen>(() => const SigninScreen());
-    container.registerFactoryParam<SignupScreen, SignupScreenParams, void>(
-        (param1, _) => SignupScreen(params: param1));
-
     registerBuildContext();
     registerNetworkClient();
     NavigationDependency.register();
+    SigninScreen.register();
+    SignupScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================
