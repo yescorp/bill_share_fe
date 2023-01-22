@@ -14,10 +14,7 @@ class SigninCubit extends BlocBase<SigninScreenState> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  onSubmit() {
-    print(emailController.value.text);
-    print(passwordController.value.text);
-  }
+  onSubmit() {}
 
   onForgotPassword() {}
 

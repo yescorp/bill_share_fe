@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 class NetworkClient {
+  // ignore: unused_field
   final Dio _client;
   final String baseUrl;
 

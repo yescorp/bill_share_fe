@@ -1,4 +1,3 @@
-import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
