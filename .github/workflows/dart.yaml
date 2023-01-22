@@ -38,3 +38,6 @@ jobs:
 
       - name: Test
         run: flutter test
+      
+      - name: Android Build
+        run: flutter build apk ./lib/mobile/main.dart
