@@ -13,6 +13,11 @@ class NavigationProviderImpl extends NavigationProvider {
   Future<void> push<Screen extends Widget>({
     ScreenParams? params,
   }) async {
+    assert(
+      DependencyProvider.container.isRegistered<Screen>(),
+      'Screen must be registered in DI container',
+    );
+
     final navigator = DependencyProvider.get<NavigatorState>();
     final screen = DependencyProvider.get<Screen>(param1: params);
     await navigator.push(MaterialPageRoute(builder: (context) => screen));
@@ -22,6 +27,11 @@ class NavigationProviderImpl extends NavigationProvider {
   Future<T> pushWithResult<Screen extends Widget, T>({
     ScreenParams? params,
   }) async {
+    assert(
+      DependencyProvider.container.isRegistered<Screen>(),
+      'Screen must be registered in DI container',
+    );
+
     final navigator = DependencyProvider.get<NavigatorState>();
     final screen = DependencyProvider.get<Screen>(param1: params);
     return await navigator
@@ -30,7 +40,13 @@ class NavigationProviderImpl extends NavigationProvider {
 
   @override
   Future<void> replaceCurrent<Screen extends Widget>(
-      ScreenParams params) async {
+    ScreenParams params,
+  ) async {
+    assert(
+      DependencyProvider.container.isRegistered<Screen>(),
+      'Screen must be registered in DI container',
+    );
+
     final navigator = DependencyProvider.get<NavigatorState>();
     final screen = DependencyProvider.get<Screen>(param1: params);
     await navigator
@@ -39,7 +55,13 @@ class NavigationProviderImpl extends NavigationProvider {
 
   @override
   Future<T?> replaceCurrentWithResult<Screen extends Widget, T>(
-      ScreenParams params) async {
+    ScreenParams params,
+  ) async {
+    assert(
+      DependencyProvider.container.isRegistered<Screen>(),
+      'Screen must be registered in DI container',
+    );
+
     final navigator = DependencyProvider.get<NavigatorState>();
     final screen = DependencyProvider.get<Screen>(param1: params);
     return await navigator.pushReplacement<T, Screen>(
