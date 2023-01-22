@@ -1,0 +1,4 @@
+enum ApplicationPlatform {
+  mobile,
+  web,
+}

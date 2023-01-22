@@ -1,3 +1,4 @@
+import 'package:bill_share/di/application_platform.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
@@ -10,10 +11,23 @@ class DependencyProvider {
   static final navigatorKey = GlobalKey<NavigatorState>();
 
   /// Every Dependency should be registered inside this 1 method.
-  static void registerDependencies() {
+  static void registerDependencies({
+    ApplicationPlatform platform = ApplicationPlatform.mobile,
+  }) {
+    switch (platform) {
+      case ApplicationPlatform.mobile:
+        registerMobileScreens();
+        break;
+      case ApplicationPlatform.web:
+        break;
+    }
+
     registerBuildContext();
     registerNetworkClient();
     NavigationDependency.register();
+  }
+
+  static void registerMobileScreens() {
     SigninScreen.register();
     SignupScreen.register();
   }
