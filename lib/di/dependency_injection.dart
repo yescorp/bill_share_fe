@@ -1,5 +1,5 @@
-import 'package:bill_share/pages/sign_in/view/sign_in_screen.dart';
-import 'package:bill_share/pages/sign_up/view/sign_up_screen.dart';
+import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
+import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,9 +21,9 @@ class DependencyProvider {
   //=========================== Register Dependencies methods ===========================
 
   static void registerBuildContext() {
-    registerFactory<GlobalKey<NavigatorState>>(() => navigatorKey);
-    registerFactory<BuildContext>(() => navigatorKey.currentContext!);
-    registerFactory<NavigatorState>(
+    registerLazySingleton<GlobalKey<NavigatorState>>(() => navigatorKey);
+    registerLazySingleton<BuildContext>(() => navigatorKey.currentContext!);
+    registerLazySingleton<NavigatorState>(
         () => Navigator.of(DependencyProvider.get<BuildContext>()));
   }
 

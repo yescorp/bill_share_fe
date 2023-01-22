@@ -1,15 +1,16 @@
 import 'package:bill_share/di/dependency_injection.dart';
-import 'package:bill_share/pages/base_screen.dart';
-import 'package:bill_share/pages/sign_up/view/sign_up_cubit.dart';
-import 'package:bill_share/pages/sign_up/view/sign_up_state.dart';
+import 'package:bill_share/common/base_screen.dart';
+import 'package:bill_share/mobile/pages/sign_in/view/sign_in_cubit.dart';
+import 'package:bill_share/mobile/pages/sign_in/view/sign_in_state.dart';
+import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 
-class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
-  const SignupScreen({super.key});
+class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
+  const SigninScreen({super.key});
 
   @override
-  SignupCubit createCubit() {
-    return SignupCubit(SignupScreenState());
+  SigninCubit createCubit() {
+    return DependencyProvider.get<SigninCubit>();
   }
 
   @override
@@ -27,9 +28,9 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
-              onPressed: cubit.onSigninPressed,
+              onPressed: cubit.onSignupPressed,
               child: const Text(
-                'Sign in',
+                'Sign up',
                 style: TextStyle(color: Colors.white),
               ),
             ),
@@ -55,35 +56,26 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
             TextField(
               controller: cubit.emailController,
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              controller: cubit.usernameController,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
+            const SizedBox(),
             TextField(
               controller: cubit.passwordController,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            TextField(
-              controller: cubit.confirmPasswordController,
               obscureText: true,
               obscuringCharacter: '*',
             ),
             const SizedBox(height: 10),
             OutlinedButton(
               onPressed: cubit.onSubmit,
-              child: const Text('Sign Up'),
+              child: const Text('Sign In'),
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              onPressed: cubit.onForgotPassword,
+              child: const Text('Forgot password?'),
             ),
             const SizedBox(height: 40),
             OutlinedButton(
-              onPressed: cubit.onSignupWithGooglePressed,
-              child: const Text('Sign Up with Google'),
+              onPressed: cubit.onSigninWithGooglePressed,
+              child: const Text('Sign in with Google'),
             ),
           ],
         ),
@@ -92,7 +84,13 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
   }
 
   static void register() {
-    DependencyProvider.registerFactory<SignupScreen>(
-        () => const SignupScreen());
+    DependencyProvider.registerFactory<SigninScreen>(
+        () => const SigninScreen());
+    DependencyProvider.registerFactory<SigninCubit>(
+      () => SigninCubit(
+        SigninScreenState(),
+        navigationProvider: DependencyProvider.get<NavigationProvider>(),
+      ),
+    );
   }
 }

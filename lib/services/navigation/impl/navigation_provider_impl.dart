@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class NavigationProviderImpl extends NavigationProvider {
   @override
-  void pop<T>(T? result) {
+  void pop<T>({
+    T? result,
+  }) {
     return DependencyProvider.get<NavigatorState>().pop<T>(result);
   }
 
