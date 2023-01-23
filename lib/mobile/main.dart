@@ -1,5 +1,5 @@
 import 'package:bill_share/di/dependency_injection.dart';
-import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
+import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Builder(builder: (context) {
-        return const SigninScreen();
+        return const LoginIntroScreen();
       }),
     );
   }

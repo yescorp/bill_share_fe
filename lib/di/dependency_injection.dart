@@ -1,4 +1,5 @@
 import 'package:bill_share/di/application_platform.dart';
+import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
@@ -28,6 +29,7 @@ class DependencyProvider {
   }
 
   static void registerMobileScreens() {
+    LoginIntroScreen.register();
     SigninScreen.register();
     SignupScreen.register();
   }

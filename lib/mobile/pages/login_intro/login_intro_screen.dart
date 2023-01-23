@@ -1,6 +1,8 @@
 import 'package:bill_share/common/base_screen.dart';
+import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_cubit.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_state.dart';
+import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bill_share/styles/text_styles.dart';
 
@@ -10,7 +12,7 @@ class LoginIntroScreen
 
   @override
   LoginIntroCubit createCubit() {
-    return LoginIntroCubit(LoginIntroState());
+    return DependencyProvider.get<LoginIntroCubit>();
   }
 
   @override
@@ -79,5 +81,14 @@ class LoginIntroScreen
         ),
       ),
     );
+  }
+
+  static void register() {
+    DependencyProvider.registerFactory<LoginIntroCubit>(() => LoginIntroCubit(
+        LoginIntroState(),
+        navigationProvider: DependencyProvider.get<NavigationProvider>()));
+
+    DependencyProvider.registerFactory<LoginIntroScreen>(
+        () => const LoginIntroScreen());
   }
 }
