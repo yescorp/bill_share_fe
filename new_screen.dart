@@ -126,7 +126,7 @@ $register
   final cubit =
       await File('$path/${screenName}_cubit.dart').create(recursive: true);
   cubit.writeAsString('''
-import 'package:/bill_share/mobile/pages/$screenName/view/${screenName}_state.dart';
+import 'package:bill_share/mobile/pages/$screenName/view/${screenName}_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
