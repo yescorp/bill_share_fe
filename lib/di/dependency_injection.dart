@@ -2,6 +2,7 @@ import 'package:bill_share/di/application_platform.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
+import 'package:bill_share/services/mappers/generic.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,9 @@ class DependencyProvider {
       case ApplicationPlatform.web:
         break;
     }
+
+    DependencyProvider.registerLazySingleton<GenericMapper>(
+        () => const GenericMapper());
 
     registerBuildContext();
     NetworkClientDependency.register();
