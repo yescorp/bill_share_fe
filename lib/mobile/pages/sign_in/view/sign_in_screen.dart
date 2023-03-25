@@ -3,7 +3,11 @@ import 'package:bill_share/common/base_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_cubit.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
+import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../styles/colors.dart';
 
 class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
   const SigninScreen({super.key});
@@ -23,6 +27,7 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
           icon: const Icon(Icons.arrow_back),
           onPressed: cubit.onBackButtonPressed,
         ),
+        elevation: 0,
         title: const Text(''),
         actions: [
           Padding(
@@ -31,54 +36,129 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
               onPressed: cubit.onSignupPressed,
               child: const Text(
                 'Sign up',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: FontSizes.p1),
               ),
             ),
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 80,
-            ),
-            Center(
-              child: Container(
-                width: width,
-                height: width,
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
+      body: Stack(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height,
+            decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                )),
+          ),
+          ListView(
+            shrinkWrap: true,
+            children: [
+              const SizedBox(height: 50),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'Sign In',
+                    style: TextStyle(
+                      fontSize: FontSizes.h1,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text(
+                    'If you already have an account, \nplease enter your username and password to login.',
+                    style: TextStyle(
+                      fontSize: FontSizes.p1,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                    overflow: TextOverflow.fade,
+                    softWrap: true,
+                  )
+                ],
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(12),
+                    ),
+                  ),
+                  child: ListView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      TextField(
+                        controller: cubit.emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.borderColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.focusedBorderColor),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      TextField(
+                        controller: cubit.passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          labelText: 'Password',
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.borderColor),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.focusedBorderColor),
+                          ),
+                        ),
+                        obscuringCharacter: '*',
+                      ),
+                      const SizedBox(height: 10),
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          shadowColor: MaterialStatePropertyAll(Colors.white),
+                          textStyle: MaterialStatePropertyAll(TextStyle(
+                            color: Colors.white,
+                          )),
+                        ),
+                        onPressed: cubit.onSubmit,
+                        child: const Text('Sign In'),
+                      ),
+                      TextButton(
+                        onPressed: cubit.onForgotPassword,
+                        child: const Text('Forgot password?'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            TextField(
-              controller: cubit.emailController,
-            ),
-            const SizedBox(),
-            TextField(
-              controller: cubit.passwordController,
-              obscureText: true,
-              obscuringCharacter: '*',
-            ),
-            const SizedBox(height: 10),
-            OutlinedButton(
-              onPressed: cubit.onSubmit,
-              child: const Text('Sign In'),
-            ),
-            const SizedBox(height: 20),
-            TextButton(
-              onPressed: cubit.onForgotPassword,
-              child: const Text('Forgot password?'),
-            ),
-            const SizedBox(height: 40),
-            OutlinedButton(
-              onPressed: cubit.onSigninWithGooglePressed,
-              child: const Text('Sign in with Google'),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
-class TextStyles {
-  static const h1 = TextStyle(
-    fontSize: 32,
-  );
-  static const h2 = TextStyle(
-    fontSize: 24,
-  );
-  static const p1 = TextStyle(
-    fontSize: 16,
-  );
+class FontSizes {
+  static const h1 = 32.0;
+  static const h2 = 24.0;
+  static const p1 = 16.0;
 }
