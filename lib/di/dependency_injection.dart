@@ -9,6 +9,8 @@ import 'package:bill_share/services/network_client/di/network_client_dependency.
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
+import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
+
 class DependencyProvider {
   static final container = GetIt.instance;
   static final navigatorKey = GlobalKey<NavigatorState>();
@@ -38,6 +40,7 @@ class DependencyProvider {
     SigninScreen.register();
     SignupScreen.register();
     FriendsListScreen.register();
+    QrScannerScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================
