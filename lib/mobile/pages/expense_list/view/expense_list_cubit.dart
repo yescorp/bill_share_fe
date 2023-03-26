@@ -21,6 +21,7 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
       state.copyWith(
         details: [
           PaymentInfo(
+            id: 'unique',
             category: PaymentCategory(
               name: 'Restaurant',
               id: 'Restaurant',
@@ -66,5 +67,23 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
         ],
       ),
     );
+  }
+
+  onExpenseTap(int index) {
+    if (state.openedExpenses.contains(state.details[index].id)) {
+      final newList = [...state.openedExpenses];
+      newList.remove(state.details[index].id);
+      emit(
+        state.copyWith(
+          openedExpenses: newList,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          openedExpenses: [...state.openedExpenses, state.details[index].id],
+        ),
+      );
+    }
   }
 }

@@ -29,6 +29,7 @@ class CreatePaymentScreen
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text('Payment info'),
         leading: IconButton(

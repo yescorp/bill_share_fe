@@ -21,6 +21,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
     final width = MediaQuery.of(context).size.width / 3;
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),

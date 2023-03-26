@@ -31,6 +31,7 @@ class FriendsListScreen
       length: 3,
       child: Builder(builder: (context) {
         return Scaffold(
+          backgroundColor: AppColors.background,
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {},

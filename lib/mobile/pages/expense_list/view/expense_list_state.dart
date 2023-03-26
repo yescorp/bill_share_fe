@@ -7,5 +7,6 @@ part 'expense_list_state.freezed.dart';
 class ExpenseListState with _$ExpenseListState {
   factory ExpenseListState({
     @Default([]) List<PaymentInfo> details,
+    @Default([]) List<String> openedExpenses,
   }) = _ExpenseListState;
 }

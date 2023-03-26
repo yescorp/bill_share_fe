@@ -5,6 +5,8 @@ import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../styles/colors.dart';
+
 class CreatePaymentItemScreen
     extends AbstractScreen<CreatePaymentItemState, CreatePaymentItemCubit> {
   const CreatePaymentItemScreen({super.key});
@@ -17,6 +19,7 @@ class CreatePaymentItemScreen
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),

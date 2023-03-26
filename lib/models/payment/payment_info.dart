@@ -5,6 +5,7 @@ import 'package:bill_share/models/user/friend_info.dart';
 import 'package:bill_share/models/user/user_info.dart';
 
 class PaymentInfo {
+  final String id;
   final String name;
   final PaymentCategory category;
   final PaymentType type;
@@ -17,6 +18,7 @@ class PaymentInfo {
   final Map<String, double>? additional;
 
   const PaymentInfo({
+    required this.id,
     required this.name,
     required this.type,
     required this.category,

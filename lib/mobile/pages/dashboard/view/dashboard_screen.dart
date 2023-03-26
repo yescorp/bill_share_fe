@@ -28,6 +28,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text('Dashboard'),
       ),

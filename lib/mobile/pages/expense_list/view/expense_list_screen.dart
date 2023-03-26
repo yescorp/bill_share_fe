@@ -1,5 +1,7 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/common/base_screen.dart';
+import 'package:bill_share/mobile/components/acronym_avatar.dart';
+import 'package:bill_share/mobile/components/dot_separated_list_tile.dart';
 import 'package:bill_share/mobile/components/wavy_container/wavy_container.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_cubit.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_state.dart';
@@ -33,57 +35,85 @@ class ExpenseListScreen
       body: ListView.builder(
         itemCount: state.details.length,
         itemBuilder: (context, index) {
-          return WavyContainer(
-            container: Container(
-                color: AppColors.white,
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Icon(Icons.circle),
-                        const SizedBox(width: 20),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                state.details[index].name,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: FontSizes.h3,
+          return InkWell(
+            onTap: () => cubit.onExpenseTap(index),
+            child: WavyContainer(
+              container: Container(
+                  color: AppColors.white,
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Icon(
+                            Icons.circle,
+                            size: 40,
+                          ),
+                          const SizedBox(width: 20),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  state.details[index].name,
+                                  textAlign: TextAlign.start,
+                                  style: const TextStyle(
+                                    fontSize: FontSizes.h3,
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Text('Total'),
-                                  const SizedBox(width: 5),
-                                  Expanded(
-                                    child: Text(
-                                      '.' * 100,
-                                      overflow: TextOverflow.fade,
-                                      softWrap: false,
+                                const SizedBox(height: 10),
+                                if (state.openedExpenses
+                                        .contains(state.details[index].id) &&
+                                    state.details[index].items.isNotEmpty) ...[
+                                  ...state.details[index].items.map(
+                                    (e) => DotSeparatedListTile(
+                                      label: e.name,
+                                      value: '${e.price} x ${e.quantity}',
+                                      style: const TextStyle(
+                                        fontSize: FontSizes.p1,
+                                      ),
                                     ),
                                   ),
-                                  const SizedBox(width: 5),
-                                  Text('${state.details[index].totalPrice}'),
+                                  const SizedBox(height: 20),
                                 ],
-                              ),
-                              Row(
-                                children: [
-                                  Text('${state.details[index].paidPrice}'),
-                                ],
-                              )
-                            ],
+                                DotSeparatedListTile(
+                                  label: 'Total',
+                                  value: '${state.details[index].totalPrice}',
+                                  style: const TextStyle(
+                                    fontSize: FontSizes.p1,
+                                  ),
+                                ),
+                                DotSeparatedListTile(
+                                  label: 'Paid',
+                                  value: '${state.details[index].paidPrice}',
+                                  style: const TextStyle(
+                                    fontSize: FontSizes.p1,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [],
-                    )
-                  ],
-                )),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ...state.details[index].participants.map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(left: 4.0),
+                              child: AcronymAvatar(
+                                name: e.name,
+                                heightWidth: 40,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  )),
+            ),
           );
         },
       ),

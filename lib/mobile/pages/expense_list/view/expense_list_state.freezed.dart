@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$ExpenseListState {
   List<PaymentInfo> get details => throw _privateConstructorUsedError;
+  List<String> get openedExpenses => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ExpenseListStateCopyWith<ExpenseListState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $ExpenseListStateCopyWith<$Res> {
           ExpenseListState value, $Res Function(ExpenseListState) then) =
       _$ExpenseListStateCopyWithImpl<$Res, ExpenseListState>;
   @useResult
-  $Res call({List<PaymentInfo> details});
+  $Res call({List<PaymentInfo> details, List<String> openedExpenses});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$ExpenseListStateCopyWithImpl<$Res, $Val extends ExpenseListState>
   @override
   $Res call({
     Object? details = null,
+    Object? openedExpenses = null,
   }) {
     return _then(_value.copyWith(
       details: null == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as List<PaymentInfo>,
+      openedExpenses: null == openedExpenses
+          ? _value.openedExpenses
+          : openedExpenses // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$_ExpenseListStateCopyWith<$Res>
       __$$_ExpenseListStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<PaymentInfo> details});
+  $Res call({List<PaymentInfo> details, List<String> openedExpenses});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$_ExpenseListStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? details = null,
+    Object? openedExpenses = null,
   }) {
     return _then(_$_ExpenseListState(
       details: null == details
           ? _value._details
           : details // ignore: cast_nullable_to_non_nullable
               as List<PaymentInfo>,
+      openedExpenses: null == openedExpenses
+          ? _value._openedExpenses
+          : openedExpenses // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -92,8 +103,11 @@ class __$$_ExpenseListStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ExpenseListState implements _ExpenseListState {
-  _$_ExpenseListState({final List<PaymentInfo> details = const []})
-      : _details = details;
+  _$_ExpenseListState(
+      {final List<PaymentInfo> details = const [],
+      final List<String> openedExpenses = const []})
+      : _details = details,
+        _openedExpenses = openedExpenses;
 
   final List<PaymentInfo> _details;
   @override
@@ -104,9 +118,18 @@ class _$_ExpenseListState implements _ExpenseListState {
     return EqualUnmodifiableListView(_details);
   }
 
+  final List<String> _openedExpenses;
+  @override
+  @JsonKey()
+  List<String> get openedExpenses {
+    if (_openedExpenses is EqualUnmodifiableListView) return _openedExpenses;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_openedExpenses);
+  }
+
   @override
   String toString() {
-    return 'ExpenseListState(details: $details)';
+    return 'ExpenseListState(details: $details, openedExpenses: $openedExpenses)';
   }
 
   @override
@@ -114,12 +137,16 @@ class _$_ExpenseListState implements _ExpenseListState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ExpenseListState &&
-            const DeepCollectionEquality().equals(other._details, _details));
+            const DeepCollectionEquality().equals(other._details, _details) &&
+            const DeepCollectionEquality()
+                .equals(other._openedExpenses, _openedExpenses));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_details));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_details),
+      const DeepCollectionEquality().hash(_openedExpenses));
 
   @JsonKey(ignore: true)
   @override
@@ -129,11 +156,14 @@ class _$_ExpenseListState implements _ExpenseListState {
 }
 
 abstract class _ExpenseListState implements ExpenseListState {
-  factory _ExpenseListState({final List<PaymentInfo> details}) =
-      _$_ExpenseListState;
+  factory _ExpenseListState(
+      {final List<PaymentInfo> details,
+      final List<String> openedExpenses}) = _$_ExpenseListState;
 
   @override
   List<PaymentInfo> get details;
+  @override
+  List<String> get openedExpenses;
   @override
   @JsonKey(ignore: true)
   _$$_ExpenseListStateCopyWith<_$_ExpenseListState> get copyWith =>

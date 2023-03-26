@@ -6,6 +6,8 @@ import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
+import '../../../../styles/colors.dart';
+
 class QrScannerScreen extends AbstractScreen<QrScannerState, QrScannerCubit> {
   const QrScannerScreen({super.key});
 
@@ -17,6 +19,7 @@ class QrScannerScreen extends AbstractScreen<QrScannerState, QrScannerCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: MobileScanner(
         controller: MobileScannerController(
           detectionSpeed: DetectionSpeed.noDuplicates,

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../../../styles/colors.dart';
+
 class LoginIntroScreen
     extends AbstractScreen<LoginIntroState, LoginIntroCubit> {
   const LoginIntroScreen({Key? key}) : super(key: key);
@@ -21,6 +23,7 @@ class LoginIntroScreen
     final width = MediaQuery.of(context).size.width / 3;
 
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           Container(
