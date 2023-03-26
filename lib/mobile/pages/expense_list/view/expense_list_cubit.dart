@@ -86,4 +86,6 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
       );
     }
   }
+
+  onExpenseDoubleTap(int index) {}
 }

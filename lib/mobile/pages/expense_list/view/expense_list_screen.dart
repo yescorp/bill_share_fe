@@ -37,6 +37,7 @@ class ExpenseListScreen
         itemBuilder: (context, index) {
           return InkWell(
             onTap: () => cubit.onExpenseTap(index),
+            onDoubleTap: () => cubit.onExpenseDoubleTap(index),
             child: WavyContainer(
               container: Container(
                   color: AppColors.white,
