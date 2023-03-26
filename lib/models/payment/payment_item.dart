@@ -8,4 +8,6 @@ class PaymentItem {
     required this.quantity,
     required this.price,
   });
+
+  double get total => price * quantity;
 }

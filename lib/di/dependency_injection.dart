@@ -3,6 +3,7 @@ import 'package:bill_share/mobile/pages/create_payment/view/create_payment_scree
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
+import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/mappers/generic.dart';
@@ -45,6 +46,7 @@ class DependencyProvider {
     QrScannerScreen.register();
     CreatePaymentScreen.register();
     CreatePaymentItemScreen.register();
+    SelectFriendsScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================

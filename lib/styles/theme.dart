@@ -1,8 +1,9 @@
+import 'package:bill_share/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 final brightTheme = ThemeData(
   colorScheme: const ColorScheme(
-    background: Color(0xFFF1F1F1),
+    background: AppColors.background,
     brightness: Brightness.light,
     error: Color(0xFFFF72B5),
     onBackground: Colors.black,

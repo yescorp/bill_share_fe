@@ -1,10 +1,14 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/common/base_screen.dart';
+import 'package:bill_share/mobile/components/payment_item_details.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_cubit.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_state.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen_params.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../styles/colors.dart';
 
 class CreatePaymentScreen
     extends AbstractScreen<CreatePaymentState, CreatePaymentCubit> {
@@ -28,7 +32,7 @@ class CreatePaymentScreen
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
-            color: Colors.white,
+            color: AppColors.white,
           ),
           onPressed: cubit.onBackButtonPressed,
         ),
@@ -42,33 +46,70 @@ class CreatePaymentScreen
                 labelText: 'Payment Name',
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
-                    color: Color(0xFF858585),
+                    color: AppColors.grey1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
                   ),
                 ),
               ),
             ),
-            DropdownButton(
-              value: state.selectedCategory,
-              items: cubit.categories
-                  .map<DropdownMenuItem<String>>(
-                      (e) => DropdownMenuItem<String>(
-                            value: e,
-                            child: Text(e),
-                          ))
-                  .toList(),
-              onChanged: cubit.onCategoryChange,
+            const SizedBox(height: 10),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColors.grey1,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: DropdownButton(
+                  hint: Text('Category'),
+                  value: state.selectedCategory,
+                  isExpanded: true,
+                  items: cubit.categories
+                      .map<DropdownMenuItem<String>>(
+                          (e) => DropdownMenuItem<String>(
+                                value: e,
+                                child: Text(e),
+                              ))
+                      .toList(),
+                  onChanged: cubit.onCategoryChange,
+                  underline: Container(),
+                ),
+              ),
             ),
-            DropdownButton(
-              value: state.selectedPaymentType,
-              items: cubit.paymentTypes
-                  .map<DropdownMenuItem<String>>(
-                      (e) => DropdownMenuItem<String>(
-                            value: e,
-                            child: Text(e),
-                          ))
-                  .toList(),
-              onChanged: cubit.onPaymentTypeChange,
+            const SizedBox(height: 10),
+            DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: AppColors.grey1,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: DropdownButton(
+                  iconEnabledColor: AppColors.grey1,
+                  value: state.selectedPaymentType,
+                  hint: Text('Payment type'),
+                  isExpanded: true,
+                  items: cubit.paymentTypes
+                      .map<DropdownMenuItem<String>>(
+                          (e) => DropdownMenuItem<String>(
+                                value: e,
+                                child: Text(e),
+                              ))
+                      .toList(),
+                  onChanged: cubit.onPaymentTypeChange,
+                  underline: Container(),
+                ),
+              ),
             ),
+            const SizedBox(height: 10),
             ElevatedButton.icon(
               icon: Icon(Icons.add),
               label: Text('Friends'),
@@ -77,6 +118,7 @@ class CreatePaymentScreen
             if (state.friends.isNotEmpty) ...[
               // Build friends avatars
             ],
+            const SizedBox(height: 10),
             ElevatedButton.icon(
               icon: Icon(Icons.add),
               label: Text('Products'),
@@ -84,8 +126,30 @@ class CreatePaymentScreen
             ),
             if (state.items.isNotEmpty) ...[
               // Build items
-              ...state.items.map<Widget>((e) => Text(e.name)).toList(),
+              ...state.items.map<Widget>(
+                (e) => Container(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                  child: PaymentItemDetails.variant1(
+                    details: e,
+                    onDelete: () => cubit.onDelete(e),
+                  ),
+                ),
+              )
             ]
+          ],
+        ),
+      ),
+      bottomSheet: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        height: 110,
+        child: Row(
+          children: [
+            Expanded(
+              child: ElevatedButton(
+                child: Text('Create Payment'),
+                onPressed: cubit.onSubmit,
+              ),
+            ),
           ],
         ),
       ),
