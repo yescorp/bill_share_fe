@@ -1,6 +1,5 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
-import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/styles/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +24,7 @@ class MyApp extends StatelessWidget {
               final focus = FocusScope.of(context);
               focus.unfocus();
             },
-            child: const LoginIntroScreen());
+            child: const FriendsListScreen());
       }),
     );
   }
