@@ -1,9 +1,14 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/common/base_screen.dart';
+import 'package:bill_share/mobile/components/group_list_tile.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_cubit.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../styles/colors.dart';
+import '../../../../styles/text_styles.dart';
+import '../../../components/friend_list_tile.dart';
 
 class FriendsListScreen
     extends AbstractScreen<FriendsListState, FriendsListCubit> {
@@ -35,22 +40,64 @@ class FriendsListScreen
               isScrollable: true,
               tabs: [
                 Tab(
-                  text: 'Friends',
+                  child: Text(
+                    'Friends',
+                    style: TextStyle(
+                      fontSize: FontSizes.h3,
+                    ),
+                  ),
                 ),
                 Tab(
-                  text: 'Groups',
+                  child: Text(
+                    'Groups',
+                    style: TextStyle(
+                      fontSize: FontSizes.h3,
+                    ),
+                  ),
                 ),
                 Tab(
-                  text: 'Friendship requests',
+                  child: Text(
+                    'Friendship Requests',
+                    style: TextStyle(
+                      fontSize: FontSizes.h3,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
-          body: const TabBarView(
+          body: TabBarView(
             children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              ListView.separated(
+                itemCount: state.friends.length,
+                separatorBuilder: (context, index) => const Divider(
+                  height: 1,
+                  color: AppColors.grey1,
+                ),
+                itemBuilder: (context, index) => FriendListTile.view(
+                  info: state.friends[index],
+                ),
+              ),
+              ListView.separated(
+                itemCount: state.groups.length,
+                separatorBuilder: (context, index) => const Divider(
+                  height: 1,
+                  color: AppColors.grey1,
+                ),
+                itemBuilder: (context, index) => GroupListTile.view(
+                  info: state.groups[index],
+                ),
+              ),
+              ListView.separated(
+                itemCount: state.friendshipRequests.length,
+                separatorBuilder: (context, index) => const Divider(
+                  height: 1,
+                  color: AppColors.grey1,
+                ),
+                itemBuilder: (context, index) => FriendListTile.request(
+                  info: state.friendshipRequests[index],
+                ),
+              ),
             ],
           ),
         );

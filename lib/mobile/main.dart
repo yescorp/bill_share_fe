@@ -26,9 +26,7 @@ class MyApp extends StatelessWidget {
             final focus = FocusScope.of(context);
             focus.unfocus();
           },
-          child: const CreatePaymentScreen(
-            params: CreatePaymentParams(),
-          ),
+          child: const FriendsListScreen(),
         );
       }),
     );

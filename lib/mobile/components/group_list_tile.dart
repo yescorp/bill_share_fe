@@ -6,14 +6,10 @@ import '../../styles/text_styles.dart';
 
 abstract class GroupListTile extends StatelessWidget {
   final GroupInfo info;
-  final bool checked;
-  final void Function(bool?)? onTap;
 
   const GroupListTile({
     super.key,
     required this.info,
-    this.onTap,
-    this.checked = false,
   });
 
   factory GroupListTile.select({
@@ -28,14 +24,26 @@ abstract class GroupListTile extends StatelessWidget {
         onTap: onTap,
         checked: checked,
       );
+
+  factory GroupListTile.view({
+    Key? key,
+    required GroupInfo info,
+  }) =>
+      GroupListTileView(
+        key: key,
+        info: info,
+      );
 }
 
 class GroupListTileSelect extends GroupListTile {
+  final bool checked;
+  final void Function(bool?)? onTap;
+
   const GroupListTileSelect({
     super.key,
     required super.info,
-    super.onTap,
-    super.checked,
+    this.onTap,
+    this.checked = false,
   });
 
   @override
@@ -71,6 +79,33 @@ class GroupListTileSelect extends GroupListTile {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class GroupListTileView extends GroupListTile {
+  const GroupListTileView({
+    super.key,
+    required super.info,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ListTile(
+        leading: AcronymAvatar(
+          name: info.groupName,
+          heightWidth: 40,
+        ),
+        title: Text(
+          info.groupName,
+          style: const TextStyle(
+            fontSize: FontSizes.h3,
+          ),
+        ),
+        subtitle: Text('Members ${info.friends.length}'),
       ),
     );
   }

@@ -24,6 +24,7 @@ class AppColors {
   ];
 
   static const deleteRed = Color(0xFFFF72B5);
+  static const rejectRed = Color(0xFFFF6969);
 
   static Color get randomAvatar => avatarColors[Random(2425).nextInt(10)];
 }
