@@ -6,6 +6,7 @@ import 'package:bill_share/mobile/pages/expense_list/view/expense_list_screen.da
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
+import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/mappers/generic.dart';
@@ -51,6 +52,7 @@ class DependencyProvider {
     SelectFriendsScreen.register();
     DashboardScreen.register();
     ExpenseListScreen.register();
+    SelectItemsScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================

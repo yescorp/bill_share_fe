@@ -56,7 +56,7 @@ class CategoriesChart extends StatelessWidget {
                 scale: LinearScale(min: 0),
               ),
               'color': Variable(
-                accessor: (entry) => entry.key.color!.value,
+                accessor: (entry) => entry.key.color.value,
               )
             },
             transforms: [

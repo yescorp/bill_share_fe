@@ -1,4 +1,6 @@
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_state.dart';
+import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
+import 'package:bill_share/mobile/pages/select_items/view/select_items_screen_params.dart';
 import 'package:bill_share/models/payment/payment_category.dart';
 import 'package:bill_share/models/payment/payment_info.dart';
 import 'package:bill_share/models/payment/payment_item.dart';
@@ -40,7 +42,7 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
                 price: 10500,
               ),
               const PaymentItem(
-                id: 'id',
+                id: 'oid',
                 name: 'Combo Basket M',
                 quantity: 1,
                 price: 7000,
@@ -87,5 +89,11 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
     }
   }
 
-  onExpenseDoubleTap(int index) {}
+  onExpenseDoubleTap(int index) async {
+    await navigationProvider.push<SelectItemsScreen>(
+      params: SelectItemsParams(
+        details: state.details[index],
+      ),
+    );
+  }
 }

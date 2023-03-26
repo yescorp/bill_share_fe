@@ -8,6 +8,7 @@ class AppColors {
   static const mainPurple = Color(0xFF6833FF);
   static const background = Color(0xFFF1F1F1);
   static const grey1 = Color(0xFF858585);
+  static const grey2 = Color(0xFF525252);
   static const white = Color(0xFFFFFFFF);
 
   static List<Color> avatarColors = [
