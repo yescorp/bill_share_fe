@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$CreatePaymentState {
   String? get selectedCategory => throw _privateConstructorUsedError;
   String? get selectedPaymentType => throw _privateConstructorUsedError;
-  List<String> get friends => throw _privateConstructorUsedError;
+  List<FriendInfo> get friends => throw _privateConstructorUsedError;
   List<PaymentItem> get items => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -35,7 +35,7 @@ abstract class $CreatePaymentStateCopyWith<$Res> {
   $Res call(
       {String? selectedCategory,
       String? selectedPaymentType,
-      List<String> friends,
+      List<FriendInfo> friends,
       List<PaymentItem> items});
 }
 
@@ -69,7 +69,7 @@ class _$CreatePaymentStateCopyWithImpl<$Res, $Val extends CreatePaymentState>
       friends: null == friends
           ? _value.friends
           : friends // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<FriendInfo>,
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
@@ -89,7 +89,7 @@ abstract class _$$_CreatePaymentStateCopyWith<$Res>
   $Res call(
       {String? selectedCategory,
       String? selectedPaymentType,
-      List<String> friends,
+      List<FriendInfo> friends,
       List<PaymentItem> items});
 }
 
@@ -121,7 +121,7 @@ class __$$_CreatePaymentStateCopyWithImpl<$Res>
       friends: null == friends
           ? _value._friends
           : friends // ignore: cast_nullable_to_non_nullable
-              as List<String>,
+              as List<FriendInfo>,
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
@@ -136,7 +136,7 @@ class _$_CreatePaymentState implements _CreatePaymentState {
   _$_CreatePaymentState(
       {this.selectedCategory,
       this.selectedPaymentType,
-      final List<String> friends = const [],
+      final List<FriendInfo> friends = const [],
       final List<PaymentItem> items = const []})
       : _friends = friends,
         _items = items;
@@ -145,10 +145,10 @@ class _$_CreatePaymentState implements _CreatePaymentState {
   final String? selectedCategory;
   @override
   final String? selectedPaymentType;
-  final List<String> _friends;
+  final List<FriendInfo> _friends;
   @override
   @JsonKey()
-  List<String> get friends {
+  List<FriendInfo> get friends {
     if (_friends is EqualUnmodifiableListView) return _friends;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_friends);
@@ -201,7 +201,7 @@ abstract class _CreatePaymentState implements CreatePaymentState {
   factory _CreatePaymentState(
       {final String? selectedCategory,
       final String? selectedPaymentType,
-      final List<String> friends,
+      final List<FriendInfo> friends,
       final List<PaymentItem> items}) = _$_CreatePaymentState;
 
   @override
@@ -209,7 +209,7 @@ abstract class _CreatePaymentState implements CreatePaymentState {
   @override
   String? get selectedPaymentType;
   @override
-  List<String> get friends;
+  List<FriendInfo> get friends;
   @override
   List<PaymentItem> get items;
   @override

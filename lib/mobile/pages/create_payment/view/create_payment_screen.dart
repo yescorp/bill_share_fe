@@ -80,10 +80,11 @@ class CreatePaymentScreen
             ElevatedButton.icon(
               icon: Icon(Icons.add),
               label: Text('Products'),
-              onPressed: cubit.onAddFriendsPressed,
+              onPressed: cubit.onAddProductPressed,
             ),
             if (state.items.isNotEmpty) ...[
               // Build items
+              ...state.items.map<Widget>((e) => Text(e.name)).toList(),
             ]
           ],
         ),
