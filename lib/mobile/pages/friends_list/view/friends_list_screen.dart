@@ -23,7 +23,7 @@ class FriendsListScreen
           appBar: AppBar(
             leading: IconButton(
               onPressed: () {},
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
             ),
             title: TextField(
               controller: cubit.searchController,
