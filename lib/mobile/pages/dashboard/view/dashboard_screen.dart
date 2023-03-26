@@ -2,6 +2,7 @@ import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/common/base_screen.dart';
 import 'package:bill_share/mobile/components/categories_chart.dart';
 import 'package:bill_share/mobile/components/spendings_card.dart';
+import 'package:bill_share/mobile/components/wavy_container/wavy_container.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_cubit.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -54,36 +55,37 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                   fontSize: FontSizes.h2,
                 ),
               ),
-              ...state.spendingsDetails!.spendingCategories.keys
-                  .map<Widget>((category) {
-                return Padding(
-                  padding: const EdgeInsets.only(bottom: 3.0),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: AppColors.white,
-                    ),
-                    child: ListTile(
-                      leading: Icon(
-                        Icons.circle,
-                        color: category.color,
-                        size: 40,
+              ...state.spendingsDetails!.spendingCategories.keys.map<Widget>(
+                (category) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 3.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: AppColors.white,
                       ),
-                      title: Text(
-                        category.name,
-                        style: const TextStyle(
-                          fontSize: FontSizes.h3,
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.circle,
+                          color: category.color,
+                          size: 40,
+                        ),
+                        title: Text(
+                          category.name,
+                          style: const TextStyle(
+                            fontSize: FontSizes.h3,
+                          ),
+                        ),
+                        subtitle: Text(
+                          '${state.spendingsDetails!.spendingCategories[category]} T',
+                          style: const TextStyle(
+                            fontSize: FontSizes.h3,
+                          ),
                         ),
                       ),
-                      subtitle: Text(
-                        '${state.spendingsDetails!.spendingCategories[category]} T',
-                        style: TextStyle(
-                          fontSize: FontSizes.h3,
-                        ),
-                      ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
             ],
           ),
         ),
