@@ -1,4 +1,5 @@
 import 'package:bill_share/di/application_platform.dart';
+import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
@@ -41,6 +42,7 @@ class DependencyProvider {
     SignupScreen.register();
     FriendsListScreen.register();
     QrScannerScreen.register();
+    CreatePaymentScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================
