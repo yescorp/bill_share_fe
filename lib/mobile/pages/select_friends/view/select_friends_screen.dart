@@ -4,7 +4,12 @@ import 'package:bill_share/mobile/pages/select_friends/view/select_friends_cubit
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_state.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen_params.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
+import 'package:bill_share/styles/colors.dart';
+import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter/material.dart';
+
+import '../../../components/group_list_tile.dart';
+import '../../../components/friend_list_tile.dart';
 
 class SelectFriendsScreen
     extends AbstractScreen<SelectFriendsState, SelectFriendsCubit> {
@@ -21,6 +26,12 @@ class SelectFriendsScreen
   }
 
   @override
+  void initCubit(SelectFriendsCubit cubit) {
+    cubit.initialize();
+    super.initCubit(cubit);
+  }
+
+  @override
   Widget buildPage(context, cubit, state) {
     return DefaultTabController(
       length: 2,
@@ -31,31 +42,64 @@ class SelectFriendsScreen
               onPressed: cubit.onBackButtonPressed,
               icon: const Icon(Icons.arrow_back),
             ),
-            title: TextField(
-              controller: cubit.searchController,
-              decoration: const InputDecoration(
-                suffixIcon: Icon(Icons.search),
-              ),
+            title: const Text(
+              'Select Friends',
+              style: TextStyle(fontSize: FontSizes.h2),
             ),
+            // TextField(
+            //   controller: cubit.searchController,
+            //   decoration: const InputDecoration(
+            //     suffixIcon: Icon(Icons.search),
+            //   ),
+            // ),
             bottom: const TabBar(
+              labelPadding: EdgeInsets.symmetric(horizontal: 50),
               isScrollable: true,
               tabs: [
                 Tab(
-                  text: 'Friends',
+                  child: Text(
+                    'Friends',
+                    style: TextStyle(
+                      fontSize: FontSizes.h3,
+                    ),
+                  ),
                 ),
                 Tab(
-                  text: 'Groups',
+                  child: Text(
+                    'Groups',
+                    style: TextStyle(
+                      fontSize: FontSizes.h3,
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
           body: TabBarView(
             children: [
-              ListView(
-                children: [Text('Friend')],
+              ListView.separated(
+                itemCount: state.friends.length,
+                separatorBuilder: (context, index) => const Divider(
+                  height: 1,
+                  color: AppColors.grey1,
+                ),
+                itemBuilder: (context, index) => FriendListTile.select(
+                  info: state.friends[index],
+                  checked: state.selectedFriends.contains(index),
+                  onTap: (value) => cubit.onFriendSelect(index, value),
+                ),
               ),
-              ListView(
-                children: [Text('Group')],
+              ListView.separated(
+                itemCount: state.groups.length,
+                separatorBuilder: (context, index) => const Divider(
+                  height: 1,
+                  color: AppColors.grey1,
+                ),
+                itemBuilder: (context, index) => GroupListTile.select(
+                  info: state.groups[index],
+                  checked: state.selectedGroups.contains(index),
+                  onTap: (value) => cubit.onGroupSelect(index, value),
+                ),
               ),
             ],
           ),

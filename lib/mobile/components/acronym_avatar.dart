@@ -17,6 +17,7 @@ class AcronymAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(5),
       width: heightWidth,
       height: heightWidth,
       decoration: BoxDecoration(
@@ -24,15 +25,18 @@ class AcronymAvatar extends StatelessWidget {
           color: borderColor ?? AppColors.grey1,
         ),
         color: AppColors.randomAvatar,
+        borderRadius: BorderRadius.all(Radius.circular((heightWidth ?? 0) / 2)),
       ),
-      child: Text(
-        acronym,
-        style: const TextStyle(
-          color: AppColors.white,
+      child: Center(
+        child: Text(
+          acronym,
+          style: const TextStyle(
+            color: AppColors.white,
+          ),
         ),
       ),
     );
   }
 
-  String get acronym => name.replaceAll(' ', '').substring(0, 2);
+  String get acronym => name.replaceAll(' ', '').substring(0, 2).toUpperCase();
 }

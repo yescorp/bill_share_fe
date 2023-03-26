@@ -7,8 +7,10 @@ import 'package:bill_share/mobile/pages/create_payment/view/create_payment_scree
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 import '../../../../styles/colors.dart';
+import '../../../components/acronym_avatar.dart';
 
 class CreatePaymentScreen
     extends AbstractScreen<CreatePaymentState, CreatePaymentCubit> {
@@ -116,7 +118,25 @@ class CreatePaymentScreen
               onPressed: cubit.onAddFriendsPressed,
             ),
             if (state.friends.isNotEmpty) ...[
-              // Build friends avatars
+              Container(
+                height: 40,
+                child: ListView(
+                  reverse: true,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    ...state.friends.map<Widget>(
+                      (e) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                        child: AcronymAvatar(
+                          name: e.name,
+                          heightWidth: 40,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
             const SizedBox(height: 10),
             ElevatedButton.icon(
@@ -125,7 +145,6 @@ class CreatePaymentScreen
               onPressed: cubit.onAddProductPressed,
             ),
             if (state.items.isNotEmpty) ...[
-              // Build items
               ...state.items.map<Widget>(
                 (e) => Container(
                   padding: EdgeInsets.symmetric(vertical: 5),
