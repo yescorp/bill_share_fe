@@ -1,6 +1,7 @@
 import 'package:bill_share/di/application_platform.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_screen.dart';
+import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
@@ -47,6 +48,7 @@ class DependencyProvider {
     CreatePaymentScreen.register();
     CreatePaymentItemScreen.register();
     SelectFriendsScreen.register();
+    DashboardScreen.register();
   }
 
   //=========================== Register Dependencies methods ===========================
