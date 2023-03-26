@@ -3,8 +3,6 @@ import 'package:bill_share/models/user/friend_info.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 abstract class FriendListTile extends StatelessWidget {
   final FriendInfo info;
@@ -31,7 +29,7 @@ abstract class FriendListTile extends StatelessWidget {
     Key? key,
     required FriendInfo info,
   }) =>
-      FriendListTileSelect(
+      FriendListTileView(
         key: key,
         info: info,
       );
@@ -39,10 +37,14 @@ abstract class FriendListTile extends StatelessWidget {
   factory FriendListTile.request({
     Key? key,
     required FriendInfo info,
+    VoidCallback? onAccept,
+    VoidCallback? onReject,
   }) =>
       FriendshipRequestListTile(
         key: key,
         info: info,
+        onAccept: onAccept,
+        onReject: onReject,
       );
 }
 
@@ -110,9 +112,15 @@ class FriendListTileView extends FriendListTile {
           heightWidth: 40,
         ),
         title: Text(
-          info.name,
+          '${info.name} ${info.surname}',
           style: const TextStyle(
             fontSize: FontSizes.h3,
+          ),
+        ),
+        subtitle: Text(
+          info.userName,
+          style: const TextStyle(
+            fontSize: FontSizes.p1,
           ),
         ),
       ),
@@ -142,14 +150,22 @@ class FriendshipRequestListTile extends FriendListTile {
           heightWidth: 40,
         ),
         title: Text(
-          info.name,
+          '${info.name} ${info.surname}',
+          style: const TextStyle(
+            fontSize: FontSizes.h3,
+          ),
+        ),
+        subtitle: Text(
+          info.userName,
           style: const TextStyle(
             fontSize: FontSizes.h3,
           ),
         ),
         trailing: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             IconButton(
+              iconSize: 30,
               onPressed: onAccept,
               icon: const Icon(
                 Icons.check_circle_outline_outlined,
@@ -158,6 +174,7 @@ class FriendshipRequestListTile extends FriendListTile {
             ),
             const SizedBox(width: 10),
             IconButton(
+              iconSize: 30,
               onPressed: onReject,
               icon: const Icon(
                 Icons.cancel_outlined,

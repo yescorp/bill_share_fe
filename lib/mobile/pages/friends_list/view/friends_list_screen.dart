@@ -20,6 +20,12 @@ class FriendsListScreen
   }
 
   @override
+  void initCubit(FriendsListCubit cubit) {
+    cubit.initialize();
+    super.initCubit(cubit);
+  }
+
+  @override
   Widget buildPage(context, cubit, state) {
     return DefaultTabController(
       length: 3,
@@ -96,6 +102,8 @@ class FriendsListScreen
                 ),
                 itemBuilder: (context, index) => FriendListTile.request(
                   info: state.friendshipRequests[index],
+                  onAccept: () => cubit.acceptRequest(index),
+                  onReject: () => cubit.rejectRequest(index),
                 ),
               ),
             ],
