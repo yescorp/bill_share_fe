@@ -34,7 +34,7 @@ class SpendingsCard extends StatelessWidget {
           Text(
             DateFormat.MMMM().format(details!.month).toString(),
             textAlign: TextAlign.start,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: FontSizes.h2,
               color: AppColors.white,
             ),
@@ -45,7 +45,7 @@ class SpendingsCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   'T ${details!.totalSpendings}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: AppColors.white,
                     fontSize: FontSizes.h1,
                   ),
@@ -102,7 +102,7 @@ class SpendingsCard extends StatelessWidget {
                 ),
               )
             ],
-          )
+          ),
         ],
       ),
     );
