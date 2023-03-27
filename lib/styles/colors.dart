@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:bill_share/models/payment/payment_type.dart';
+
 class AppColors {
   static const borderColor = Color(0xFFDFDEDE);
   static const focusedBorderColor = Color(0xFF6833FF);
@@ -26,6 +28,17 @@ class AppColors {
 
   static const deleteRed = Color(0xFFFF72B5);
   static const rejectRed = Color(0xFFFF6969);
+
+  static Color colorForType(PaymentType type) {
+    switch (type) {
+      case PaymentType.necessary:
+        return const Color(0xFF40B75A);
+      case PaymentType.urgent:
+        return const Color(0xFFB74040);
+      case PaymentType.personal:
+        return const Color(0xFFB7AB40);
+    }
+  }
 
   static Color get randomAvatar => avatarColors[Random(2425).nextInt(10)];
 }

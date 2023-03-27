@@ -25,4 +25,7 @@ class SelectItemsCubit extends BlocBase<SelectItemsState> {
 
   void onAddFriendPressed() {
   }
+
+  void onSubmit() {
+  }
 }

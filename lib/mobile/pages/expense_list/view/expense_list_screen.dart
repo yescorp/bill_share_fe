@@ -47,9 +47,11 @@ class ExpenseListScreen
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.circle,
                             size: 40,
+                            color: AppColors.colorForType(
+                                state.details[index].type),
                           ),
                           const SizedBox(width: 20),
                           Expanded(
