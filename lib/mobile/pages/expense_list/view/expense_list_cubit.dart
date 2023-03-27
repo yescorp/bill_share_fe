@@ -64,7 +64,7 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
               ),
             ],
             type: PaymentType.necessary,
-            selectedItemIds: ['id'],
+            selectedItemIds: [],
           ),
         ],
       ),

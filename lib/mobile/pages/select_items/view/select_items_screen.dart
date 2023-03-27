@@ -102,6 +102,7 @@ class SelectItemsScreen
                     item: e,
                     isSelected: details.selectedItemIds.contains(e.id),
                     selectedBy: [details.participants.first],
+                    onTap: () => cubit.onItemTap(e),
                   ),
                 );
               },

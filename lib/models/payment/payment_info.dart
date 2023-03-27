@@ -10,14 +10,14 @@ class PaymentInfo {
   final PaymentCategory category;
   final PaymentType type;
   final List<PaymentItem> items;
-  final List<String> selectedItemIds;
+  List<String> selectedItemIds;
   final List<FriendInfo> participants;
   final FriendInfo creator;
   final double service;
   final double taxes;
   final Map<String, double>? additional;
 
-  const PaymentInfo({
+  PaymentInfo({
     required this.id,
     required this.name,
     required this.type,
