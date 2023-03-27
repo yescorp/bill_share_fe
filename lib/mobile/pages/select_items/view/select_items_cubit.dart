@@ -31,18 +31,15 @@ class SelectItemsCubit extends BlocBase<SelectItemsState> {
   void onSubmit() {}
 
   onItemTap(PaymentItem e) {
-    print('Helo');
-
-    final newList = <String>[...(state.details?.selectedItemIds ?? [])];
+    final newList = <String>[...(state.selectedItemIds)];
     if (newList.contains(e.id)) {
       newList.remove(e.id);
     } else {
       newList.add(e.id);
     }
 
-    state.details!.selectedItemIds = newList;
     emit(state.copyWith(
-      details: state.details,
+      selectedItemIds: newList,
     ));
   }
 }

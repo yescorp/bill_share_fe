@@ -7,5 +7,6 @@ part 'select_items_state.freezed.dart';
 class SelectItemsState with _$SelectItemsState {
   factory SelectItemsState({
     PaymentInfo? details,
-  }) = _SelectITemsState;
+    @Default([]) List<String> selectedItemIds,
+  }) = _SelectItemsState;
 }

@@ -100,7 +100,7 @@ class SelectItemsScreen
                   padding: const EdgeInsets.only(bottom: 5.0),
                   child: SelectablePaymentItem(
                     item: e,
-                    isSelected: details.selectedItemIds.contains(e.id),
+                    isSelected: state.selectedItemIds.contains(e.id),
                     selectedBy: [details.participants.first],
                     onTap: () => cubit.onItemTap(e),
                   ),
@@ -128,7 +128,8 @@ class SelectItemsScreen
                   ),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
               child: Row(
                 children: [
                   const Text(
@@ -157,7 +158,8 @@ class SelectItemsScreen
                   ),
                 ),
               ),
-              padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
               child: Row(
                 children: [
                   const Text(

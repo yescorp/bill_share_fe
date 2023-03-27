@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SelectItemsState {
   PaymentInfo? get details => throw _privateConstructorUsedError;
+  List<String> get selectedItemIds => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SelectItemsStateCopyWith<SelectItemsState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $SelectItemsStateCopyWith<$Res> {
           SelectItemsState value, $Res Function(SelectItemsState) then) =
       _$SelectItemsStateCopyWithImpl<$Res, SelectItemsState>;
   @useResult
-  $Res call({PaymentInfo? details});
+  $Res call({PaymentInfo? details, List<String> selectedItemIds});
 }
 
 /// @nodoc
@@ -46,87 +47,114 @@ class _$SelectItemsStateCopyWithImpl<$Res, $Val extends SelectItemsState>
   @override
   $Res call({
     Object? details = freezed,
+    Object? selectedItemIds = null,
   }) {
     return _then(_value.copyWith(
       details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as PaymentInfo?,
+      selectedItemIds: null == selectedItemIds
+          ? _value.selectedItemIds
+          : selectedItemIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_SelectITemsStateCopyWith<$Res>
+abstract class _$$_SelectItemsStateCopyWith<$Res>
     implements $SelectItemsStateCopyWith<$Res> {
-  factory _$$_SelectITemsStateCopyWith(
-          _$_SelectITemsState value, $Res Function(_$_SelectITemsState) then) =
-      __$$_SelectITemsStateCopyWithImpl<$Res>;
+  factory _$$_SelectItemsStateCopyWith(
+          _$_SelectItemsState value, $Res Function(_$_SelectItemsState) then) =
+      __$$_SelectItemsStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({PaymentInfo? details});
+  $Res call({PaymentInfo? details, List<String> selectedItemIds});
 }
 
 /// @nodoc
-class __$$_SelectITemsStateCopyWithImpl<$Res>
-    extends _$SelectItemsStateCopyWithImpl<$Res, _$_SelectITemsState>
-    implements _$$_SelectITemsStateCopyWith<$Res> {
-  __$$_SelectITemsStateCopyWithImpl(
-      _$_SelectITemsState _value, $Res Function(_$_SelectITemsState) _then)
+class __$$_SelectItemsStateCopyWithImpl<$Res>
+    extends _$SelectItemsStateCopyWithImpl<$Res, _$_SelectItemsState>
+    implements _$$_SelectItemsStateCopyWith<$Res> {
+  __$$_SelectItemsStateCopyWithImpl(
+      _$_SelectItemsState _value, $Res Function(_$_SelectItemsState) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? details = freezed,
+    Object? selectedItemIds = null,
   }) {
-    return _then(_$_SelectITemsState(
+    return _then(_$_SelectItemsState(
       details: freezed == details
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
               as PaymentInfo?,
+      selectedItemIds: null == selectedItemIds
+          ? _value._selectedItemIds
+          : selectedItemIds // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
 
 /// @nodoc
 
-class _$_SelectITemsState implements _SelectITemsState {
-  _$_SelectITemsState({this.details});
+class _$_SelectItemsState implements _SelectItemsState {
+  _$_SelectItemsState(
+      {this.details, final List<String> selectedItemIds = const []})
+      : _selectedItemIds = selectedItemIds;
 
   @override
   final PaymentInfo? details;
+  final List<String> _selectedItemIds;
+  @override
+  @JsonKey()
+  List<String> get selectedItemIds {
+    if (_selectedItemIds is EqualUnmodifiableListView) return _selectedItemIds;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedItemIds);
+  }
 
   @override
   String toString() {
-    return 'SelectItemsState(details: $details)';
+    return 'SelectItemsState(details: $details, selectedItemIds: $selectedItemIds)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_SelectITemsState &&
-            (identical(other.details, details) || other.details == details));
+            other is _$_SelectItemsState &&
+            (identical(other.details, details) || other.details == details) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedItemIds, _selectedItemIds));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, details);
+  int get hashCode => Object.hash(runtimeType, details,
+      const DeepCollectionEquality().hash(_selectedItemIds));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_SelectITemsStateCopyWith<_$_SelectITemsState> get copyWith =>
-      __$$_SelectITemsStateCopyWithImpl<_$_SelectITemsState>(this, _$identity);
+  _$$_SelectItemsStateCopyWith<_$_SelectItemsState> get copyWith =>
+      __$$_SelectItemsStateCopyWithImpl<_$_SelectItemsState>(this, _$identity);
 }
 
-abstract class _SelectITemsState implements SelectItemsState {
-  factory _SelectITemsState({final PaymentInfo? details}) = _$_SelectITemsState;
+abstract class _SelectItemsState implements SelectItemsState {
+  factory _SelectItemsState(
+      {final PaymentInfo? details,
+      final List<String> selectedItemIds}) = _$_SelectItemsState;
 
   @override
   PaymentInfo? get details;
   @override
+  List<String> get selectedItemIds;
+  @override
   @JsonKey(ignore: true)
-  _$$_SelectITemsStateCopyWith<_$_SelectITemsState> get copyWith =>
+  _$$_SelectItemsStateCopyWith<_$_SelectItemsState> get copyWith =>
       throw _privateConstructorUsedError;
 }
