@@ -45,7 +45,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
               ),
               const SizedBox(height: 20),
               CategoriesChart(
-                details: state.spendingsDetails!,
+                details: state.spendingsDetails!.spendingCategories,
                 width: MediaQuery.of(context).size.width / 2.2,
               ),
               const SizedBox(height: 20),

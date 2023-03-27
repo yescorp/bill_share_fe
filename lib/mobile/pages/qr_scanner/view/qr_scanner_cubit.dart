@@ -10,4 +10,12 @@ class QrScannerCubit extends BlocBase<QrScannerState> {
     super.state, {
     required this.navigationProvider,
   });
+
+  void onBackButtonPressed() {
+  }
+
+  void onModeChange() {
+  }
+
+  onFlashToggle(bool value) {}
 }

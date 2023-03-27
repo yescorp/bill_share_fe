@@ -6,12 +6,14 @@ class AcronymAvatar extends StatelessWidget {
   final String name;
   final Color? borderColor;
   final double? heightWidth;
+  final TextStyle? style;
 
   const AcronymAvatar({
     super.key,
     required this.name,
     this.borderColor,
     this.heightWidth,
+    this.style,
   });
 
   @override
@@ -30,9 +32,10 @@ class AcronymAvatar extends StatelessWidget {
       child: Center(
         child: Text(
           acronym,
-          style: const TextStyle(
-            color: AppColors.white,
-          ),
+          style: style ??
+              const TextStyle(
+                color: AppColors.white,
+              ),
         ),
       ),
     );
