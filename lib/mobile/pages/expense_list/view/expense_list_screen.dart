@@ -35,87 +35,91 @@ class ExpenseListScreen
       body: ListView.builder(
         itemCount: state.details.length,
         itemBuilder: (context, index) {
-          return InkWell(
-            onTap: () => cubit.onExpenseTap(index),
-            onDoubleTap: () => cubit.onExpenseDoubleTap(index),
-            child: WavyContainer(
-              container: Container(
-                  color: AppColors.white,
-                  padding: EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.circle,
-                            size: 40,
-                            color: AppColors.colorForType(
-                                state.details[index].type),
-                          ),
-                          const SizedBox(width: 20),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  state.details[index].name,
-                                  textAlign: TextAlign.start,
-                                  style: const TextStyle(
-                                    fontSize: FontSizes.h3,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                if (state.openedExpenses
-                                        .contains(state.details[index].id) &&
-                                    state.details[index].items.isNotEmpty) ...[
-                                  ...state.details[index].items.map(
-                                    (e) => DotSeparatedListTile(
-                                      label: e.name,
-                                      value: '${e.price} x ${e.quantity}',
-                                      style: const TextStyle(
-                                        fontSize: FontSizes.p1,
-                                      ),
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: InkWell(
+              onTap: () => cubit.onExpenseTap(index),
+              onDoubleTap: () => cubit.onExpenseDoubleTap(index),
+              child: WavyContainer(
+                container: Container(
+                    color: AppColors.white,
+                    padding: EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.circle,
+                              size: 40,
+                              color: AppColors.colorForType(
+                                  state.details[index].type),
+                            ),
+                            const SizedBox(width: 20),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    state.details[index].name,
+                                    textAlign: TextAlign.start,
+                                    style: const TextStyle(
+                                      fontSize: FontSizes.h3,
                                     ),
                                   ),
-                                  const SizedBox(height: 20),
+                                  const SizedBox(height: 10),
+                                  if (state.openedExpenses
+                                          .contains(state.details[index].id) &&
+                                      state
+                                          .details[index].items.isNotEmpty) ...[
+                                    ...state.details[index].items.map(
+                                      (e) => DotSeparatedListTile(
+                                        label: e.name,
+                                        value: '${e.price} x ${e.quantity}',
+                                        style: const TextStyle(
+                                          fontSize: FontSizes.p1,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                  ],
+                                  DotSeparatedListTile(
+                                    label: 'Total',
+                                    value: '${state.details[index].totalPrice}',
+                                    style: const TextStyle(
+                                      fontSize: FontSizes.p1,
+                                    ),
+                                  ),
+                                  DotSeparatedListTile(
+                                    label: 'Paid',
+                                    value: '${state.details[index].paidPrice}',
+                                    style: const TextStyle(
+                                      fontSize: FontSizes.p1,
+                                    ),
+                                  ),
                                 ],
-                                DotSeparatedListTile(
-                                  label: 'Total',
-                                  value: '${state.details[index].totalPrice}',
-                                  style: const TextStyle(
-                                    fontSize: FontSizes.p1,
-                                  ),
-                                ),
-                                DotSeparatedListTile(
-                                  label: 'Paid',
-                                  value: '${state.details[index].paidPrice}',
-                                  style: const TextStyle(
-                                    fontSize: FontSizes.p1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          ...state.details[index].participants.map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.only(left: 4.0),
-                              child: AcronymAvatar(
-                                name: e.name,
-                                heightWidth: 40,
                               ),
                             ),
-                          ),
-                        ],
-                      )
-                    ],
-                  )),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ...state.details[index].participants.map(
+                              (e) => Padding(
+                                padding: const EdgeInsets.only(left: 4.0),
+                                child: AcronymAvatar(
+                                  name: e.name,
+                                  heightWidth: 40,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    )),
+              ),
             ),
           );
         },

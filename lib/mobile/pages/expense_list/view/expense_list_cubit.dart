@@ -66,6 +66,50 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
             type: PaymentType.necessary,
             selectedItemIds: [],
           ),
+          PaymentInfo(
+            id: 'unique2',
+            category: PaymentCategory(
+              name: 'Restaurant',
+              id: 'Restaurant',
+            ),
+            creator: const FriendInfo(
+              userId: 'userId',
+              name: 'name',
+              surname: 'surname',
+              userName: 'userName',
+            ),
+            items: [
+              const PaymentItem(
+                id: 'id',
+                name: 'Combo Basket L',
+                quantity: 1,
+                price: 10500,
+              ),
+              const PaymentItem(
+                id: 'oid',
+                name: 'Combo Basket M',
+                quantity: 1,
+                price: 7000,
+              ),
+            ],
+            name: 'KFC Dinner',
+            participants: [
+              const FriendInfo(
+                userId: 'userId',
+                name: 'name',
+                surname: 'surname',
+                userName: 'userName',
+              ),
+              const FriendInfo(
+                userId: 'userId',
+                name: 'qwe',
+                surname: 'surname',
+                userName: 'userName',
+              ),
+            ],
+            type: PaymentType.necessary,
+            selectedItemIds: [],
+          ),
         ],
       ),
     );
