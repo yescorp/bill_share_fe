@@ -8,8 +8,8 @@ class FriendInfo {
 
   const FriendInfo({
     required this.userId,
-    required this.name,
-    required this.surname,
+    this.name = '',
+    this.surname = '',
     required this.userName,
   });
 }

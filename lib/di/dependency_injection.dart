@@ -13,6 +13,9 @@ import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/mappers/generic.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
+import 'package:bill_share/swagger_generated_code/authenticator.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
+import 'package:chopper/chopper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
@@ -21,6 +24,7 @@ import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
 class DependencyProvider {
   static final container = GetIt.instance;
   static final navigatorKey = GlobalKey<NavigatorState>();
+  static final baseUrl = '';
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies({
@@ -35,9 +39,11 @@ class DependencyProvider {
     }
 
     DependencyProvider.registerLazySingleton<GenericMapper>(
-        () => const GenericMapper());
+      () => const GenericMapper(),
+    );
 
     registerBuildContext();
+    registerSwagger();
     NetworkClientDependency.register();
     NavigationDependency.register();
   }
@@ -55,6 +61,19 @@ class DependencyProvider {
     ExpenseListScreen.register();
     SelectItemsScreen.register();
     FriendProfileScreen.register();
+  }
+
+  //=========================== Register Swagger ===========================
+
+  static void registerSwagger() {
+    registerLazySingleton(
+      () => BillShare.create(
+        baseUrl: Uri.parse(baseUrl),
+        authenticator: BillShareAuthenticator(
+          clientAccessor: DependencyProvider.get<BillShare>,
+        ),
+      ),
+    );
   }
 
   //=========================== Register Dependencies methods ===========================

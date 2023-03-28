@@ -6,8 +6,8 @@ class UserInfo {
 
   const UserInfo({
     required this.userId,
-    required this.name,
-    required this.surname,
+    this.name = '',
+    this.surname = '',
     required this.userName,
   });
 }
