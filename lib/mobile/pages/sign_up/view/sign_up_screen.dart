@@ -155,7 +155,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                       ),
                       const SizedBox(height: 10),
                       TextField(
-                        controller: cubit.passwordController,
+                        controller: cubit.confirmPasswordController,
                         obscureText: true,
                         decoration: const InputDecoration(
                           labelText: 'Re-enter password',
