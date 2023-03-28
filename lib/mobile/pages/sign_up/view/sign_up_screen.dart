@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../styles/colors.dart';
 import '../../../../styles/text_styles.dart';
+import '../../../../swagger_generated_code/bill_share.swagger.dart';
 
 class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
   const SignupScreen({super.key});
@@ -199,6 +200,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
       () => SignupCubit(
         SignupScreenState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
       ),
     );
   }

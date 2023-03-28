@@ -15,6 +15,10 @@ class BillShareAuthenticator extends Authenticator {
   @override
   FutureOr<Request?> authenticate(Request request, Response response,
       [Request? originalRequest]) async {
+    if (response.statusCode != 401 || response.statusCode != 403) {
+      return null;
+    }
+
     final tokensResponse = await clientAccessor().apiTokenRefreshPost(
       body: RefreshJwtTokenDto(
         refreshToken: refreshToken,
@@ -28,10 +32,9 @@ class BillShareAuthenticator extends Authenticator {
     accessToken = tokensResponse.body!.accessToken!;
     refreshToken = tokensResponse.body!.refreshToken!;
 
-    request.headers.addAll({
-      'Authorization': 'Bearer $accessToken',
-    });
+    request.headers.remove('Authorization');
+    request.headers.putIfAbsent('Authorization', () => 'Bearer $accessToken');
 
-    return request;
+    return null;
   }
 }

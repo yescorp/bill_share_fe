@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bill_share/di/application_platform.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_screen.dart';
@@ -20,16 +22,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
 import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
+import 'http_overrides.dart';
 
 class DependencyProvider {
   static final container = GetIt.instance;
   static final navigatorKey = GlobalKey<NavigatorState>();
-  static final baseUrl = '';
+  static const baseUrl = 'http://localhost:5135/';
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies({
     ApplicationPlatform platform = ApplicationPlatform.mobile,
   }) {
+    HttpOverrides.global = BadCertHttpOverrides();
     switch (platform) {
       case ApplicationPlatform.mobile:
         registerMobileScreens();
