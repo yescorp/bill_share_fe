@@ -18,6 +18,10 @@ abstract class NavigationProvider {
     ScreenParams? params,
   });
 
+  Future<void> replaceAll<Screen extends Widget>({
+    ScreenParams? params,
+  });
+
   Future<T?> replaceCurrentWithResult<Screen extends Widget, T>({
     ScreenParams? params,
   });

@@ -69,4 +69,20 @@ class NavigationProviderImpl extends NavigationProvider {
     return await navigator.pushReplacement<T, Screen>(
         MaterialPageRoute(builder: (context) => screen));
   }
+
+  @override
+  Future<void> replaceAll<Screen extends Widget>({
+    ScreenParams? params,
+  }) async {
+    assert(
+      DependencyProvider.container.isRegistered<Screen>(),
+      'Screen must be registered in DI container',
+    );
+    final navigator = DependencyProvider.get<NavigatorState>();
+    final screen = DependencyProvider.get<Screen>(param1: params);
+    navigator.pushAndRemoveUntil<Screen>(
+      MaterialPageRoute(builder: (context) => screen),
+      (route) => false,
+    );
+  }
 }

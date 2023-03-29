@@ -1,3 +1,4 @@
+import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -36,7 +37,8 @@ class SignupCubit extends BlocBase<SignupScreenState> {
         password: passwordController.text,
       ),
     );
-    print(result.statusCode);
+
+    await navigationProvider.replaceAll<DashboardScreen>();
   }
 
   void onSignupWithGooglePressed() {}

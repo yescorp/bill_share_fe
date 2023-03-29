@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:chopper/chopper.dart';
 
+const authorizationHeader = 'Authorization';
+
 class BillShareAuthenticator extends Authenticator {
   final BillShare Function() clientAccessor;
   String accessToken = '';
@@ -25,6 +27,13 @@ class BillShareAuthenticator extends Authenticator {
       return null;
     }
 
+    if (!request.headers.containsKey(authorizationHeader) &&
+        accessToken.isNotEmpty) {
+      request.headers
+          .putIfAbsent(authorizationHeader, () => 'Bearer $accessToken');
+      return request;
+    }
+
     if (refreshToken.isEmpty) {
       return null;
     }
@@ -42,8 +51,9 @@ class BillShareAuthenticator extends Authenticator {
     accessToken = tokensResponse.body!.accessToken!;
     refreshToken = tokensResponse.body!.refreshToken!;
 
-    request.headers.remove('Authorization');
-    request.headers.putIfAbsent('Authorization', () => 'Bearer $accessToken');
+    request.headers.remove(authorizationHeader);
+    request.headers
+        .putIfAbsent(authorizationHeader, () => 'Bearer $accessToken');
 
     return request;
   }
