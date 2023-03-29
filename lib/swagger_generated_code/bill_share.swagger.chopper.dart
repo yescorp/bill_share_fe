@@ -430,4 +430,37 @@ class _$BillShare extends BillShare {
     );
     return client.send<AuthenticationToken, AuthenticationToken>($request);
   }
+
+  @override
+  Future<Response<CustomerResponse>> _usersMeGet() {
+    final Uri $url = Uri.parse('/Users/me');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<CustomerResponse, CustomerResponse>($request);
+  }
+
+  @override
+  Future<Response<CustomerResponsePagedResponse>> _usersSearchGet({
+    String? username,
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    final Uri $url = Uri.parse('/Users/search');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'username': username,
+      'PageNumber': pageNumber,
+      'PageSize': pageSize,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<CustomerResponsePagedResponse,
+        CustomerResponsePagedResponse>($request);
+  }
 }

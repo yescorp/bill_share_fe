@@ -135,6 +135,45 @@ Map<String, dynamic> _$CreateIconDtoToJson(CreateIconDto instance) =>
       'extension': instance.extension,
     };
 
+CustomerResponse _$CustomerResponseFromJson(Map<String, dynamic> json) =>
+    CustomerResponse(
+      id: json['id'] as String?,
+      email: json['email'] as String?,
+      name: json['name'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
+    );
+
+Map<String, dynamic> _$CustomerResponseToJson(CustomerResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'email': instance.email,
+      'name': instance.name,
+      'avatarUrl': instance.avatarUrl,
+    };
+
+CustomerResponsePagedResponse _$CustomerResponsePagedResponseFromJson(
+        Map<String, dynamic> json) =>
+    CustomerResponsePagedResponse(
+      totalCount: json['totalCount'] as int?,
+      firstPageUrl: json['firstPageUrl'] as String?,
+      lastPageUrl: json['lastPageUrl'] as String?,
+      nextPageUrl: json['nextPageUrl'] as String?,
+      data: (json['data'] as List<dynamic>?)
+              ?.map((e) => CustomerResponse.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$CustomerResponsePagedResponseToJson(
+        CustomerResponsePagedResponse instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'firstPageUrl': instance.firstPageUrl,
+      'lastPageUrl': instance.lastPageUrl,
+      'nextPageUrl': instance.nextPageUrl,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
+    };
+
 ExpenseCategoryResponse _$ExpenseCategoryResponseFromJson(
         Map<String, dynamic> json) =>
     ExpenseCategoryResponse(

@@ -28,6 +28,47 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
+      floatingActionButton: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 50,
+            height: 50,
+            decoration: const BoxDecoration(
+              color: AppColors.mainBlue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+            ),
+            child: IconButton(
+              onPressed: cubit.onQrIconPressed,
+              icon: const Icon(
+                Icons.qr_code_scanner,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            width: 50,
+            height: 50,
+            decoration: const BoxDecoration(
+              color: AppColors.mainBlue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(25),
+              ),
+            ),
+            child: IconButton(
+              onPressed: cubit.onQrIconPressed,
+              icon: const Icon(
+                Icons.edit_document,
+                color: AppColors.white,
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+        ],
+      ),
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text('Dashboard'),
@@ -48,7 +89,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                 details: state.spendingsDetails!.spendingCategories,
                 width: MediaQuery.of(context).size.width / 2.2,
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 5),
               const Text(
                 'Categories',
                 textAlign: TextAlign.start,
@@ -56,37 +97,51 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                   fontSize: FontSizes.h2,
                 ),
               ),
-              ...state.spendingsDetails!.spendingCategories.keys.map<Widget>(
-                (category) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 3.0),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        color: AppColors.white,
-                      ),
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.circle,
-                          color: category.color,
-                          size: 40,
-                        ),
-                        title: Text(
-                          category.name,
-                          style: const TextStyle(
-                            fontSize: FontSizes.h3,
+              const SizedBox(height: 5),
+              Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+                child: Column(
+                  children: [
+                    ...state.spendingsDetails!.spendingCategories.keys
+                        .map<Widget>(
+                      (category) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 3.0),
+                          child: Container(
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                            ),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.circle,
+                                color: category.color,
+                                size: 40,
+                              ),
+                              title: Text(
+                                category.name,
+                                style: const TextStyle(
+                                  fontSize: FontSizes.h3,
+                                ),
+                              ),
+                              subtitle: Text(
+                                '${state.spendingsDetails!.spendingCategories[category]} T',
+                                style: const TextStyle(
+                                  fontSize: FontSizes.h3,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        subtitle: Text(
-                          '${state.spendingsDetails!.spendingCategories[category]} T',
-                          style: const TextStyle(
-                            fontSize: FontSizes.h3,
-                          ),
-                        ),
-                      ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

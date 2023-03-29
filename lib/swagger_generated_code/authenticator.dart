@@ -23,7 +23,7 @@ class BillShareAuthenticator extends Authenticator {
       return null;
     }
 
-    if (response.statusCode != 401) {
+    if (response.statusCode != 401 || response.statusCode != 403) {
       return null;
     }
 

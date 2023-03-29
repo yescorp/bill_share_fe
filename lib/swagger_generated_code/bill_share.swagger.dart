@@ -563,6 +563,45 @@ abstract class BillShare extends ChopperService {
   )
   Future<chopper.Response<AuthenticationToken>> _apiTokenRefreshPost(
       {@Body() required RefreshJwtTokenDto? body});
+
+  ///
+  Future<chopper.Response<CustomerResponse>> usersMeGet() {
+    generatedMapping.putIfAbsent(
+        CustomerResponse, () => CustomerResponse.fromJsonFactory);
+
+    return _usersMeGet();
+  }
+
+  ///
+  @Get(path: '/Users/me')
+  Future<chopper.Response<CustomerResponse>> _usersMeGet();
+
+  ///
+  ///@param username
+  ///@param PageNumber
+  ///@param PageSize
+  Future<chopper.Response<CustomerResponsePagedResponse>> usersSearchGet({
+    String? username,
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    generatedMapping.putIfAbsent(CustomerResponsePagedResponse,
+        () => CustomerResponsePagedResponse.fromJsonFactory);
+
+    return _usersSearchGet(
+        username: username, pageNumber: pageNumber, pageSize: pageSize);
+  }
+
+  ///
+  ///@param username
+  ///@param PageNumber
+  ///@param PageSize
+  @Get(path: '/Users/search')
+  Future<chopper.Response<CustomerResponsePagedResponse>> _usersSearchGet({
+    @Query('username') String? username,
+    @Query('PageNumber') int? pageNumber,
+    @Query('PageSize') int? pageSize,
+  });
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1066,6 +1105,176 @@ extension $CreateIconDtoExtension on CreateIconDto {
         iconImageData:
             (iconImageData != null ? iconImageData.value : this.iconImageData),
         extension: (extension != null ? extension.value : this.extension));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CustomerResponse {
+  CustomerResponse({
+    this.id,
+    this.email,
+    this.name,
+    this.avatarUrl,
+  });
+
+  factory CustomerResponse.fromJson(Map<String, dynamic> json) =>
+      _$CustomerResponseFromJson(json);
+
+  static const toJsonFactory = _$CustomerResponseToJson;
+  Map<String, dynamic> toJson() => _$CustomerResponseToJson(this);
+
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'email')
+  final String? email;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'avatarUrl')
+  final String? avatarUrl;
+  static const fromJsonFactory = _$CustomerResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CustomerResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.email, email) ||
+                const DeepCollectionEquality().equals(other.email, email)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.avatarUrl, avatarUrl)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(email) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      runtimeType.hashCode;
+}
+
+extension $CustomerResponseExtension on CustomerResponse {
+  CustomerResponse copyWith(
+      {String? id, String? email, String? name, String? avatarUrl}) {
+    return CustomerResponse(
+        id: id ?? this.id,
+        email: email ?? this.email,
+        name: name ?? this.name,
+        avatarUrl: avatarUrl ?? this.avatarUrl);
+  }
+
+  CustomerResponse copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<String?>? email,
+      Wrapped<String?>? name,
+      Wrapped<String?>? avatarUrl}) {
+    return CustomerResponse(
+        id: (id != null ? id.value : this.id),
+        email: (email != null ? email.value : this.email),
+        name: (name != null ? name.value : this.name),
+        avatarUrl: (avatarUrl != null ? avatarUrl.value : this.avatarUrl));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CustomerResponsePagedResponse {
+  CustomerResponsePagedResponse({
+    this.totalCount,
+    this.firstPageUrl,
+    this.lastPageUrl,
+    this.nextPageUrl,
+    this.data,
+  });
+
+  factory CustomerResponsePagedResponse.fromJson(Map<String, dynamic> json) =>
+      _$CustomerResponsePagedResponseFromJson(json);
+
+  static const toJsonFactory = _$CustomerResponsePagedResponseToJson;
+  Map<String, dynamic> toJson() => _$CustomerResponsePagedResponseToJson(this);
+
+  @JsonKey(name: 'totalCount')
+  final int? totalCount;
+  @JsonKey(name: 'firstPageUrl')
+  final String? firstPageUrl;
+  @JsonKey(name: 'lastPageUrl')
+  final String? lastPageUrl;
+  @JsonKey(name: 'nextPageUrl')
+  final String? nextPageUrl;
+  @JsonKey(name: 'data', defaultValue: <CustomerResponse>[])
+  final List<CustomerResponse>? data;
+  static const fromJsonFactory = _$CustomerResponsePagedResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CustomerResponsePagedResponse &&
+            (identical(other.totalCount, totalCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalCount, totalCount)) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstPageUrl, firstPageUrl)) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastPageUrl, lastPageUrl)) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextPageUrl, nextPageUrl)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(totalCount) ^
+      const DeepCollectionEquality().hash(firstPageUrl) ^
+      const DeepCollectionEquality().hash(lastPageUrl) ^
+      const DeepCollectionEquality().hash(nextPageUrl) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $CustomerResponsePagedResponseExtension
+    on CustomerResponsePagedResponse {
+  CustomerResponsePagedResponse copyWith(
+      {int? totalCount,
+      String? firstPageUrl,
+      String? lastPageUrl,
+      String? nextPageUrl,
+      List<CustomerResponse>? data}) {
+    return CustomerResponsePagedResponse(
+        totalCount: totalCount ?? this.totalCount,
+        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+        data: data ?? this.data);
+  }
+
+  CustomerResponsePagedResponse copyWithWrapped(
+      {Wrapped<int?>? totalCount,
+      Wrapped<String?>? firstPageUrl,
+      Wrapped<String?>? lastPageUrl,
+      Wrapped<String?>? nextPageUrl,
+      Wrapped<List<CustomerResponse>?>? data}) {
+    return CustomerResponsePagedResponse(
+        totalCount: (totalCount != null ? totalCount.value : this.totalCount),
+        firstPageUrl:
+            (firstPageUrl != null ? firstPageUrl.value : this.firstPageUrl),
+        lastPageUrl:
+            (lastPageUrl != null ? lastPageUrl.value : this.lastPageUrl),
+        nextPageUrl:
+            (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
+        data: (data != null ? data.value : this.data));
   }
 }
 

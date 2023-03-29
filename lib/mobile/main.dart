@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
             final focus = FocusScope.of(context);
             focus.unfocus();
           },
-          child: const LoginIntroScreen(),
+          child: const DashboardScreen(),
         );
       }),
     );
