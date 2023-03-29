@@ -5,11 +5,13 @@ class FriendInfo {
   final String name;
   final String surname;
   final String userName;
+  final String? avatarUrl;
 
   const FriendInfo({
     required this.userId,
+    required this.userName,
     this.name = '',
     this.surname = '',
-    required this.userName,
+    this.avatarUrl,
   });
 }

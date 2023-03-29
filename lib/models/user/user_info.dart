@@ -3,11 +3,13 @@ class UserInfo {
   final String name;
   final String surname;
   final String userName;
+  final String? avatarUrl;
 
   const UserInfo({
     required this.userId,
+    required this.userName,
     this.name = '',
     this.surname = '',
-    required this.userName,
+    this.avatarUrl,
   });
 }

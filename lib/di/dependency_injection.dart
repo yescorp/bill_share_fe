@@ -12,6 +12,7 @@ import 'package:bill_share/mobile/pages/select_friends/view/select_friends_scree
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
+import 'package:bill_share/services/accessors/current_user_accessor.dart';
 import 'package:bill_share/services/mappers/generic.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
@@ -22,7 +23,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
 import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
+import '../models/user/user_info.dart';
 import 'http_overrides.dart';
+
+void kSetCurrentUser(UserInfo info) {
+  DependencyProvider.get<CurrentUserAccessor>().user = info;
+}
+
+UserInfo? kGetCurrentUser() {
+  return DependencyProvider.get<CurrentUserAccessor>().user;
+}
 
 class DependencyProvider {
   static final container = GetIt.instance;
@@ -48,6 +58,7 @@ class DependencyProvider {
 
     registerBuildContext();
     registerSwagger();
+    registerCurrentUserAccessor();
     NetworkClientDependency.register();
     NavigationDependency.register();
   }
@@ -70,14 +81,22 @@ class DependencyProvider {
   //=========================== Register Swagger ===========================
 
   static void registerSwagger() {
+    registerLazySingleton<BillShareAuthenticator>(
+      () => BillShareAuthenticator(
+        clientAccessor: DependencyProvider.get<BillShare>,
+      ),
+    );
+
     registerLazySingleton(
       () => BillShare.create(
         baseUrl: Uri.parse(baseUrl),
-        authenticator: BillShareAuthenticator(
-          clientAccessor: DependencyProvider.get<BillShare>,
-        ),
+        authenticator: DependencyProvider.get<BillShareAuthenticator>(),
       ),
     );
+  }
+
+  static void registerCurrentUserAccessor() {
+    registerLazySingleton<CurrentUserAccessor>(() => CurrentUserAccessor());
   }
 
   //=========================== Register Dependencies methods ===========================

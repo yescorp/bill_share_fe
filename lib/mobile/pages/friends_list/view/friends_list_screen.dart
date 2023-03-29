@@ -73,38 +73,50 @@ class FriendsListScreen
               ],
             ),
           ),
-          body: TabBarView(
+          body: Column(
             children: [
-              ListView.separated(
-                itemCount: state.friends.length,
-                separatorBuilder: (context, index) => const Divider(
-                  height: 1,
-                  color: AppColors.grey1,
-                ),
-                itemBuilder: (context, index) => FriendListTile.view(
-                  info: state.friends[index],
+              Expanded(
+                child: TabBarView(
+                  children: [
+                    ListView.separated(
+                      itemCount: state.friends.length,
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 1,
+                        color: AppColors.grey1,
+                      ),
+                      itemBuilder: (context, index) => FriendListTile.view(
+                        info: state.friends[index],
+                      ),
+                    ),
+                    ListView.separated(
+                      itemCount: state.groups.length,
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 1,
+                        color: AppColors.grey1,
+                      ),
+                      itemBuilder: (context, index) => GroupListTile.view(
+                        info: state.groups[index],
+                      ),
+                    ),
+                    ListView.separated(
+                      itemCount: state.friendshipRequests.length,
+                      separatorBuilder: (context, index) => const Divider(
+                        height: 1,
+                        color: AppColors.grey1,
+                      ),
+                      itemBuilder: (context, index) => FriendListTile.request(
+                        info: state.friendshipRequests[index],
+                        onAccept: () => cubit.acceptRequest(index),
+                        onReject: () => cubit.rejectRequest(index),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              ListView.separated(
-                itemCount: state.groups.length,
-                separatorBuilder: (context, index) => const Divider(
-                  height: 1,
-                  color: AppColors.grey1,
-                ),
-                itemBuilder: (context, index) => GroupListTile.view(
-                  info: state.groups[index],
-                ),
-              ),
-              ListView.separated(
-                itemCount: state.friendshipRequests.length,
-                separatorBuilder: (context, index) => const Divider(
-                  height: 1,
-                  color: AppColors.grey1,
-                ),
-                itemBuilder: (context, index) => FriendListTile.request(
-                  info: state.friendshipRequests[index],
-                  onAccept: () => cubit.acceptRequest(index),
-                  onReject: () => cubit.rejectRequest(index),
+              Container(
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white,
                 ),
               ),
             ],

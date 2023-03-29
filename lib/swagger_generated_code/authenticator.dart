@@ -14,16 +14,15 @@ class BillShareAuthenticator extends Authenticator {
     required this.clientAccessor,
   });
 
+  void setCredentials(AuthenticationToken token) {
+    accessToken = token.accessToken!;
+    refreshToken = token.refreshToken!;
+  }
+
   @override
   FutureOr<Request?> authenticate(Request request, Response response,
       [Request? originalRequest]) async {
-    if (response.body is AuthenticationToken) {
-      accessToken = (response.body as AuthenticationToken).accessToken!;
-      refreshToken = (response.body as AuthenticationToken).refreshToken!;
-      return null;
-    }
-
-    if (response.statusCode != 401 || response.statusCode != 403) {
+    if (response.statusCode != 401 && response.statusCode != 403) {
       return null;
     }
 

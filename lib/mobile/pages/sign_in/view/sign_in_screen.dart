@@ -4,6 +4,7 @@ import 'package:bill_share/mobile/pages/sign_in/view/sign_in_cubit.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/styles/text_styles.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -108,9 +109,9 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
                         height: 40,
                       ),
                       TextField(
-                        controller: cubit.emailController,
+                        controller: cubit.usernameController,
                         decoration: const InputDecoration(
-                          labelText: 'Email',
+                          labelText: 'Username',
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -171,6 +172,7 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
       () => SigninCubit(
         SigninScreenState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
       ),
     );
   }
