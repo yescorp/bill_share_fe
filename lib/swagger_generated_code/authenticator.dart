@@ -15,7 +15,17 @@ class BillShareAuthenticator extends Authenticator {
   @override
   FutureOr<Request?> authenticate(Request request, Response response,
       [Request? originalRequest]) async {
-    if (response.statusCode != 401 || response.statusCode != 403) {
+    if (response.body is AuthenticationToken) {
+      accessToken = (response.body as AuthenticationToken).accessToken!;
+      refreshToken = (response.body as AuthenticationToken).refreshToken!;
+      return null;
+    }
+
+    if (response.statusCode != 401) {
+      return null;
+    }
+
+    if (refreshToken.isEmpty) {
       return null;
     }
 
@@ -35,6 +45,6 @@ class BillShareAuthenticator extends Authenticator {
     request.headers.remove('Authorization');
     request.headers.putIfAbsent('Authorization', () => 'Bearer $accessToken');
 
-    return null;
+    return request;
   }
 }

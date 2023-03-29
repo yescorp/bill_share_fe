@@ -101,6 +101,167 @@ class _$BillShare extends BillShare {
   }
 
   @override
+  Future<Response<ExpenseResponse>> _expensesExpenseIdGet(
+      {required String? expenseId}) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<ExpenseResponse, ExpenseResponse>($request);
+  }
+
+  @override
+  Future<Response<ExpenseResponse>> _expensesPost(
+      {required CreateExpenseRequest? body}) {
+    final Uri $url = Uri.parse('/Expenses');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<ExpenseResponse, ExpenseResponse>($request);
+  }
+
+  @override
+  Future<Response<ExpenseResponsePagedResponse>> _expensesGet({
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    final Uri $url = Uri.parse('/Expenses');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'PageNumber': pageNumber,
+      'PageSize': pageSize,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<ExpenseResponsePagedResponse,
+        ExpenseResponsePagedResponse>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdLockPost(
+      {required String? expenseId}) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/lock');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdUnlockPost(
+      {required String? expenseId}) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/unlock');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdParticipantsPost({
+    required String? expenseId,
+    required AddExpenseParticipantRequest? body,
+  }) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/participants');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>>
+      _expensesExpenseIdParticipantsParticipantIdDeletePost({
+    required String? expenseId,
+    required String? participantId,
+  }) {
+    final Uri $url = Uri.parse(
+        '/Expenses/${expenseId}/participants/${participantId}/delete');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdItemsPost({
+    required String? expenseId,
+    required AddExpenseItemRequest? body,
+  }) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/items');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdItemsItemIdDeletePost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/items/${itemId}/delete');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdItemsItemIdSelectPost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    final Uri $url = Uri.parse('/Expenses/${expenseId}/items/${itemId}/select');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _expensesExpenseIdItemsItemIdUnselectPost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    final Uri $url =
+        Uri.parse('/Expenses/${expenseId}/items/${itemId}/unselect');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<List<ExpenseTypeResponse>>> _expenseTypesGet() {
     final Uri $url = Uri.parse('/expense-types');
     final Request $request = Request(

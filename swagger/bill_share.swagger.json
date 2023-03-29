@@ -269,6 +269,412 @@
                 }
             }
         },
+        "/Expenses/{expenseId}": {
+            "get": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Expenses": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateExpenseRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateExpenseRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateExpenseRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "PageNumber",
+                        "in": "query",
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    },
+                    {
+                        "name": "PageSize",
+                        "in": "query",
+                        "style": "form",
+                        "schema": {
+                            "type": "integer",
+                            "format": "int32"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponsePagedResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponsePagedResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExpenseResponsePagedResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/lock": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/unlock": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/participants": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseParticipantRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseParticipantRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseParticipantRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/participants/{participantId}/delete": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "participantId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/items": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseItemRequest"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseItemRequest"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddExpenseItemRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/items/{itemId}/delete": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/items/{itemId}/select": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
+        "/Expenses/{expenseId}/items/{itemId}/unselect": {
+            "post": {
+                "tags": [
+                    "Expenses"
+                ],
+                "parameters": [
+                    {
+                        "name": "expenseId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    {
+                        "name": "itemId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/expense-types": {
             "get": {
                 "tags": [
@@ -719,6 +1125,34 @@
     },
     "components": {
         "schemas": {
+            "AddExpenseItemRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "amount": {
+                        "type": "number",
+                        "format": "double"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "AddExpenseParticipantRequest": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
             "AuthenticationToken": {
                 "type": "object",
                 "properties": {
@@ -743,6 +1177,62 @@
                     "iconId": {
                         "type": "string",
                         "format": "uuid"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CreateExpenseMultiplierRequest": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "costMultiplierPercent": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "CreateExpenseRequest": {
+                "type": "object",
+                "properties": {
+                    "expenseTypeId": {
+                        "$ref": "#/components/schemas/ExpenseTypeId"
+                    },
+                    "categoryId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "accountId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "participants": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AddExpenseParticipantRequest"
+                        },
+                        "nullable": true
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/AddExpenseItemRequest"
+                        },
+                        "nullable": true
+                    },
+                    "multipliers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CreateExpenseMultiplierRequest"
+                        },
+                        "nullable": true
                     }
                 },
                 "additionalProperties": false
@@ -784,6 +1274,184 @@
                     },
                     "iconUrl": {
                         "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseItemActionResponse": {
+                "type": "object",
+                "properties": {
+                    "selectItemUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "unselectItemUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deleteItemUrl": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseItemResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "count": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "amount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "selectedByParticipants": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "nullable": true
+                    },
+                    "actions": {
+                        "$ref": "#/components/schemas/ExpenseItemActionResponse"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseMultiplierResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "costMultiplierPercent": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseParticipantActionResponse": {
+                "type": "object",
+                "properties": {
+                    "removeParticipantUrl": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseParticipantResponse": {
+                "type": "object",
+                "properties": {
+                    "participantId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "avatarUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "actions": {
+                        "$ref": "#/components/schemas/ExpenseParticipantActionResponse"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "creatorId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "expenseType": {
+                        "$ref": "#/components/schemas/ExpenseTypeResponse"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/ExpenseCategoryResponse"
+                    },
+                    "dateTime": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "participants": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpenseParticipantResponse"
+                        },
+                        "nullable": true
+                    },
+                    "expenseItems": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpenseItemResponse"
+                        },
+                        "nullable": true
+                    },
+                    "multipliers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpenseMultiplierResponse"
+                        },
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "ExpenseResponsePagedResponse": {
+                "type": "object",
+                "properties": {
+                    "totalCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "firstPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nextPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExpenseResponse"
+                        },
                         "nullable": true
                     }
                 },

@@ -144,6 +144,227 @@ abstract class BillShare extends ChopperService {
   });
 
   ///
+  ///@param expenseId
+  Future<chopper.Response<ExpenseResponse>> expensesExpenseIdGet(
+      {required String? expenseId}) {
+    generatedMapping.putIfAbsent(
+        ExpenseResponse, () => ExpenseResponse.fromJsonFactory);
+
+    return _expensesExpenseIdGet(expenseId: expenseId);
+  }
+
+  ///
+  ///@param expenseId
+  @Get(path: '/Expenses/{expenseId}')
+  Future<chopper.Response<ExpenseResponse>> _expensesExpenseIdGet(
+      {@Path('expenseId') required String? expenseId});
+
+  ///
+  Future<chopper.Response<ExpenseResponse>> expensesPost(
+      {required CreateExpenseRequest? body}) {
+    generatedMapping.putIfAbsent(
+        ExpenseResponse, () => ExpenseResponse.fromJsonFactory);
+
+    return _expensesPost(body: body);
+  }
+
+  ///
+  @Post(
+    path: '/Expenses',
+    optionalBody: true,
+  )
+  Future<chopper.Response<ExpenseResponse>> _expensesPost(
+      {@Body() required CreateExpenseRequest? body});
+
+  ///
+  ///@param PageNumber
+  ///@param PageSize
+  Future<chopper.Response<ExpenseResponsePagedResponse>> expensesGet({
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    generatedMapping.putIfAbsent(ExpenseResponsePagedResponse,
+        () => ExpenseResponsePagedResponse.fromJsonFactory);
+
+    return _expensesGet(pageNumber: pageNumber, pageSize: pageSize);
+  }
+
+  ///
+  ///@param PageNumber
+  ///@param PageSize
+  @Get(path: '/Expenses')
+  Future<chopper.Response<ExpenseResponsePagedResponse>> _expensesGet({
+    @Query('PageNumber') int? pageNumber,
+    @Query('PageSize') int? pageSize,
+  });
+
+  ///
+  ///@param expenseId
+  Future<chopper.Response> expensesExpenseIdLockPost(
+      {required String? expenseId}) {
+    return _expensesExpenseIdLockPost(expenseId: expenseId);
+  }
+
+  ///
+  ///@param expenseId
+  @Post(
+    path: '/Expenses/{expenseId}/lock',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdLockPost(
+      {@Path('expenseId') required String? expenseId});
+
+  ///
+  ///@param expenseId
+  Future<chopper.Response> expensesExpenseIdUnlockPost(
+      {required String? expenseId}) {
+    return _expensesExpenseIdUnlockPost(expenseId: expenseId);
+  }
+
+  ///
+  ///@param expenseId
+  @Post(
+    path: '/Expenses/{expenseId}/unlock',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdUnlockPost(
+      {@Path('expenseId') required String? expenseId});
+
+  ///
+  ///@param expenseId
+  Future<chopper.Response> expensesExpenseIdParticipantsPost({
+    required String? expenseId,
+    required AddExpenseParticipantRequest? body,
+  }) {
+    return _expensesExpenseIdParticipantsPost(expenseId: expenseId, body: body);
+  }
+
+  ///
+  ///@param expenseId
+  @Post(
+    path: '/Expenses/{expenseId}/participants',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdParticipantsPost({
+    @Path('expenseId') required String? expenseId,
+    @Body() required AddExpenseParticipantRequest? body,
+  });
+
+  ///
+  ///@param expenseId
+  ///@param participantId
+  Future<chopper.Response>
+      expensesExpenseIdParticipantsParticipantIdDeletePost({
+    required String? expenseId,
+    required String? participantId,
+  }) {
+    return _expensesExpenseIdParticipantsParticipantIdDeletePost(
+        expenseId: expenseId, participantId: participantId);
+  }
+
+  ///
+  ///@param expenseId
+  ///@param participantId
+  @Post(
+    path: '/Expenses/{expenseId}/participants/{participantId}/delete',
+    optionalBody: true,
+  )
+  Future<chopper.Response>
+      _expensesExpenseIdParticipantsParticipantIdDeletePost({
+    @Path('expenseId') required String? expenseId,
+    @Path('participantId') required String? participantId,
+  });
+
+  ///
+  ///@param expenseId
+  Future<chopper.Response> expensesExpenseIdItemsPost({
+    required String? expenseId,
+    required AddExpenseItemRequest? body,
+  }) {
+    return _expensesExpenseIdItemsPost(expenseId: expenseId, body: body);
+  }
+
+  ///
+  ///@param expenseId
+  @Post(
+    path: '/Expenses/{expenseId}/items',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdItemsPost({
+    @Path('expenseId') required String? expenseId,
+    @Body() required AddExpenseItemRequest? body,
+  });
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  Future<chopper.Response> expensesExpenseIdItemsItemIdDeletePost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    return _expensesExpenseIdItemsItemIdDeletePost(
+        expenseId: expenseId, itemId: itemId);
+  }
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  @Post(
+    path: '/Expenses/{expenseId}/items/{itemId}/delete',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdItemsItemIdDeletePost({
+    @Path('expenseId') required String? expenseId,
+    @Path('itemId') required String? itemId,
+  });
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  Future<chopper.Response> expensesExpenseIdItemsItemIdSelectPost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    return _expensesExpenseIdItemsItemIdSelectPost(
+        expenseId: expenseId, itemId: itemId);
+  }
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  @Post(
+    path: '/Expenses/{expenseId}/items/{itemId}/select',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdItemsItemIdSelectPost({
+    @Path('expenseId') required String? expenseId,
+    @Path('itemId') required String? itemId,
+  });
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  Future<chopper.Response> expensesExpenseIdItemsItemIdUnselectPost({
+    required String? expenseId,
+    required String? itemId,
+  }) {
+    return _expensesExpenseIdItemsItemIdUnselectPost(
+        expenseId: expenseId, itemId: itemId);
+  }
+
+  ///
+  ///@param expenseId
+  ///@param itemId
+  @Post(
+    path: '/Expenses/{expenseId}/items/{itemId}/unselect',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _expensesExpenseIdItemsItemIdUnselectPost({
+    @Path('expenseId') required String? expenseId,
+    @Path('itemId') required String? itemId,
+  });
+
+  ///
   Future<chopper.Response<List<ExpenseTypeResponse>>> expenseTypesGet() {
     generatedMapping.putIfAbsent(
         ExpenseTypeResponse, () => ExpenseTypeResponse.fromJsonFactory);
@@ -345,6 +566,114 @@ abstract class BillShare extends ChopperService {
 }
 
 @JsonSerializable(explicitToJson: true)
+class AddExpenseItemRequest {
+  AddExpenseItemRequest({
+    this.name,
+    this.count,
+    this.amount,
+  });
+
+  factory AddExpenseItemRequest.fromJson(Map<String, dynamic> json) =>
+      _$AddExpenseItemRequestFromJson(json);
+
+  static const toJsonFactory = _$AddExpenseItemRequestToJson;
+  Map<String, dynamic> toJson() => _$AddExpenseItemRequestToJson(this);
+
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'count')
+  final int? count;
+  @JsonKey(name: 'amount')
+  final double? amount;
+  static const fromJsonFactory = _$AddExpenseItemRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is AddExpenseItemRequest &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.count, count) ||
+                const DeepCollectionEquality().equals(other.count, count)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(count) ^
+      const DeepCollectionEquality().hash(amount) ^
+      runtimeType.hashCode;
+}
+
+extension $AddExpenseItemRequestExtension on AddExpenseItemRequest {
+  AddExpenseItemRequest copyWith({String? name, int? count, double? amount}) {
+    return AddExpenseItemRequest(
+        name: name ?? this.name,
+        count: count ?? this.count,
+        amount: amount ?? this.amount);
+  }
+
+  AddExpenseItemRequest copyWithWrapped(
+      {Wrapped<String?>? name,
+      Wrapped<int?>? count,
+      Wrapped<double?>? amount}) {
+    return AddExpenseItemRequest(
+        name: (name != null ? name.value : this.name),
+        count: (count != null ? count.value : this.count),
+        amount: (amount != null ? amount.value : this.amount));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class AddExpenseParticipantRequest {
+  AddExpenseParticipantRequest({
+    this.userId,
+  });
+
+  factory AddExpenseParticipantRequest.fromJson(Map<String, dynamic> json) =>
+      _$AddExpenseParticipantRequestFromJson(json);
+
+  static const toJsonFactory = _$AddExpenseParticipantRequestToJson;
+  Map<String, dynamic> toJson() => _$AddExpenseParticipantRequestToJson(this);
+
+  @JsonKey(name: 'userId')
+  final String? userId;
+  static const fromJsonFactory = _$AddExpenseParticipantRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is AddExpenseParticipantRequest &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(userId) ^ runtimeType.hashCode;
+}
+
+extension $AddExpenseParticipantRequestExtension
+    on AddExpenseParticipantRequest {
+  AddExpenseParticipantRequest copyWith({String? userId}) {
+    return AddExpenseParticipantRequest(userId: userId ?? this.userId);
+  }
+
+  AddExpenseParticipantRequest copyWithWrapped({Wrapped<String?>? userId}) {
+    return AddExpenseParticipantRequest(
+        userId: (userId != null ? userId.value : this.userId));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class AuthenticationToken {
   AuthenticationToken({
     this.accessToken,
@@ -457,6 +786,186 @@ extension $CreateExpenseCategoryRequestExtension
         categoryName:
             (categoryName != null ? categoryName.value : this.categoryName),
         iconId: (iconId != null ? iconId.value : this.iconId));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateExpenseMultiplierRequest {
+  CreateExpenseMultiplierRequest({
+    this.name,
+    this.costMultiplierPercent,
+  });
+
+  factory CreateExpenseMultiplierRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateExpenseMultiplierRequestFromJson(json);
+
+  static const toJsonFactory = _$CreateExpenseMultiplierRequestToJson;
+  Map<String, dynamic> toJson() => _$CreateExpenseMultiplierRequestToJson(this);
+
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'costMultiplierPercent')
+  final int? costMultiplierPercent;
+  static const fromJsonFactory = _$CreateExpenseMultiplierRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateExpenseMultiplierRequest &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.costMultiplierPercent, costMultiplierPercent) ||
+                const DeepCollectionEquality().equals(
+                    other.costMultiplierPercent, costMultiplierPercent)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(costMultiplierPercent) ^
+      runtimeType.hashCode;
+}
+
+extension $CreateExpenseMultiplierRequestExtension
+    on CreateExpenseMultiplierRequest {
+  CreateExpenseMultiplierRequest copyWith(
+      {String? name, int? costMultiplierPercent}) {
+    return CreateExpenseMultiplierRequest(
+        name: name ?? this.name,
+        costMultiplierPercent:
+            costMultiplierPercent ?? this.costMultiplierPercent);
+  }
+
+  CreateExpenseMultiplierRequest copyWithWrapped(
+      {Wrapped<String?>? name, Wrapped<int?>? costMultiplierPercent}) {
+    return CreateExpenseMultiplierRequest(
+        name: (name != null ? name.value : this.name),
+        costMultiplierPercent: (costMultiplierPercent != null
+            ? costMultiplierPercent.value
+            : this.costMultiplierPercent));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateExpenseRequest {
+  CreateExpenseRequest({
+    this.expenseTypeId,
+    this.categoryId,
+    this.accountId,
+    this.amount,
+    this.participants,
+    this.items,
+    this.multipliers,
+  });
+
+  factory CreateExpenseRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateExpenseRequestFromJson(json);
+
+  static const toJsonFactory = _$CreateExpenseRequestToJson;
+  Map<String, dynamic> toJson() => _$CreateExpenseRequestToJson(this);
+
+  @JsonKey(
+    name: 'expenseTypeId',
+    toJson: expenseTypeIdToJson,
+    fromJson: expenseTypeIdFromJson,
+  )
+  final enums.ExpenseTypeId? expenseTypeId;
+  @JsonKey(name: 'categoryId')
+  final String? categoryId;
+  @JsonKey(name: 'accountId')
+  final String? accountId;
+  @JsonKey(name: 'amount')
+  final int? amount;
+  @JsonKey(name: 'participants', defaultValue: <AddExpenseParticipantRequest>[])
+  final List<AddExpenseParticipantRequest>? participants;
+  @JsonKey(name: 'items', defaultValue: <AddExpenseItemRequest>[])
+  final List<AddExpenseItemRequest>? items;
+  @JsonKey(
+      name: 'multipliers', defaultValue: <CreateExpenseMultiplierRequest>[])
+  final List<CreateExpenseMultiplierRequest>? multipliers;
+  static const fromJsonFactory = _$CreateExpenseRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateExpenseRequest &&
+            (identical(other.expenseTypeId, expenseTypeId) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseTypeId, expenseTypeId)) &&
+            (identical(other.categoryId, categoryId) ||
+                const DeepCollectionEquality()
+                    .equals(other.categoryId, categoryId)) &&
+            (identical(other.accountId, accountId) ||
+                const DeepCollectionEquality()
+                    .equals(other.accountId, accountId)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.participants, participants) ||
+                const DeepCollectionEquality()
+                    .equals(other.participants, participants)) &&
+            (identical(other.items, items) ||
+                const DeepCollectionEquality().equals(other.items, items)) &&
+            (identical(other.multipliers, multipliers) ||
+                const DeepCollectionEquality()
+                    .equals(other.multipliers, multipliers)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(expenseTypeId) ^
+      const DeepCollectionEquality().hash(categoryId) ^
+      const DeepCollectionEquality().hash(accountId) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(participants) ^
+      const DeepCollectionEquality().hash(items) ^
+      const DeepCollectionEquality().hash(multipliers) ^
+      runtimeType.hashCode;
+}
+
+extension $CreateExpenseRequestExtension on CreateExpenseRequest {
+  CreateExpenseRequest copyWith(
+      {enums.ExpenseTypeId? expenseTypeId,
+      String? categoryId,
+      String? accountId,
+      int? amount,
+      List<AddExpenseParticipantRequest>? participants,
+      List<AddExpenseItemRequest>? items,
+      List<CreateExpenseMultiplierRequest>? multipliers}) {
+    return CreateExpenseRequest(
+        expenseTypeId: expenseTypeId ?? this.expenseTypeId,
+        categoryId: categoryId ?? this.categoryId,
+        accountId: accountId ?? this.accountId,
+        amount: amount ?? this.amount,
+        participants: participants ?? this.participants,
+        items: items ?? this.items,
+        multipliers: multipliers ?? this.multipliers);
+  }
+
+  CreateExpenseRequest copyWithWrapped(
+      {Wrapped<enums.ExpenseTypeId?>? expenseTypeId,
+      Wrapped<String?>? categoryId,
+      Wrapped<String?>? accountId,
+      Wrapped<int?>? amount,
+      Wrapped<List<AddExpenseParticipantRequest>?>? participants,
+      Wrapped<List<AddExpenseItemRequest>?>? items,
+      Wrapped<List<CreateExpenseMultiplierRequest>?>? multipliers}) {
+    return CreateExpenseRequest(
+        expenseTypeId:
+            (expenseTypeId != null ? expenseTypeId.value : this.expenseTypeId),
+        categoryId: (categoryId != null ? categoryId.value : this.categoryId),
+        accountId: (accountId != null ? accountId.value : this.accountId),
+        amount: (amount != null ? amount.value : this.amount),
+        participants:
+            (participants != null ? participants.value : this.participants),
+        items: (items != null ? items.value : this.items),
+        multipliers:
+            (multipliers != null ? multipliers.value : this.multipliers));
   }
 }
 
@@ -622,6 +1131,614 @@ extension $ExpenseCategoryResponseExtension on ExpenseCategoryResponse {
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name),
         iconUrl: (iconUrl != null ? iconUrl.value : this.iconUrl));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseItemActionResponse {
+  ExpenseItemActionResponse({
+    this.selectItemUrl,
+    this.unselectItemUrl,
+    this.deleteItemUrl,
+  });
+
+  factory ExpenseItemActionResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseItemActionResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseItemActionResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseItemActionResponseToJson(this);
+
+  @JsonKey(name: 'selectItemUrl')
+  final String? selectItemUrl;
+  @JsonKey(name: 'unselectItemUrl')
+  final String? unselectItemUrl;
+  @JsonKey(name: 'deleteItemUrl')
+  final String? deleteItemUrl;
+  static const fromJsonFactory = _$ExpenseItemActionResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseItemActionResponse &&
+            (identical(other.selectItemUrl, selectItemUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.selectItemUrl, selectItemUrl)) &&
+            (identical(other.unselectItemUrl, unselectItemUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.unselectItemUrl, unselectItemUrl)) &&
+            (identical(other.deleteItemUrl, deleteItemUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.deleteItemUrl, deleteItemUrl)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(selectItemUrl) ^
+      const DeepCollectionEquality().hash(unselectItemUrl) ^
+      const DeepCollectionEquality().hash(deleteItemUrl) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseItemActionResponseExtension on ExpenseItemActionResponse {
+  ExpenseItemActionResponse copyWith(
+      {String? selectItemUrl, String? unselectItemUrl, String? deleteItemUrl}) {
+    return ExpenseItemActionResponse(
+        selectItemUrl: selectItemUrl ?? this.selectItemUrl,
+        unselectItemUrl: unselectItemUrl ?? this.unselectItemUrl,
+        deleteItemUrl: deleteItemUrl ?? this.deleteItemUrl);
+  }
+
+  ExpenseItemActionResponse copyWithWrapped(
+      {Wrapped<String?>? selectItemUrl,
+      Wrapped<String?>? unselectItemUrl,
+      Wrapped<String?>? deleteItemUrl}) {
+    return ExpenseItemActionResponse(
+        selectItemUrl:
+            (selectItemUrl != null ? selectItemUrl.value : this.selectItemUrl),
+        unselectItemUrl: (unselectItemUrl != null
+            ? unselectItemUrl.value
+            : this.unselectItemUrl),
+        deleteItemUrl:
+            (deleteItemUrl != null ? deleteItemUrl.value : this.deleteItemUrl));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseItemResponse {
+  ExpenseItemResponse({
+    this.id,
+    this.name,
+    this.count,
+    this.amount,
+    this.selectedByParticipants,
+    this.actions,
+  });
+
+  factory ExpenseItemResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseItemResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseItemResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseItemResponseToJson(this);
+
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'count')
+  final int? count;
+  @JsonKey(name: 'amount')
+  final int? amount;
+  @JsonKey(name: 'selectedByParticipants', defaultValue: <String>[])
+  final List<String>? selectedByParticipants;
+  @JsonKey(name: 'actions')
+  final ExpenseItemActionResponse? actions;
+  static const fromJsonFactory = _$ExpenseItemResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseItemResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.count, count) ||
+                const DeepCollectionEquality().equals(other.count, count)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.selectedByParticipants, selectedByParticipants) ||
+                const DeepCollectionEquality().equals(
+                    other.selectedByParticipants, selectedByParticipants)) &&
+            (identical(other.actions, actions) ||
+                const DeepCollectionEquality().equals(other.actions, actions)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(count) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(selectedByParticipants) ^
+      const DeepCollectionEquality().hash(actions) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseItemResponseExtension on ExpenseItemResponse {
+  ExpenseItemResponse copyWith(
+      {String? id,
+      String? name,
+      int? count,
+      int? amount,
+      List<String>? selectedByParticipants,
+      ExpenseItemActionResponse? actions}) {
+    return ExpenseItemResponse(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        count: count ?? this.count,
+        amount: amount ?? this.amount,
+        selectedByParticipants:
+            selectedByParticipants ?? this.selectedByParticipants,
+        actions: actions ?? this.actions);
+  }
+
+  ExpenseItemResponse copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<String?>? name,
+      Wrapped<int?>? count,
+      Wrapped<int?>? amount,
+      Wrapped<List<String>?>? selectedByParticipants,
+      Wrapped<ExpenseItemActionResponse?>? actions}) {
+    return ExpenseItemResponse(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        count: (count != null ? count.value : this.count),
+        amount: (amount != null ? amount.value : this.amount),
+        selectedByParticipants: (selectedByParticipants != null
+            ? selectedByParticipants.value
+            : this.selectedByParticipants),
+        actions: (actions != null ? actions.value : this.actions));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseMultiplierResponse {
+  ExpenseMultiplierResponse({
+    this.id,
+    this.name,
+    this.costMultiplierPercent,
+  });
+
+  factory ExpenseMultiplierResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseMultiplierResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseMultiplierResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseMultiplierResponseToJson(this);
+
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'costMultiplierPercent')
+  final int? costMultiplierPercent;
+  static const fromJsonFactory = _$ExpenseMultiplierResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseMultiplierResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.costMultiplierPercent, costMultiplierPercent) ||
+                const DeepCollectionEquality().equals(
+                    other.costMultiplierPercent, costMultiplierPercent)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(costMultiplierPercent) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseMultiplierResponseExtension on ExpenseMultiplierResponse {
+  ExpenseMultiplierResponse copyWith(
+      {String? id, String? name, int? costMultiplierPercent}) {
+    return ExpenseMultiplierResponse(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        costMultiplierPercent:
+            costMultiplierPercent ?? this.costMultiplierPercent);
+  }
+
+  ExpenseMultiplierResponse copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<String?>? name,
+      Wrapped<int?>? costMultiplierPercent}) {
+    return ExpenseMultiplierResponse(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        costMultiplierPercent: (costMultiplierPercent != null
+            ? costMultiplierPercent.value
+            : this.costMultiplierPercent));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseParticipantActionResponse {
+  ExpenseParticipantActionResponse({
+    this.removeParticipantUrl,
+  });
+
+  factory ExpenseParticipantActionResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$ExpenseParticipantActionResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseParticipantActionResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$ExpenseParticipantActionResponseToJson(this);
+
+  @JsonKey(name: 'removeParticipantUrl')
+  final String? removeParticipantUrl;
+  static const fromJsonFactory = _$ExpenseParticipantActionResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseParticipantActionResponse &&
+            (identical(other.removeParticipantUrl, removeParticipantUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.removeParticipantUrl, removeParticipantUrl)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(removeParticipantUrl) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseParticipantActionResponseExtension
+    on ExpenseParticipantActionResponse {
+  ExpenseParticipantActionResponse copyWith({String? removeParticipantUrl}) {
+    return ExpenseParticipantActionResponse(
+        removeParticipantUrl:
+            removeParticipantUrl ?? this.removeParticipantUrl);
+  }
+
+  ExpenseParticipantActionResponse copyWithWrapped(
+      {Wrapped<String?>? removeParticipantUrl}) {
+    return ExpenseParticipantActionResponse(
+        removeParticipantUrl: (removeParticipantUrl != null
+            ? removeParticipantUrl.value
+            : this.removeParticipantUrl));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseParticipantResponse {
+  ExpenseParticipantResponse({
+    this.participantId,
+    this.userId,
+    this.name,
+    this.avatarUrl,
+    this.actions,
+  });
+
+  factory ExpenseParticipantResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseParticipantResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseParticipantResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseParticipantResponseToJson(this);
+
+  @JsonKey(name: 'participantId')
+  final String? participantId;
+  @JsonKey(name: 'userId')
+  final String? userId;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'avatarUrl')
+  final String? avatarUrl;
+  @JsonKey(name: 'actions')
+  final ExpenseParticipantActionResponse? actions;
+  static const fromJsonFactory = _$ExpenseParticipantResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseParticipantResponse &&
+            (identical(other.participantId, participantId) ||
+                const DeepCollectionEquality()
+                    .equals(other.participantId, participantId)) &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.avatarUrl, avatarUrl)) &&
+            (identical(other.actions, actions) ||
+                const DeepCollectionEquality().equals(other.actions, actions)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(participantId) ^
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      const DeepCollectionEquality().hash(actions) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseParticipantResponseExtension on ExpenseParticipantResponse {
+  ExpenseParticipantResponse copyWith(
+      {String? participantId,
+      String? userId,
+      String? name,
+      String? avatarUrl,
+      ExpenseParticipantActionResponse? actions}) {
+    return ExpenseParticipantResponse(
+        participantId: participantId ?? this.participantId,
+        userId: userId ?? this.userId,
+        name: name ?? this.name,
+        avatarUrl: avatarUrl ?? this.avatarUrl,
+        actions: actions ?? this.actions);
+  }
+
+  ExpenseParticipantResponse copyWithWrapped(
+      {Wrapped<String?>? participantId,
+      Wrapped<String?>? userId,
+      Wrapped<String?>? name,
+      Wrapped<String?>? avatarUrl,
+      Wrapped<ExpenseParticipantActionResponse?>? actions}) {
+    return ExpenseParticipantResponse(
+        participantId:
+            (participantId != null ? participantId.value : this.participantId),
+        userId: (userId != null ? userId.value : this.userId),
+        name: (name != null ? name.value : this.name),
+        avatarUrl: (avatarUrl != null ? avatarUrl.value : this.avatarUrl),
+        actions: (actions != null ? actions.value : this.actions));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseResponse {
+  ExpenseResponse({
+    this.id,
+    this.creatorId,
+    this.expenseType,
+    this.category,
+    this.dateTime,
+    this.participants,
+    this.expenseItems,
+    this.multipliers,
+  });
+
+  factory ExpenseResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseResponseToJson(this);
+
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'creatorId')
+  final String? creatorId;
+  @JsonKey(name: 'expenseType')
+  final ExpenseTypeResponse? expenseType;
+  @JsonKey(name: 'category')
+  final ExpenseCategoryResponse? category;
+  @JsonKey(name: 'dateTime')
+  final String? dateTime;
+  @JsonKey(name: 'participants', defaultValue: <ExpenseParticipantResponse>[])
+  final List<ExpenseParticipantResponse>? participants;
+  @JsonKey(name: 'expenseItems', defaultValue: <ExpenseItemResponse>[])
+  final List<ExpenseItemResponse>? expenseItems;
+  @JsonKey(name: 'multipliers', defaultValue: <ExpenseMultiplierResponse>[])
+  final List<ExpenseMultiplierResponse>? multipliers;
+  static const fromJsonFactory = _$ExpenseResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.creatorId, creatorId) ||
+                const DeepCollectionEquality()
+                    .equals(other.creatorId, creatorId)) &&
+            (identical(other.expenseType, expenseType) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseType, expenseType)) &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
+            (identical(other.dateTime, dateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateTime, dateTime)) &&
+            (identical(other.participants, participants) ||
+                const DeepCollectionEquality()
+                    .equals(other.participants, participants)) &&
+            (identical(other.expenseItems, expenseItems) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseItems, expenseItems)) &&
+            (identical(other.multipliers, multipliers) ||
+                const DeepCollectionEquality()
+                    .equals(other.multipliers, multipliers)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(creatorId) ^
+      const DeepCollectionEquality().hash(expenseType) ^
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(dateTime) ^
+      const DeepCollectionEquality().hash(participants) ^
+      const DeepCollectionEquality().hash(expenseItems) ^
+      const DeepCollectionEquality().hash(multipliers) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseResponseExtension on ExpenseResponse {
+  ExpenseResponse copyWith(
+      {String? id,
+      String? creatorId,
+      ExpenseTypeResponse? expenseType,
+      ExpenseCategoryResponse? category,
+      String? dateTime,
+      List<ExpenseParticipantResponse>? participants,
+      List<ExpenseItemResponse>? expenseItems,
+      List<ExpenseMultiplierResponse>? multipliers}) {
+    return ExpenseResponse(
+        id: id ?? this.id,
+        creatorId: creatorId ?? this.creatorId,
+        expenseType: expenseType ?? this.expenseType,
+        category: category ?? this.category,
+        dateTime: dateTime ?? this.dateTime,
+        participants: participants ?? this.participants,
+        expenseItems: expenseItems ?? this.expenseItems,
+        multipliers: multipliers ?? this.multipliers);
+  }
+
+  ExpenseResponse copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<String?>? creatorId,
+      Wrapped<ExpenseTypeResponse?>? expenseType,
+      Wrapped<ExpenseCategoryResponse?>? category,
+      Wrapped<String?>? dateTime,
+      Wrapped<List<ExpenseParticipantResponse>?>? participants,
+      Wrapped<List<ExpenseItemResponse>?>? expenseItems,
+      Wrapped<List<ExpenseMultiplierResponse>?>? multipliers}) {
+    return ExpenseResponse(
+        id: (id != null ? id.value : this.id),
+        creatorId: (creatorId != null ? creatorId.value : this.creatorId),
+        expenseType:
+            (expenseType != null ? expenseType.value : this.expenseType),
+        category: (category != null ? category.value : this.category),
+        dateTime: (dateTime != null ? dateTime.value : this.dateTime),
+        participants:
+            (participants != null ? participants.value : this.participants),
+        expenseItems:
+            (expenseItems != null ? expenseItems.value : this.expenseItems),
+        multipliers:
+            (multipliers != null ? multipliers.value : this.multipliers));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ExpenseResponsePagedResponse {
+  ExpenseResponsePagedResponse({
+    this.totalCount,
+    this.firstPageUrl,
+    this.lastPageUrl,
+    this.nextPageUrl,
+    this.data,
+  });
+
+  factory ExpenseResponsePagedResponse.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseResponsePagedResponseFromJson(json);
+
+  static const toJsonFactory = _$ExpenseResponsePagedResponseToJson;
+  Map<String, dynamic> toJson() => _$ExpenseResponsePagedResponseToJson(this);
+
+  @JsonKey(name: 'totalCount')
+  final int? totalCount;
+  @JsonKey(name: 'firstPageUrl')
+  final String? firstPageUrl;
+  @JsonKey(name: 'lastPageUrl')
+  final String? lastPageUrl;
+  @JsonKey(name: 'nextPageUrl')
+  final String? nextPageUrl;
+  @JsonKey(name: 'data', defaultValue: <ExpenseResponse>[])
+  final List<ExpenseResponse>? data;
+  static const fromJsonFactory = _$ExpenseResponsePagedResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ExpenseResponsePagedResponse &&
+            (identical(other.totalCount, totalCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalCount, totalCount)) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstPageUrl, firstPageUrl)) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastPageUrl, lastPageUrl)) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextPageUrl, nextPageUrl)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(totalCount) ^
+      const DeepCollectionEquality().hash(firstPageUrl) ^
+      const DeepCollectionEquality().hash(lastPageUrl) ^
+      const DeepCollectionEquality().hash(nextPageUrl) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $ExpenseResponsePagedResponseExtension
+    on ExpenseResponsePagedResponse {
+  ExpenseResponsePagedResponse copyWith(
+      {int? totalCount,
+      String? firstPageUrl,
+      String? lastPageUrl,
+      String? nextPageUrl,
+      List<ExpenseResponse>? data}) {
+    return ExpenseResponsePagedResponse(
+        totalCount: totalCount ?? this.totalCount,
+        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+        data: data ?? this.data);
+  }
+
+  ExpenseResponsePagedResponse copyWithWrapped(
+      {Wrapped<int?>? totalCount,
+      Wrapped<String?>? firstPageUrl,
+      Wrapped<String?>? lastPageUrl,
+      Wrapped<String?>? nextPageUrl,
+      Wrapped<List<ExpenseResponse>?>? data}) {
+    return ExpenseResponsePagedResponse(
+        totalCount: (totalCount != null ? totalCount.value : this.totalCount),
+        firstPageUrl:
+            (firstPageUrl != null ? firstPageUrl.value : this.firstPageUrl),
+        lastPageUrl:
+            (lastPageUrl != null ? lastPageUrl.value : this.lastPageUrl),
+        nextPageUrl:
+            (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
+        data: (data != null ? data.value : this.data));
   }
 }
 
