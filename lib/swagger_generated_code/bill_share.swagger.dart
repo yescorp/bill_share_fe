@@ -460,38 +460,34 @@ abstract class BillShare extends ChopperService {
   });
 
   ///
-  ///@param friendshipRequestId
-  Future<chopper.Response> friendsFriendshipRequestIdAcceptPost(
-      {required String? friendshipRequestId}) {
-    return _friendsFriendshipRequestIdAcceptPost(
-        friendshipRequestId: friendshipRequestId);
+  ///@param userId
+  Future<chopper.Response> friendsUserIdAcceptPost({required String? userId}) {
+    return _friendsUserIdAcceptPost(userId: userId);
   }
 
   ///
-  ///@param friendshipRequestId
+  ///@param userId
   @Post(
-    path: '/Friends/{friendshipRequestId}/accept',
+    path: '/Friends/{userId}/accept',
     optionalBody: true,
   )
-  Future<chopper.Response> _friendsFriendshipRequestIdAcceptPost(
-      {@Path('friendshipRequestId') required String? friendshipRequestId});
+  Future<chopper.Response> _friendsUserIdAcceptPost(
+      {@Path('userId') required String? userId});
 
   ///
-  ///@param friendshipRequestId
-  Future<chopper.Response> friendsFriendshipRequestIdDeclinePost(
-      {required String? friendshipRequestId}) {
-    return _friendsFriendshipRequestIdDeclinePost(
-        friendshipRequestId: friendshipRequestId);
+  ///@param userId
+  Future<chopper.Response> friendsUserIdDeclinePost({required String? userId}) {
+    return _friendsUserIdDeclinePost(userId: userId);
   }
 
   ///
-  ///@param friendshipRequestId
+  ///@param userId
   @Post(
-    path: '/Friends/{friendshipRequestId}/decline',
+    path: '/Friends/{userId}/decline',
     optionalBody: true,
   )
-  Future<chopper.Response> _friendsFriendshipRequestIdDeclinePost(
-      {@Path('friendshipRequestId') required String? friendshipRequestId});
+  Future<chopper.Response> _friendsUserIdDeclinePost(
+      {@Path('userId') required String? userId});
 
   ///
   Future<chopper.Response<IconResponse>> iconsPost(
@@ -580,13 +576,14 @@ abstract class BillShare extends ChopperService {
   ///@param username
   ///@param PageNumber
   ///@param PageSize
-  Future<chopper.Response<CustomerResponsePagedResponse>> usersSearchGet({
+  Future<chopper.Response<RelatedCustomerResponsePagedResponse>>
+      usersSearchGet({
     String? username,
     int? pageNumber,
     int? pageSize,
   }) {
-    generatedMapping.putIfAbsent(CustomerResponsePagedResponse,
-        () => CustomerResponsePagedResponse.fromJsonFactory);
+    generatedMapping.putIfAbsent(RelatedCustomerResponsePagedResponse,
+        () => RelatedCustomerResponsePagedResponse.fromJsonFactory);
 
     return _usersSearchGet(
         username: username, pageNumber: pageNumber, pageSize: pageSize);
@@ -597,7 +594,8 @@ abstract class BillShare extends ChopperService {
   ///@param PageNumber
   ///@param PageSize
   @Get(path: '/Users/search')
-  Future<chopper.Response<CustomerResponsePagedResponse>> _usersSearchGet({
+  Future<chopper.Response<RelatedCustomerResponsePagedResponse>>
+      _usersSearchGet({
     @Query('username') String? username,
     @Query('PageNumber') int? pageNumber,
     @Query('PageSize') int? pageSize,
@@ -1180,101 +1178,6 @@ extension $CustomerResponseExtension on CustomerResponse {
         email: (email != null ? email.value : this.email),
         name: (name != null ? name.value : this.name),
         avatarUrl: (avatarUrl != null ? avatarUrl.value : this.avatarUrl));
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
-class CustomerResponsePagedResponse {
-  CustomerResponsePagedResponse({
-    this.totalCount,
-    this.firstPageUrl,
-    this.lastPageUrl,
-    this.nextPageUrl,
-    this.data,
-  });
-
-  factory CustomerResponsePagedResponse.fromJson(Map<String, dynamic> json) =>
-      _$CustomerResponsePagedResponseFromJson(json);
-
-  static const toJsonFactory = _$CustomerResponsePagedResponseToJson;
-  Map<String, dynamic> toJson() => _$CustomerResponsePagedResponseToJson(this);
-
-  @JsonKey(name: 'totalCount')
-  final int? totalCount;
-  @JsonKey(name: 'firstPageUrl')
-  final String? firstPageUrl;
-  @JsonKey(name: 'lastPageUrl')
-  final String? lastPageUrl;
-  @JsonKey(name: 'nextPageUrl')
-  final String? nextPageUrl;
-  @JsonKey(name: 'data', defaultValue: <CustomerResponse>[])
-  final List<CustomerResponse>? data;
-  static const fromJsonFactory = _$CustomerResponsePagedResponseFromJson;
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is CustomerResponsePagedResponse &&
-            (identical(other.totalCount, totalCount) ||
-                const DeepCollectionEquality()
-                    .equals(other.totalCount, totalCount)) &&
-            (identical(other.firstPageUrl, firstPageUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.firstPageUrl, firstPageUrl)) &&
-            (identical(other.lastPageUrl, lastPageUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.lastPageUrl, lastPageUrl)) &&
-            (identical(other.nextPageUrl, nextPageUrl) ||
-                const DeepCollectionEquality()
-                    .equals(other.nextPageUrl, nextPageUrl)) &&
-            (identical(other.data, data) ||
-                const DeepCollectionEquality().equals(other.data, data)));
-  }
-
-  @override
-  String toString() => jsonEncode(this);
-
-  @override
-  int get hashCode =>
-      const DeepCollectionEquality().hash(totalCount) ^
-      const DeepCollectionEquality().hash(firstPageUrl) ^
-      const DeepCollectionEquality().hash(lastPageUrl) ^
-      const DeepCollectionEquality().hash(nextPageUrl) ^
-      const DeepCollectionEquality().hash(data) ^
-      runtimeType.hashCode;
-}
-
-extension $CustomerResponsePagedResponseExtension
-    on CustomerResponsePagedResponse {
-  CustomerResponsePagedResponse copyWith(
-      {int? totalCount,
-      String? firstPageUrl,
-      String? lastPageUrl,
-      String? nextPageUrl,
-      List<CustomerResponse>? data}) {
-    return CustomerResponsePagedResponse(
-        totalCount: totalCount ?? this.totalCount,
-        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
-        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
-        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
-        data: data ?? this.data);
-  }
-
-  CustomerResponsePagedResponse copyWithWrapped(
-      {Wrapped<int?>? totalCount,
-      Wrapped<String?>? firstPageUrl,
-      Wrapped<String?>? lastPageUrl,
-      Wrapped<String?>? nextPageUrl,
-      Wrapped<List<CustomerResponse>?>? data}) {
-    return CustomerResponsePagedResponse(
-        totalCount: (totalCount != null ? totalCount.value : this.totalCount),
-        firstPageUrl:
-            (firstPageUrl != null ? firstPageUrl.value : this.firstPageUrl),
-        lastPageUrl:
-            (lastPageUrl != null ? lastPageUrl.value : this.lastPageUrl),
-        nextPageUrl:
-            (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
-        data: (data != null ? data.value : this.data));
   }
 }
 
@@ -2102,6 +2005,180 @@ extension $RefreshJwtTokenDtoExtension on RefreshJwtTokenDto {
     return RefreshJwtTokenDto(
         refreshToken:
             (refreshToken != null ? refreshToken.value : this.refreshToken));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class RelatedCustomerResponse {
+  RelatedCustomerResponse({
+    this.userId,
+    this.userName,
+    this.avatarUrl,
+    this.isFriend,
+  });
+
+  factory RelatedCustomerResponse.fromJson(Map<String, dynamic> json) =>
+      _$RelatedCustomerResponseFromJson(json);
+
+  static const toJsonFactory = _$RelatedCustomerResponseToJson;
+  Map<String, dynamic> toJson() => _$RelatedCustomerResponseToJson(this);
+
+  @JsonKey(name: 'userId')
+  final String? userId;
+  @JsonKey(name: 'userName')
+  final String? userName;
+  @JsonKey(name: 'avatarUrl')
+  final String? avatarUrl;
+  @JsonKey(name: 'isFriend')
+  final bool? isFriend;
+  static const fromJsonFactory = _$RelatedCustomerResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is RelatedCustomerResponse &&
+            (identical(other.userId, userId) ||
+                const DeepCollectionEquality().equals(other.userId, userId)) &&
+            (identical(other.userName, userName) ||
+                const DeepCollectionEquality()
+                    .equals(other.userName, userName)) &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.avatarUrl, avatarUrl)) &&
+            (identical(other.isFriend, isFriend) ||
+                const DeepCollectionEquality()
+                    .equals(other.isFriend, isFriend)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(userId) ^
+      const DeepCollectionEquality().hash(userName) ^
+      const DeepCollectionEquality().hash(avatarUrl) ^
+      const DeepCollectionEquality().hash(isFriend) ^
+      runtimeType.hashCode;
+}
+
+extension $RelatedCustomerResponseExtension on RelatedCustomerResponse {
+  RelatedCustomerResponse copyWith(
+      {String? userId, String? userName, String? avatarUrl, bool? isFriend}) {
+    return RelatedCustomerResponse(
+        userId: userId ?? this.userId,
+        userName: userName ?? this.userName,
+        avatarUrl: avatarUrl ?? this.avatarUrl,
+        isFriend: isFriend ?? this.isFriend);
+  }
+
+  RelatedCustomerResponse copyWithWrapped(
+      {Wrapped<String?>? userId,
+      Wrapped<String?>? userName,
+      Wrapped<String?>? avatarUrl,
+      Wrapped<bool?>? isFriend}) {
+    return RelatedCustomerResponse(
+        userId: (userId != null ? userId.value : this.userId),
+        userName: (userName != null ? userName.value : this.userName),
+        avatarUrl: (avatarUrl != null ? avatarUrl.value : this.avatarUrl),
+        isFriend: (isFriend != null ? isFriend.value : this.isFriend));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class RelatedCustomerResponsePagedResponse {
+  RelatedCustomerResponsePagedResponse({
+    this.totalCount,
+    this.firstPageUrl,
+    this.lastPageUrl,
+    this.nextPageUrl,
+    this.data,
+  });
+
+  factory RelatedCustomerResponsePagedResponse.fromJson(
+          Map<String, dynamic> json) =>
+      _$RelatedCustomerResponsePagedResponseFromJson(json);
+
+  static const toJsonFactory = _$RelatedCustomerResponsePagedResponseToJson;
+  Map<String, dynamic> toJson() =>
+      _$RelatedCustomerResponsePagedResponseToJson(this);
+
+  @JsonKey(name: 'totalCount')
+  final int? totalCount;
+  @JsonKey(name: 'firstPageUrl')
+  final String? firstPageUrl;
+  @JsonKey(name: 'lastPageUrl')
+  final String? lastPageUrl;
+  @JsonKey(name: 'nextPageUrl')
+  final String? nextPageUrl;
+  @JsonKey(name: 'data', defaultValue: <RelatedCustomerResponse>[])
+  final List<RelatedCustomerResponse>? data;
+  static const fromJsonFactory = _$RelatedCustomerResponsePagedResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is RelatedCustomerResponsePagedResponse &&
+            (identical(other.totalCount, totalCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalCount, totalCount)) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstPageUrl, firstPageUrl)) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastPageUrl, lastPageUrl)) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextPageUrl, nextPageUrl)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(totalCount) ^
+      const DeepCollectionEquality().hash(firstPageUrl) ^
+      const DeepCollectionEquality().hash(lastPageUrl) ^
+      const DeepCollectionEquality().hash(nextPageUrl) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $RelatedCustomerResponsePagedResponseExtension
+    on RelatedCustomerResponsePagedResponse {
+  RelatedCustomerResponsePagedResponse copyWith(
+      {int? totalCount,
+      String? firstPageUrl,
+      String? lastPageUrl,
+      String? nextPageUrl,
+      List<RelatedCustomerResponse>? data}) {
+    return RelatedCustomerResponsePagedResponse(
+        totalCount: totalCount ?? this.totalCount,
+        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+        data: data ?? this.data);
+  }
+
+  RelatedCustomerResponsePagedResponse copyWithWrapped(
+      {Wrapped<int?>? totalCount,
+      Wrapped<String?>? firstPageUrl,
+      Wrapped<String?>? lastPageUrl,
+      Wrapped<String?>? nextPageUrl,
+      Wrapped<List<RelatedCustomerResponse>?>? data}) {
+    return RelatedCustomerResponsePagedResponse(
+        totalCount: (totalCount != null ? totalCount.value : this.totalCount),
+        firstPageUrl:
+            (firstPageUrl != null ? firstPageUrl.value : this.firstPageUrl),
+        lastPageUrl:
+            (lastPageUrl != null ? lastPageUrl.value : this.lastPageUrl),
+        nextPageUrl:
+            (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
+        data: (data != null ? data.value : this.data));
   }
 }
 

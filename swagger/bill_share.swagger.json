@@ -889,14 +889,14 @@
                 }
             }
         },
-        "/Friends/{friendshipRequestId}/accept": {
+        "/Friends/{userId}/accept": {
             "post": {
                 "tags": [
                     "Friends"
                 ],
                 "parameters": [
                     {
-                        "name": "friendshipRequestId",
+                        "name": "userId",
                         "in": "path",
                         "required": true,
                         "style": "simple",
@@ -913,14 +913,14 @@
                 }
             }
         },
-        "/Friends/{friendshipRequestId}/decline": {
+        "/Friends/{userId}/decline": {
             "post": {
                 "tags": [
                     "Friends"
                 ],
                 "parameters": [
                     {
-                        "name": "friendshipRequestId",
+                        "name": "userId",
                         "in": "path",
                         "required": true,
                         "style": "simple",
@@ -1190,17 +1190,17 @@
                         "content": {
                             "text/plain": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CustomerResponsePagedResponse"
+                                    "$ref": "#/components/schemas/RelatedCustomerResponsePagedResponse"
                                 }
                             },
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CustomerResponsePagedResponse"
+                                    "$ref": "#/components/schemas/RelatedCustomerResponsePagedResponse"
                                 }
                             },
                             "text/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/CustomerResponsePagedResponse"
+                                    "$ref": "#/components/schemas/RelatedCustomerResponsePagedResponse"
                                 }
                             }
                         }
@@ -1364,35 +1364,6 @@
                     },
                     "avatarUrl": {
                         "type": "string",
-                        "nullable": true
-                    }
-                },
-                "additionalProperties": false
-            },
-            "CustomerResponsePagedResponse": {
-                "type": "object",
-                "properties": {
-                    "totalCount": {
-                        "type": "integer",
-                        "format": "int32"
-                    },
-                    "firstPageUrl": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "lastPageUrl": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "nextPageUrl": {
-                        "type": "string",
-                        "nullable": true
-                    },
-                    "data": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/CustomerResponse"
-                        },
                         "nullable": true
                     }
                 },
@@ -1634,6 +1605,56 @@
                 "properties": {
                     "refreshToken": {
                         "type": "string",
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
+            "RelatedCustomerResponse": {
+                "type": "object",
+                "properties": {
+                    "userId": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "userName": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "avatarUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "isFriend": {
+                        "type": "boolean"
+                    }
+                },
+                "additionalProperties": false
+            },
+            "RelatedCustomerResponsePagedResponse": {
+                "type": "object",
+                "properties": {
+                    "totalCount": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "firstPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "lastPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "nextPageUrl": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RelatedCustomerResponse"
+                        },
                         "nullable": true
                     }
                 },

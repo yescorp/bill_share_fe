@@ -11,5 +11,6 @@ class FriendsListState with _$FriendsListState {
     @Default([]) List<FriendInfo> friends,
     @Default([]) List<FriendInfo> friendshipRequests,
     @Default([]) List<GroupInfo> groups,
+    @Default(false) bool isSearch,
   }) = _FriendsListState;
 }

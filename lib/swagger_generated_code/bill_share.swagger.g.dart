@@ -151,29 +151,6 @@ Map<String, dynamic> _$CustomerResponseToJson(CustomerResponse instance) =>
       'avatarUrl': instance.avatarUrl,
     };
 
-CustomerResponsePagedResponse _$CustomerResponsePagedResponseFromJson(
-        Map<String, dynamic> json) =>
-    CustomerResponsePagedResponse(
-      totalCount: json['totalCount'] as int?,
-      firstPageUrl: json['firstPageUrl'] as String?,
-      lastPageUrl: json['lastPageUrl'] as String?,
-      nextPageUrl: json['nextPageUrl'] as String?,
-      data: (json['data'] as List<dynamic>?)
-              ?.map((e) => CustomerResponse.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          [],
-    );
-
-Map<String, dynamic> _$CustomerResponsePagedResponseToJson(
-        CustomerResponsePagedResponse instance) =>
-    <String, dynamic>{
-      'totalCount': instance.totalCount,
-      'firstPageUrl': instance.firstPageUrl,
-      'lastPageUrl': instance.lastPageUrl,
-      'nextPageUrl': instance.nextPageUrl,
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-    };
-
 ExpenseCategoryResponse _$ExpenseCategoryResponseFromJson(
         Map<String, dynamic> json) =>
     ExpenseCategoryResponse(
@@ -381,6 +358,48 @@ RefreshJwtTokenDto _$RefreshJwtTokenDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$RefreshJwtTokenDtoToJson(RefreshJwtTokenDto instance) =>
     <String, dynamic>{
       'refreshToken': instance.refreshToken,
+    };
+
+RelatedCustomerResponse _$RelatedCustomerResponseFromJson(
+        Map<String, dynamic> json) =>
+    RelatedCustomerResponse(
+      userId: json['userId'] as String?,
+      userName: json['userName'] as String?,
+      avatarUrl: json['avatarUrl'] as String?,
+      isFriend: json['isFriend'] as bool?,
+    );
+
+Map<String, dynamic> _$RelatedCustomerResponseToJson(
+        RelatedCustomerResponse instance) =>
+    <String, dynamic>{
+      'userId': instance.userId,
+      'userName': instance.userName,
+      'avatarUrl': instance.avatarUrl,
+      'isFriend': instance.isFriend,
+    };
+
+RelatedCustomerResponsePagedResponse
+    _$RelatedCustomerResponsePagedResponseFromJson(Map<String, dynamic> json) =>
+        RelatedCustomerResponsePagedResponse(
+          totalCount: json['totalCount'] as int?,
+          firstPageUrl: json['firstPageUrl'] as String?,
+          lastPageUrl: json['lastPageUrl'] as String?,
+          nextPageUrl: json['nextPageUrl'] as String?,
+          data: (json['data'] as List<dynamic>?)
+                  ?.map((e) => RelatedCustomerResponse.fromJson(
+                      e as Map<String, dynamic>))
+                  .toList() ??
+              [],
+        );
+
+Map<String, dynamic> _$RelatedCustomerResponsePagedResponseToJson(
+        RelatedCustomerResponsePagedResponse instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'firstPageUrl': instance.firstPageUrl,
+      'lastPageUrl': instance.lastPageUrl,
+      'nextPageUrl': instance.nextPageUrl,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
     };
 
 SignInUserCredentials _$SignInUserCredentialsFromJson(

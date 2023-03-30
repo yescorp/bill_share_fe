@@ -348,9 +348,9 @@ class _$BillShare extends BillShare {
   }
 
   @override
-  Future<Response<dynamic>> _friendsFriendshipRequestIdAcceptPost(
-      {required String? friendshipRequestId}) {
-    final Uri $url = Uri.parse('/Friends/${friendshipRequestId}/accept');
+  Future<Response<dynamic>> _friendsUserIdAcceptPost(
+      {required String? userId}) {
+    final Uri $url = Uri.parse('/Friends/${userId}/accept');
     final Request $request = Request(
       'POST',
       $url,
@@ -360,9 +360,9 @@ class _$BillShare extends BillShare {
   }
 
   @override
-  Future<Response<dynamic>> _friendsFriendshipRequestIdDeclinePost(
-      {required String? friendshipRequestId}) {
-    final Uri $url = Uri.parse('/Friends/${friendshipRequestId}/decline');
+  Future<Response<dynamic>> _friendsUserIdDeclinePost(
+      {required String? userId}) {
+    final Uri $url = Uri.parse('/Friends/${userId}/decline');
     final Request $request = Request(
       'POST',
       $url,
@@ -443,7 +443,7 @@ class _$BillShare extends BillShare {
   }
 
   @override
-  Future<Response<CustomerResponsePagedResponse>> _usersSearchGet({
+  Future<Response<RelatedCustomerResponsePagedResponse>> _usersSearchGet({
     String? username,
     int? pageNumber,
     int? pageSize,
@@ -460,7 +460,7 @@ class _$BillShare extends BillShare {
       client.baseUrl,
       parameters: $params,
     );
-    return client.send<CustomerResponsePagedResponse,
-        CustomerResponsePagedResponse>($request);
+    return client.send<RelatedCustomerResponsePagedResponse,
+        RelatedCustomerResponsePagedResponse>($request);
   }
 }
