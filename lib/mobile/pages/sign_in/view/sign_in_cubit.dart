@@ -24,7 +24,7 @@ class SigninCubit extends BlocBase<SigninScreenState> {
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  onSubmit() async {
+  Future onSubmit() async {
     final result = await client.authenticationLoginPost(
       body: SignInUserCredentials(
         username: usernameController.text,

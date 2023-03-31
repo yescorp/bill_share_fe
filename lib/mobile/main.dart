@@ -2,10 +2,12 @@ import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen_params.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
+import 'package:bill_share/mobile/pages/expense_list/view/expense_list_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
 import 'package:bill_share/styles/theme.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 
 void main() {

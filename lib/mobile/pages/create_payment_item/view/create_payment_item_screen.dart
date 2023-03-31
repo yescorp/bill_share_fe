@@ -27,24 +27,67 @@ class CreatePaymentItemScreen
         ),
         title: Text('Create payment item'),
       ),
-      body: ListView(
-        children: [
-          TextField(
-            controller: cubit.itemNameController,
-          ),
-          TextField(
-            controller: cubit.itemPriceController,
-            keyboardType: TextInputType.number,
-          ),
-          TextField(
-            controller: cubit.itemCountController,
-            keyboardType: TextInputType.number,
-          ),
-          ElevatedButton(
-            onPressed: cubit.onSubmit,
-            child: Text('Create'),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ListView(
+          children: [
+            TextField(
+              controller: cubit.itemNameController,
+              decoration: const InputDecoration(
+                labelText: 'Name',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: cubit.itemPriceController,
+              decoration: const InputDecoration(
+                labelText: 'Price',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: cubit.itemCountController,
+              decoration: const InputDecoration(
+                labelText: 'Quantity',
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: AppColors.grey1,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: cubit.onSubmit,
+              child: Text('Create'),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -35,7 +35,7 @@ class SignupCubit extends BlocBase<SignupScreenState> {
     navigationProvider.replaceCurrent<SigninScreen>();
   }
 
-  void onSubmit() async {
+  Future onSubmit() async {
     final result = await client.authenticationRegisterPost(
       body: SignUpUserCredentials(
         email: emailController.text,

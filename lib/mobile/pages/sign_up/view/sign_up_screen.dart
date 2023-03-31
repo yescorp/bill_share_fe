@@ -178,7 +178,16 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                             color: Colors.white,
                           )),
                         ),
-                        onPressed: cubit.onSubmit,
+                        onPressed: () async {
+                          final entry = OverlayEntry(
+                            builder: (context) => const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                          Overlay.of(context).insert(entry);
+                          await cubit.onSubmit();
+                          entry.remove();
+                        },
                         child: const Text('Sign Up'),
                       ),
                       const SizedBox(height: 40),

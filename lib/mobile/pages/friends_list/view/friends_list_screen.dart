@@ -164,29 +164,18 @@ class FriendsListScreen
                         ),
                       ),
                     ] else ...[
-                      FutureBuilder(
-                          future: cubit.getFriendsCount(),
-                          builder: (
-                            BuildContext context,
-                            AsyncSnapshot<int> snapshot,
-                          ) {
-                            if (!snapshot.hasData) {
-                              return Container();
-                            }
-
-                            return ListView.separated(
-                              itemCount: snapshot.data!,
-                              separatorBuilder: (context, index) =>
-                                  const Divider(
-                                height: 1,
-                                color: AppColors.grey1,
-                              ),
-                              itemBuilder: (context, index) =>
-                                  FriendListTile.view(
-                                info: state.friends[index],
-                              ),
-                            );
-                          }),
+                      ListView.separated(
+                        itemCount: state.friends.length,
+                        separatorBuilder: (context, index) =>
+                            const Divider(
+                          height: 1,
+                          color: AppColors.grey1,
+                        ),
+                        itemBuilder: (context, index) =>
+                            FriendListTile.view(
+                          info: state.friends[index],
+                        ),
+                      ),
                       ListView.separated(
                         itemCount: state.groups.length,
                         separatorBuilder: (context, index) => const Divider(

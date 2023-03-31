@@ -29,54 +29,54 @@ class FriendsListCubit extends BlocBase<FriendsListState> {
       return;
     }
     //=========================== Mock ===========================
-    // emit(
-    //   state.copyWith(
-    //     friends: [
-    //       const FriendInfo(
-    //         userId: 'userId',
-    //         name: 'qwe',
-    //         surname: 'surname',
-    //         userName: 'userName',
-    //       ),
-    //       const FriendInfo(
-    //         userId: 'userId',
-    //         name: 'asd',
-    //         surname: 'surname',
-    //         userName: 'userName',
-    //       ),
-    //       const FriendInfo(
-    //         userId: 'userId',
-    //         name: 'uio',
-    //         surname: 'surname',
-    //         userName: 'userName',
-    //       ),
-    //       const FriendInfo(
-    //         userId: 'userId',
-    //         name: 'zuo',
-    //         surname: 'surname',
-    //         userName: 'userName',
-    //       ),
-    //     ],
-    //     groups: [
-    //       const GroupInfo(friends: [
-    //         FriendInfo(
-    //           userId: 'userId',
-    //           name: 'zuo',
-    //           surname: 'surname',
-    //           userName: 'userName',
-    //         ),
-    //       ], groupName: 'Group 1', groupId: 'Group 1'),
-    //     ],
-    //     friendshipRequests: [
-    //       const FriendInfo(
-    //         userId: 'userId',
-    //         name: 'zuo',
-    //         surname: 'surname',
-    //         userName: 'userName',
-    //       ),
-    //     ],
-    //   ),
-    // );
+    emit(
+      state.copyWith(
+        friends: [
+          const FriendInfo(
+            userId: 'userId',
+            name: 'qwe',
+            surname: 'surname',
+            userName: 'userName',
+          ),
+          const FriendInfo(
+            userId: 'userId',
+            name: 'asd',
+            surname: 'surname',
+            userName: 'userName',
+          ),
+          const FriendInfo(
+            userId: 'userId',
+            name: 'uio',
+            surname: 'surname',
+            userName: 'userName',
+          ),
+          const FriendInfo(
+            userId: 'userId',
+            name: 'zuo',
+            surname: 'surname',
+            userName: 'userName',
+          ),
+        ],
+        groups: [
+          const GroupInfo(friends: [
+            FriendInfo(
+              userId: 'userId',
+              name: 'zuo',
+              surname: 'surname',
+              userName: 'userName',
+            ),
+          ], groupName: 'Group 1', groupId: 'Group 1'),
+        ],
+        friendshipRequests: [
+          const FriendInfo(
+            userId: 'userId',
+            name: 'zuo',
+            surname: 'surname',
+            userName: 'userName',
+          ),
+        ],
+      ),
+    );
   }
 
   Future<int> getFriendsCount() async {
