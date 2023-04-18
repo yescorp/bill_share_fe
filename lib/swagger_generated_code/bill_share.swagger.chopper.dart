@@ -17,6 +17,96 @@ class _$BillShare extends BillShare {
   final definitionType = BillShare;
 
   @override
+  Future<Response<AccountResponse>> _accountsPost(
+      {required CreateAccountRequest? body}) {
+    final Uri $url = Uri.parse('/Accounts');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<AccountResponse, AccountResponse>($request);
+  }
+
+  @override
+  Future<Response<List<AccountResponse>>> _accountsGet() {
+    final Uri $url = Uri.parse('/Accounts');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<List<AccountResponse>, AccountResponse>($request);
+  }
+
+  @override
+  Future<Response<AccountResponse>> _accountsAccountIdGet(
+      {required String? accountId}) {
+    final Uri $url = Uri.parse('/Accounts/${accountId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<AccountResponse, AccountResponse>($request);
+  }
+
+  @override
+  Future<Response<List<ShortExpenseResponse>>> _accountsAccountIdExpensesGet(
+      {required String? accountId}) {
+    final Uri $url = Uri.parse('/Accounts/${accountId}/expenses');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client
+        .send<List<ShortExpenseResponse>, ShortExpenseResponse>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _accountsAccountIdDisablePut(
+      {required String? accountId}) {
+    final Uri $url = Uri.parse('/Accounts/${accountId}/disable');
+    final Request $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _accountsAccountIdEnablePut(
+      {required String? accountId}) {
+    final Uri $url = Uri.parse('/Accounts/${accountId}/enable');
+    final Request $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _accountsAccountIdAmountPut({
+    required String? accountId,
+    required ChangeAccountAmountRequest? body,
+  }) {
+    final Uri $url = Uri.parse('/Accounts/${accountId}/amount');
+    final $body = body;
+    final Request $request = Request(
+      'PUT',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<AuthenticationToken>> _authenticationRegisterPost(
       {required SignUpUserCredentials? body}) {
     final Uri $url = Uri.parse('/Authentication/register');
@@ -462,5 +552,30 @@ class _$BillShare extends BillShare {
     );
     return client.send<RelatedCustomerResponsePagedResponse,
         RelatedCustomerResponsePagedResponse>($request);
+  }
+
+  @override
+  Future<Response<CustomerAvatarIcon>> _usersMeAvatarPost(
+      {required CreateIconDto? body}) {
+    final Uri $url = Uri.parse('/Users/me/avatar');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<CustomerAvatarIcon, CustomerAvatarIcon>($request);
+  }
+
+  @override
+  Future<Response<dynamic>> _usersMeAvatarDelete() {
+    final Uri $url = Uri.parse('/Users/me/avatar');
+    final Request $request = Request(
+      'DELETE',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
   }
 }

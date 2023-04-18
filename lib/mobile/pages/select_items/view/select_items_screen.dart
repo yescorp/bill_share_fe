@@ -26,9 +26,9 @@ class SelectItemsScreen
   }
 
   @override
-  void initCubit(SelectItemsCubit cubit) {
+  void initCubit(SelectItemsCubit cubit, context) {
     cubit.initialize(params);
-    super.initCubit(cubit);
+    super.initCubit(cubit, context);
   }
 
   @override

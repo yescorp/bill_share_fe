@@ -1,4 +1,5 @@
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
+import 'package:bill_share/mobile/pages/home/view/Home_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_state.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -45,7 +46,7 @@ class SigninCubit extends BlocBase<SigninScreenState> {
         ),
       );
 
-      await navigationProvider.replaceAll<FriendsListScreen>();
+      await navigationProvider.replaceAll<HomeScreen>();
     }
   }
 

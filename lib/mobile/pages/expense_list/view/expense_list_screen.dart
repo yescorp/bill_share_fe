@@ -20,9 +20,9 @@ class ExpenseListScreen
   }
 
   @override
-  void initCubit(ExpenseListCubit cubit) {
+  void initCubit(ExpenseListCubit cubit, context) {
     cubit.initialize();
-    super.initCubit(cubit);
+    super.initCubit(cubit, context);
   }
 
   @override

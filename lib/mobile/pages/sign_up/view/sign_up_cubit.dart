@@ -1,6 +1,7 @@
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
+import 'package:bill_share/mobile/pages/home/view/Home_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/models/user/user_info.dart';
@@ -56,7 +57,7 @@ class SignupCubit extends BlocBase<SignupScreenState> {
         ),
       );
 
-      await navigationProvider.replaceAll<FriendsListScreen>();
+      await navigationProvider.replaceAll<HomeScreen>();
     }
   }
 

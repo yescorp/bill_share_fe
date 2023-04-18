@@ -1,3 +1,4 @@
+import 'package:bill_share/common/base_cubit.dart';
 import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_state.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
@@ -10,8 +11,8 @@ import 'package:flutter/material.dart';
 import '../../../../models/group/group_info.dart';
 import '../../../../models/user/friend_info.dart';
 
-class FriendsListCubit extends BlocBase<FriendsListState> {
-  final int pageSize = 10;
+class FriendsListCubit extends BaseCubit<FriendsListState> {
+  final int pageSize = 1;
 
   final NavigationProvider navigationProvider;
   final BillShare client;
@@ -23,84 +24,42 @@ class FriendsListCubit extends BlocBase<FriendsListState> {
     required this.client,
   });
 
-  void initialize() {
+  @override
+  void initialize(BuildContext context) {
     if (kGetCurrentUser() == null) {
       navigationProvider.replaceAll<LoginIntroScreen>();
       return;
     }
-    //=========================== Mock ===========================
-    emit(
-      state.copyWith(
-        friends: [
-          const FriendInfo(
-            userId: 'userId',
-            name: 'qwe',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'asd',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'uio',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'zuo',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-        ],
-        groups: [
-          const GroupInfo(friends: [
-            FriendInfo(
-              userId: 'userId',
-              name: 'zuo',
-              surname: 'surname',
-              userName: 'userName',
-            ),
-          ], groupName: 'Group 1', groupId: 'Group 1'),
-        ],
-        friendshipRequests: [
-          const FriendInfo(
-            userId: 'userId',
-            name: 'zuo',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-        ],
-      ),
-    );
+    super.initialize(context);
   }
 
-  Future<int> getFriendsCount() async {
-    final result = await client.usersSearchGet(pageSize: pageSize);
+  Future acceptRequest(String userId) async {
+    final result = await client.friendsUserIdAcceptPost(userId: userId);
     if (result.isSuccessful) {
-      return result.body!.totalCount!;
+      emit(state.copyWith(
+        update: !state.update,
+      ));
     }
-
-    return 0;
   }
 
-  acceptRequest(int index) {}
+  Future rejectRequest(String userId) async {
+    final result = await client.friendsUserIdDeclinePost(userId: userId);
 
-  rejectRequest(int index) {}
+    if (result.isSuccessful) {
+      emit(state.copyWith(
+        update: !state.update,
+      ));
+    }
+  }
 
   Future<int> getSearchUsersCount() async {
-    await Future.delayed(Duration(seconds: 1));
     if (searchController.text.isEmpty) {
       return 0;
     }
 
     final result = await client.usersSearchGet(
       username: searchController.text,
-      pageSize: pageSize,
+      pageSize: 1,
       pageNumber: 1,
     );
     if (result.isSuccessful) {
@@ -111,7 +70,6 @@ class FriendsListCubit extends BlocBase<FriendsListState> {
   }
 
   Future<List<FriendInfo>> getUsersPage(int index) async {
-    await Future.delayed(Duration(seconds: 1));
     if (searchController.text.isEmpty) {
       return [];
     }
@@ -128,11 +86,52 @@ class FriendsListCubit extends BlocBase<FriendsListState> {
           userId: e.userId!,
           userName: e.userName!,
           name: e.userName!,
+          isFriend: e.isFriend == true,
         );
       }).toList();
     }
 
     return [];
+  }
+
+  Future<int> getFriendsCount() async {
+    final result = await client.friendsGet(pageNumber: 1, pageSize: 1);
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
+  }
+
+  Future<List<FriendInfo>> getFriends(int index) async {
+    final result = await client.friendsGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+    if (!result.isSuccessful) {
+      return [];
+    }
+
+    return result.body!.data!
+        .map((e) => FriendInfo(
+              userId: e.userId!,
+              userName: e.userName!,
+              isFriend: true,
+            ))
+        .toList();
+  }
+
+  Future<int> getIncomingRequestsCount() async {
+    final result = await client.friendsIncomingGet(
+      pageNumber: 1,
+      pageSize: 1,
+    );
+
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
   }
 
   void onSearch(String value) {
@@ -146,4 +145,33 @@ class FriendsListCubit extends BlocBase<FriendsListState> {
       isSearch: false,
     ));
   }
+
+  Future onAddFriend(String userId) async {
+    final result = await client.friendsPost(
+        body: CreateFriendshipRequestDto(userId: userId));
+    if (result.isSuccessful) {}
+  }
+
+  Future<List<FriendInfo>> getIncomingRequestsPage(int index) async {
+    final result = await client.friendsIncomingGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+
+    if (!result.isSuccessful) {
+      return [];
+    }
+
+    return result.body!.data!
+        .map(
+          (e) => FriendInfo(
+            userId: e.userId!,
+            userName: e.userName!,
+            avatarUrl: e.userAvatarUrl,
+          ),
+        )
+        .toList();
+  }
+
+  void onAddGroupPressed() {}
 }

@@ -6,6 +6,22 @@ part of 'bill_share.swagger.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AccountResponse _$AccountResponseFromJson(Map<String, dynamic> json) =>
+    AccountResponse(
+      id: json['id'] as String?,
+      name: json['name'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+      externalId: json['externalId'] as String?,
+    );
+
+Map<String, dynamic> _$AccountResponseToJson(AccountResponse instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'name': instance.name,
+      'amount': instance.amount,
+      'externalId': instance.externalId,
+    };
+
 AddExpenseItemRequest _$AddExpenseItemRequestFromJson(
         Map<String, dynamic> json) =>
     AddExpenseItemRequest(
@@ -45,6 +61,34 @@ Map<String, dynamic> _$AuthenticationTokenToJson(
     <String, dynamic>{
       'accessToken': instance.accessToken,
       'refreshToken': instance.refreshToken,
+    };
+
+ChangeAccountAmountRequest _$ChangeAccountAmountRequestFromJson(
+        Map<String, dynamic> json) =>
+    ChangeAccountAmountRequest(
+      amount: (json['amount'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$ChangeAccountAmountRequestToJson(
+        ChangeAccountAmountRequest instance) =>
+    <String, dynamic>{
+      'amount': instance.amount,
+    };
+
+CreateAccountRequest _$CreateAccountRequestFromJson(
+        Map<String, dynamic> json) =>
+    CreateAccountRequest(
+      name: json['name'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+      externalId: json['externalId'] as String?,
+    );
+
+Map<String, dynamic> _$CreateAccountRequestToJson(
+        CreateAccountRequest instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'amount': instance.amount,
+      'externalId': instance.externalId,
     };
 
 CreateExpenseCategoryRequest _$CreateExpenseCategoryRequestFromJson(
@@ -133,6 +177,16 @@ Map<String, dynamic> _$CreateIconDtoToJson(CreateIconDto instance) =>
     <String, dynamic>{
       'iconImageData': instance.iconImageData,
       'extension': instance.extension,
+    };
+
+CustomerAvatarIcon _$CustomerAvatarIconFromJson(Map<String, dynamic> json) =>
+    CustomerAvatarIcon(
+      avatarUrl: json['avatarUrl'] as String?,
+    );
+
+Map<String, dynamic> _$CustomerAvatarIconToJson(CustomerAvatarIcon instance) =>
+    <String, dynamic>{
+      'avatarUrl': instance.avatarUrl,
     };
 
 CustomerResponse _$CustomerResponseFromJson(Map<String, dynamic> json) =>
@@ -400,6 +454,32 @@ Map<String, dynamic> _$RelatedCustomerResponsePagedResponseToJson(
       'lastPageUrl': instance.lastPageUrl,
       'nextPageUrl': instance.nextPageUrl,
       'data': instance.data?.map((e) => e.toJson()).toList(),
+    };
+
+ShortExpenseResponse _$ShortExpenseResponseFromJson(
+        Map<String, dynamic> json) =>
+    ShortExpenseResponse(
+      expenseId: json['expenseId'] as String?,
+      amount: (json['amount'] as num?)?.toDouble(),
+      expenseType: json['expenseType'] == null
+          ? null
+          : ExpenseTypeResponse.fromJson(
+              json['expenseType'] as Map<String, dynamic>),
+      category: json['category'] == null
+          ? null
+          : ExpenseCategoryResponse.fromJson(
+              json['category'] as Map<String, dynamic>),
+      dateTime: json['dateTime'] as String?,
+    );
+
+Map<String, dynamic> _$ShortExpenseResponseToJson(
+        ShortExpenseResponse instance) =>
+    <String, dynamic>{
+      'expenseId': instance.expenseId,
+      'amount': instance.amount,
+      'expenseType': instance.expenseType?.toJson(),
+      'category': instance.category?.toJson(),
+      'dateTime': instance.dateTime,
     };
 
 SignInUserCredentials _$SignInUserCredentialsFromJson(

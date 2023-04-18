@@ -45,9 +45,9 @@ class FriendProfileScreen
   }
 
   @override
-  void initCubit(FriendProfileCubit cubit) {
+  void initCubit(FriendProfileCubit cubit, context) {
     cubit.initialize();
-    super.initCubit(cubit);
+    super.initCubit(cubit, context);
   }
 
   @override

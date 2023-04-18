@@ -5,6 +5,7 @@ class FriendInfo {
   final String name;
   final String surname;
   final String userName;
+  final bool isFriend;
   final String? avatarUrl;
 
   const FriendInfo({
@@ -13,5 +14,6 @@ class FriendInfo {
     this.name = '',
     this.surname = '',
     this.avatarUrl,
+    this.isFriend = false,
   });
 }

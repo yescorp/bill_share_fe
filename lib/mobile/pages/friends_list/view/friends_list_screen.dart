@@ -23,9 +23,9 @@ class FriendsListScreen
   }
 
   @override
-  void initCubit(FriendsListCubit cubit) {
-    cubit.initialize();
-    super.initCubit(cubit);
+  void initCubit(FriendsListCubit cubit, context) {
+    cubit.initialize(context);
+    super.initCubit(cubit, context);
   }
 
   @override
@@ -42,6 +42,7 @@ class FriendsListScreen
             ),
             title: TextField(
               controller: cubit.searchController,
+              style: const TextStyle(color: AppColors.white),
               onSubmitted: cubit.onSearch,
             ),
             actions: [
@@ -98,107 +99,200 @@ class FriendsListScreen
                 child: TabBarView(
                   children: [
                     if (state.isSearch) ...[
-                      Builder(builder: (context) {
-                        state.isSearch;
-                        return FutureBuilder(
-                          future: cubit.getSearchUsersCount(),
-                          builder: (
-                            BuildContext context,
-                            AsyncSnapshot<int> snapshot,
-                          ) {
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: const CircularProgressIndicator(),
-                              );
-                            }
-                            return ListView.builder(
-                              itemCount: snapshot.data,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) => FutureBuilder(
-                                future: cubit.getUsersPage(index),
-                                builder: (
-                                  context,
-                                  AsyncSnapshot<List<FriendInfo>> snapshot,
-                                ) {
-                                  if (!snapshot.hasData) {
-                                    return Container();
-                                  }
-
-                                  if (snapshot.hasError) {
-                                    return Container();
-                                  }
-
-                                  if (index >= snapshot.data!.length) {
-                                    return Container();
-                                  }
-
-                                  return FriendListTile.view(
-                                    info: snapshot.data![index],
-                                  );
-                                },
-                              ),
+                      FutureBuilder(
+                        future: cubit.getSearchUsersCount(),
+                        builder: (
+                          BuildContext context,
+                          AsyncSnapshot<int> snapshot,
+                        ) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: const CircularProgressIndicator(),
                             );
-                          },
-                        );
-                      }),
-                      ListView.separated(
-                        itemCount: state.groups.length,
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 1,
-                          color: AppColors.grey1,
-                        ),
-                        itemBuilder: (context, index) => GroupListTile.view(
-                          info: state.groups[index],
-                        ),
-                      ),
-                      ListView.separated(
-                        itemCount: state.friendshipRequests.length,
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 1,
-                          color: AppColors.grey1,
-                        ),
-                        itemBuilder: (context, index) => FriendListTile.request(
-                          info: state.friendshipRequests[index],
-                          onAccept: () => cubit.acceptRequest(index),
-                          onReject: () => cubit.rejectRequest(index),
-                        ),
+                          }
+
+                          if (snapshot.data == 0) {
+                            return const Center(
+                              child: Text('No matches found.'),
+                            );
+                          }
+
+                          return ListView.builder(
+                            itemCount: snapshot.data,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => FutureBuilder(
+                              future: cubit.getUsersPage(index),
+                              builder: (
+                                context,
+                                AsyncSnapshot<List<FriendInfo>> snapshot,
+                              ) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                }
+
+                                if (snapshot.hasError) {
+                                  return Container();
+                                }
+
+                                // ignore: prefer_is_empty
+                                if (snapshot.data?.length == 0) {
+                                  return Container();
+                                }
+
+                                return FriendListTile.view(
+                                  info: snapshot.data![index % cubit.pageSize],
+                                  onAddFriend: cubit.onAddFriend,
+                                );
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ] else ...[
-                      ListView.separated(
-                        itemCount: state.friends.length,
-                        separatorBuilder: (context, index) =>
-                            const Divider(
-                          height: 1,
-                          color: AppColors.grey1,
-                        ),
-                        itemBuilder: (context, index) =>
-                            FriendListTile.view(
-                          info: state.friends[index],
-                        ),
-                      ),
-                      ListView.separated(
-                        itemCount: state.groups.length,
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 1,
-                          color: AppColors.grey1,
-                        ),
-                        itemBuilder: (context, index) => GroupListTile.view(
-                          info: state.groups[index],
-                        ),
-                      ),
-                      ListView.separated(
-                        itemCount: state.friendshipRequests.length,
-                        separatorBuilder: (context, index) => const Divider(
-                          height: 1,
-                          color: AppColors.grey1,
-                        ),
-                        itemBuilder: (context, index) => FriendListTile.request(
-                          info: state.friendshipRequests[index],
-                          onAccept: () => cubit.acceptRequest(index),
-                          onReject: () => cubit.rejectRequest(index),
-                        ),
+                      FutureBuilder(
+                        future: cubit.getFriendsCount(),
+                        builder: (
+                          BuildContext context,
+                          AsyncSnapshot<int> snapshot,
+                        ) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.data == 0) {
+                            return const Center(
+                              child: Text(
+                                  'You haven\'t added any user to your friend list'),
+                            );
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => FutureBuilder(
+                              future: cubit.getFriends(index),
+                              builder: (
+                                context,
+                                AsyncSnapshot<List<FriendInfo>> snapshot,
+                              ) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                }
+
+                                if (snapshot.hasError) {
+                                  return Container();
+                                }
+
+                                // ignore: prefer_is_empty
+                                if (snapshot.data?.length == 0) {
+                                  return Container();
+                                }
+
+                                return FriendListTile.view(
+                                  info: snapshot.data![index % cubit.pageSize],
+                                );
+                              },
+                            ),
+                          );
+                        },
                       ),
                     ],
+                    Scaffold(
+                      backgroundColor: AppColors.background,
+                      floatingActionButton: IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: cubit.onAddGroupPressed,
+                      ),
+                      body: FutureBuilder(
+                        future: cubit.getFriendsCount(),
+                        builder: (
+                          BuildContext context,
+                          AsyncSnapshot<int> snapshot,
+                        ) {
+                          if (!snapshot.hasData) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                          if (snapshot.data == 0) {
+                            return const Center(
+                              child: Text(
+                                  'You haven\'t added any user to your friend list'),
+                            );
+                          }
+                          return ListView.builder(
+                            itemCount: snapshot.data,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) => FutureBuilder(
+                              future: cubit.getFriends(index),
+                              builder: (
+                                context,
+                                AsyncSnapshot<List<FriendInfo>> snapshot,
+                              ) {
+                                if (!snapshot.hasData) {
+                                  return Container();
+                                }
+
+                                if (snapshot.hasError) {
+                                  return Container();
+                                }
+
+                                // ignore: prefer_is_empty
+                                if (snapshot.data?.length == 0) {
+                                  return Container();
+                                }
+
+                                return Container();
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    FutureBuilder(
+                      future: cubit.getIncomingRequestsCount(),
+                      builder: (
+                        BuildContext context,
+                        AsyncSnapshot<int> snapshot,
+                      ) {
+                        if (!snapshot.hasData) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        if (snapshot.data == 0) {
+                          return const Center(
+                            child:
+                                Text('You don\'t have any friendship requests'),
+                          );
+                        }
+                        return ListView.builder(
+                          itemCount: snapshot.data,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) => FutureBuilder(
+                            future: cubit.getIncomingRequestsPage(index),
+                            builder: (
+                              context,
+                              AsyncSnapshot<List<FriendInfo>> snapshot,
+                            ) {
+                              if (!snapshot.hasData) {
+                                return Container();
+                              }
+
+                              if (snapshot.hasError) {
+                                return Container();
+                              }
+
+                              return FriendListTile.request(
+                                info: snapshot.data![index % cubit.pageSize],
+                                onAccept: cubit.acceptRequest,
+                                onReject: cubit.rejectRequest,
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
               ),

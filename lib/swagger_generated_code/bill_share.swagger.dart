@@ -41,6 +41,120 @@ abstract class BillShare extends ChopperService {
   }
 
   ///
+  Future<chopper.Response<AccountResponse>> accountsPost(
+      {required CreateAccountRequest? body}) {
+    generatedMapping.putIfAbsent(
+        AccountResponse, () => AccountResponse.fromJsonFactory);
+
+    return _accountsPost(body: body);
+  }
+
+  ///
+  @Post(
+    path: '/Accounts',
+    optionalBody: true,
+  )
+  Future<chopper.Response<AccountResponse>> _accountsPost(
+      {@Body() required CreateAccountRequest? body});
+
+  ///
+  Future<chopper.Response<List<AccountResponse>>> accountsGet() {
+    generatedMapping.putIfAbsent(
+        AccountResponse, () => AccountResponse.fromJsonFactory);
+
+    return _accountsGet();
+  }
+
+  ///
+  @Get(path: '/Accounts')
+  Future<chopper.Response<List<AccountResponse>>> _accountsGet();
+
+  ///
+  ///@param accountId
+  Future<chopper.Response<AccountResponse>> accountsAccountIdGet(
+      {required String? accountId}) {
+    generatedMapping.putIfAbsent(
+        AccountResponse, () => AccountResponse.fromJsonFactory);
+
+    return _accountsAccountIdGet(accountId: accountId);
+  }
+
+  ///
+  ///@param accountId
+  @Get(path: '/Accounts/{accountId}')
+  Future<chopper.Response<AccountResponse>> _accountsAccountIdGet(
+      {@Path('accountId') required String? accountId});
+
+  ///
+  ///@param accountId
+  Future<chopper.Response<List<ShortExpenseResponse>>>
+      accountsAccountIdExpensesGet({required String? accountId}) {
+    generatedMapping.putIfAbsent(
+        ShortExpenseResponse, () => ShortExpenseResponse.fromJsonFactory);
+
+    return _accountsAccountIdExpensesGet(accountId: accountId);
+  }
+
+  ///
+  ///@param accountId
+  @Get(path: '/Accounts/{accountId}/expenses')
+  Future<chopper.Response<List<ShortExpenseResponse>>>
+      _accountsAccountIdExpensesGet(
+          {@Path('accountId') required String? accountId});
+
+  ///
+  ///@param accountId
+  Future<chopper.Response> accountsAccountIdDisablePut(
+      {required String? accountId}) {
+    return _accountsAccountIdDisablePut(accountId: accountId);
+  }
+
+  ///
+  ///@param accountId
+  @Put(
+    path: '/Accounts/{accountId}/disable',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _accountsAccountIdDisablePut(
+      {@Path('accountId') required String? accountId});
+
+  ///
+  ///@param accountId
+  Future<chopper.Response> accountsAccountIdEnablePut(
+      {required String? accountId}) {
+    return _accountsAccountIdEnablePut(accountId: accountId);
+  }
+
+  ///
+  ///@param accountId
+  @Put(
+    path: '/Accounts/{accountId}/enable',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _accountsAccountIdEnablePut(
+      {@Path('accountId') required String? accountId});
+
+  ///
+  ///@param accountId
+  Future<chopper.Response> accountsAccountIdAmountPut({
+    required String? accountId,
+    required ChangeAccountAmountRequest? body,
+  }) {
+    return _accountsAccountIdAmountPut(accountId: accountId, body: body);
+  }
+
+  ///
+  ///@param accountId
+  @Put(
+    path: '/Accounts/{accountId}/amount',
+    optionalBody: true,
+  )
+  Future<chopper.Response> _accountsAccountIdAmountPut({
+    @Path('accountId') required String? accountId,
+    @Body() required ChangeAccountAmountRequest? body,
+  });
+
+  ///
   Future<chopper.Response<AuthenticationToken>> authenticationRegisterPost(
       {required SignUpUserCredentials? body}) {
     generatedMapping.putIfAbsent(
@@ -600,6 +714,107 @@ abstract class BillShare extends ChopperService {
     @Query('PageNumber') int? pageNumber,
     @Query('PageSize') int? pageSize,
   });
+
+  ///
+  Future<chopper.Response<CustomerAvatarIcon>> usersMeAvatarPost(
+      {required CreateIconDto? body}) {
+    generatedMapping.putIfAbsent(
+        CustomerAvatarIcon, () => CustomerAvatarIcon.fromJsonFactory);
+
+    return _usersMeAvatarPost(body: body);
+  }
+
+  ///
+  @Post(
+    path: '/Users/me/avatar',
+    optionalBody: true,
+  )
+  Future<chopper.Response<CustomerAvatarIcon>> _usersMeAvatarPost(
+      {@Body() required CreateIconDto? body});
+
+  ///
+  Future<chopper.Response> usersMeAvatarDelete() {
+    return _usersMeAvatarDelete();
+  }
+
+  ///
+  @Delete(path: '/Users/me/avatar')
+  Future<chopper.Response> _usersMeAvatarDelete();
+}
+
+@JsonSerializable(explicitToJson: true)
+class AccountResponse {
+  AccountResponse({
+    this.id,
+    this.name,
+    this.amount,
+    this.externalId,
+  });
+
+  factory AccountResponse.fromJson(Map<String, dynamic> json) =>
+      _$AccountResponseFromJson(json);
+
+  static const toJsonFactory = _$AccountResponseToJson;
+  Map<String, dynamic> toJson() => _$AccountResponseToJson(this);
+
+  @JsonKey(name: 'id')
+  final String? id;
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'amount')
+  final double? amount;
+  @JsonKey(name: 'externalId')
+  final String? externalId;
+  static const fromJsonFactory = _$AccountResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is AccountResponse &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.externalId, externalId) ||
+                const DeepCollectionEquality()
+                    .equals(other.externalId, externalId)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(externalId) ^
+      runtimeType.hashCode;
+}
+
+extension $AccountResponseExtension on AccountResponse {
+  AccountResponse copyWith(
+      {String? id, String? name, double? amount, String? externalId}) {
+    return AccountResponse(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        amount: amount ?? this.amount,
+        externalId: externalId ?? this.externalId);
+  }
+
+  AccountResponse copyWithWrapped(
+      {Wrapped<String?>? id,
+      Wrapped<String?>? name,
+      Wrapped<double?>? amount,
+      Wrapped<String?>? externalId}) {
+    return AccountResponse(
+        id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
+        amount: (amount != null ? amount.value : this.amount),
+        externalId: (externalId != null ? externalId.value : this.externalId));
+  }
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -765,6 +980,115 @@ extension $AuthenticationTokenExtension on AuthenticationToken {
             (accessToken != null ? accessToken.value : this.accessToken),
         refreshToken:
             (refreshToken != null ? refreshToken.value : this.refreshToken));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ChangeAccountAmountRequest {
+  ChangeAccountAmountRequest({
+    this.amount,
+  });
+
+  factory ChangeAccountAmountRequest.fromJson(Map<String, dynamic> json) =>
+      _$ChangeAccountAmountRequestFromJson(json);
+
+  static const toJsonFactory = _$ChangeAccountAmountRequestToJson;
+  Map<String, dynamic> toJson() => _$ChangeAccountAmountRequestToJson(this);
+
+  @JsonKey(name: 'amount')
+  final double? amount;
+  static const fromJsonFactory = _$ChangeAccountAmountRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ChangeAccountAmountRequest &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(amount) ^ runtimeType.hashCode;
+}
+
+extension $ChangeAccountAmountRequestExtension on ChangeAccountAmountRequest {
+  ChangeAccountAmountRequest copyWith({double? amount}) {
+    return ChangeAccountAmountRequest(amount: amount ?? this.amount);
+  }
+
+  ChangeAccountAmountRequest copyWithWrapped({Wrapped<double?>? amount}) {
+    return ChangeAccountAmountRequest(
+        amount: (amount != null ? amount.value : this.amount));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateAccountRequest {
+  CreateAccountRequest({
+    this.name,
+    this.amount,
+    this.externalId,
+  });
+
+  factory CreateAccountRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateAccountRequestFromJson(json);
+
+  static const toJsonFactory = _$CreateAccountRequestToJson;
+  Map<String, dynamic> toJson() => _$CreateAccountRequestToJson(this);
+
+  @JsonKey(name: 'name')
+  final String? name;
+  @JsonKey(name: 'amount')
+  final double? amount;
+  @JsonKey(name: 'externalId')
+  final String? externalId;
+  static const fromJsonFactory = _$CreateAccountRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateAccountRequest &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.externalId, externalId) ||
+                const DeepCollectionEquality()
+                    .equals(other.externalId, externalId)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(name) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(externalId) ^
+      runtimeType.hashCode;
+}
+
+extension $CreateAccountRequestExtension on CreateAccountRequest {
+  CreateAccountRequest copyWith(
+      {String? name, double? amount, String? externalId}) {
+    return CreateAccountRequest(
+        name: name ?? this.name,
+        amount: amount ?? this.amount,
+        externalId: externalId ?? this.externalId);
+  }
+
+  CreateAccountRequest copyWithWrapped(
+      {Wrapped<String?>? name,
+      Wrapped<double?>? amount,
+      Wrapped<String?>? externalId}) {
+    return CreateAccountRequest(
+        name: (name != null ? name.value : this.name),
+        amount: (amount != null ? amount.value : this.amount),
+        externalId: (externalId != null ? externalId.value : this.externalId));
   }
 }
 
@@ -1103,6 +1427,50 @@ extension $CreateIconDtoExtension on CreateIconDto {
         iconImageData:
             (iconImageData != null ? iconImageData.value : this.iconImageData),
         extension: (extension != null ? extension.value : this.extension));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CustomerAvatarIcon {
+  CustomerAvatarIcon({
+    this.avatarUrl,
+  });
+
+  factory CustomerAvatarIcon.fromJson(Map<String, dynamic> json) =>
+      _$CustomerAvatarIconFromJson(json);
+
+  static const toJsonFactory = _$CustomerAvatarIconToJson;
+  Map<String, dynamic> toJson() => _$CustomerAvatarIconToJson(this);
+
+  @JsonKey(name: 'avatarUrl')
+  final String? avatarUrl;
+  static const fromJsonFactory = _$CustomerAvatarIconFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CustomerAvatarIcon &&
+            (identical(other.avatarUrl, avatarUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.avatarUrl, avatarUrl)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(avatarUrl) ^ runtimeType.hashCode;
+}
+
+extension $CustomerAvatarIconExtension on CustomerAvatarIcon {
+  CustomerAvatarIcon copyWith({String? avatarUrl}) {
+    return CustomerAvatarIcon(avatarUrl: avatarUrl ?? this.avatarUrl);
+  }
+
+  CustomerAvatarIcon copyWithWrapped({Wrapped<String?>? avatarUrl}) {
+    return CustomerAvatarIcon(
+        avatarUrl: (avatarUrl != null ? avatarUrl.value : this.avatarUrl));
   }
 }
 
@@ -2179,6 +2547,98 @@ extension $RelatedCustomerResponsePagedResponseExtension
         nextPageUrl:
             (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
         data: (data != null ? data.value : this.data));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class ShortExpenseResponse {
+  ShortExpenseResponse({
+    this.expenseId,
+    this.amount,
+    this.expenseType,
+    this.category,
+    this.dateTime,
+  });
+
+  factory ShortExpenseResponse.fromJson(Map<String, dynamic> json) =>
+      _$ShortExpenseResponseFromJson(json);
+
+  static const toJsonFactory = _$ShortExpenseResponseToJson;
+  Map<String, dynamic> toJson() => _$ShortExpenseResponseToJson(this);
+
+  @JsonKey(name: 'expenseId')
+  final String? expenseId;
+  @JsonKey(name: 'amount')
+  final double? amount;
+  @JsonKey(name: 'expenseType')
+  final ExpenseTypeResponse? expenseType;
+  @JsonKey(name: 'category')
+  final ExpenseCategoryResponse? category;
+  @JsonKey(name: 'dateTime')
+  final String? dateTime;
+  static const fromJsonFactory = _$ShortExpenseResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is ShortExpenseResponse &&
+            (identical(other.expenseId, expenseId) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseId, expenseId)) &&
+            (identical(other.amount, amount) ||
+                const DeepCollectionEquality().equals(other.amount, amount)) &&
+            (identical(other.expenseType, expenseType) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseType, expenseType)) &&
+            (identical(other.category, category) ||
+                const DeepCollectionEquality()
+                    .equals(other.category, category)) &&
+            (identical(other.dateTime, dateTime) ||
+                const DeepCollectionEquality()
+                    .equals(other.dateTime, dateTime)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(expenseId) ^
+      const DeepCollectionEquality().hash(amount) ^
+      const DeepCollectionEquality().hash(expenseType) ^
+      const DeepCollectionEquality().hash(category) ^
+      const DeepCollectionEquality().hash(dateTime) ^
+      runtimeType.hashCode;
+}
+
+extension $ShortExpenseResponseExtension on ShortExpenseResponse {
+  ShortExpenseResponse copyWith(
+      {String? expenseId,
+      double? amount,
+      ExpenseTypeResponse? expenseType,
+      ExpenseCategoryResponse? category,
+      String? dateTime}) {
+    return ShortExpenseResponse(
+        expenseId: expenseId ?? this.expenseId,
+        amount: amount ?? this.amount,
+        expenseType: expenseType ?? this.expenseType,
+        category: category ?? this.category,
+        dateTime: dateTime ?? this.dateTime);
+  }
+
+  ShortExpenseResponse copyWithWrapped(
+      {Wrapped<String?>? expenseId,
+      Wrapped<double?>? amount,
+      Wrapped<ExpenseTypeResponse?>? expenseType,
+      Wrapped<ExpenseCategoryResponse?>? category,
+      Wrapped<String?>? dateTime}) {
+    return ShortExpenseResponse(
+        expenseId: (expenseId != null ? expenseId.value : this.expenseId),
+        amount: (amount != null ? amount.value : this.amount),
+        expenseType:
+            (expenseType != null ? expenseType.value : this.expenseType),
+        category: (category != null ? category.value : this.category),
+        dateTime: (dateTime != null ? dateTime.value : this.dateTime));
   }
 }
 

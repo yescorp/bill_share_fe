@@ -26,9 +26,9 @@ class SelectFriendsScreen
   }
 
   @override
-  void initCubit(SelectFriendsCubit cubit) {
+  void initCubit(SelectFriendsCubit cubit, context) {
     cubit.initialize();
-    super.initCubit(cubit);
+    super.initCubit(cubit, context);
   }
 
   @override

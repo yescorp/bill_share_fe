@@ -20,9 +20,9 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
   }
 
   @override
-  void initCubit(DashboardCubit cubit) {
+  void initCubit(DashboardCubit cubit, context) {
     cubit.initialize();
-    super.initCubit(cubit);
+    super.initCubit(cubit, context);
   }
 
   @override

@@ -28,17 +28,19 @@ abstract class FriendListTile extends StatelessWidget {
   factory FriendListTile.view({
     Key? key,
     required FriendInfo info,
+    Future Function(String userId)? onAddFriend,
   }) =>
       FriendListTileView(
         key: key,
         info: info,
+        onAddFriend: onAddFriend,
       );
 
   factory FriendListTile.request({
     Key? key,
     required FriendInfo info,
-    VoidCallback? onAccept,
-    VoidCallback? onReject,
+    Future Function(String userId)? onAccept,
+    Future Function(String userId)? onReject,
   }) =>
       FriendshipRequestListTile(
         key: key,
@@ -97,9 +99,12 @@ class FriendListTileSelect extends FriendListTile {
 }
 
 class FriendListTileView extends FriendListTile {
+  final Future Function(String userId)? onAddFriend;
+
   const FriendListTileView({
     super.key,
     required super.info,
+    this.onAddFriend,
   });
 
   @override
@@ -108,30 +113,32 @@ class FriendListTileView extends FriendListTile {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: AcronymAvatar(
-          name: info.name,
+          name: info.userName,
           heightWidth: 40,
         ),
         title: Text(
-          '${info.name} ${info.surname}',
+          info.userName,
           style: const TextStyle(
             fontSize: FontSizes.h3,
           ),
         ),
-        subtitle: Text(
-          info.userName,
-          style: const TextStyle(
-            fontSize: FontSizes.p1,
-          ),
-        ),
+        trailing: info.isFriend
+            ? null
+            : IconButton(
+                icon: Icon(
+                  Icons.add,
+                  color: Colors.black,
+                ),
+                onPressed: () => onAddFriend?.call(info.userId),
+              ),
       ),
     );
   }
 }
 
 class FriendshipRequestListTile extends FriendListTile {
-  final VoidCallback? onAccept;
-
-  final VoidCallback? onReject;
+  final Future Function(String userId)? onAccept;
+  final Future Function(String userId)? onReject;
 
   const FriendshipRequestListTile({
     super.key,
@@ -146,16 +153,10 @@ class FriendshipRequestListTile extends FriendListTile {
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
         leading: AcronymAvatar(
-          name: info.name,
+          name: info.userName,
           heightWidth: 40,
         ),
         title: Text(
-          '${info.name} ${info.surname}',
-          style: const TextStyle(
-            fontSize: FontSizes.h3,
-          ),
-        ),
-        subtitle: Text(
           info.userName,
           style: const TextStyle(
             fontSize: FontSizes.h3,
@@ -166,7 +167,7 @@ class FriendshipRequestListTile extends FriendListTile {
           children: [
             IconButton(
               iconSize: 30,
-              onPressed: onAccept,
+              onPressed: () => onAccept?.call(info.userId),
               icon: const Icon(
                 Icons.check_circle_outline_outlined,
                 color: AppColors.mainBlue,
@@ -175,7 +176,7 @@ class FriendshipRequestListTile extends FriendListTile {
             const SizedBox(width: 10),
             IconButton(
               iconSize: 30,
-              onPressed: onReject,
+              onPressed: () => onReject?.call(info.userId),
               icon: const Icon(
                 Icons.cancel_outlined,
                 color: AppColors.rejectRed,

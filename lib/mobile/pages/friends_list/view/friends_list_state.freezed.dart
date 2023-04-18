@@ -20,6 +20,7 @@ mixin _$FriendsListState {
   List<FriendInfo> get friendshipRequests => throw _privateConstructorUsedError;
   List<GroupInfo> get groups => throw _privateConstructorUsedError;
   bool get isSearch => throw _privateConstructorUsedError;
+  bool get update => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $FriendsListStateCopyWith<FriendsListState> get copyWith =>
@@ -36,7 +37,8 @@ abstract class $FriendsListStateCopyWith<$Res> {
       {List<FriendInfo> friends,
       List<FriendInfo> friendshipRequests,
       List<GroupInfo> groups,
-      bool isSearch});
+      bool isSearch,
+      bool update});
 }
 
 /// @nodoc
@@ -56,6 +58,7 @@ class _$FriendsListStateCopyWithImpl<$Res, $Val extends FriendsListState>
     Object? friendshipRequests = null,
     Object? groups = null,
     Object? isSearch = null,
+    Object? update = null,
   }) {
     return _then(_value.copyWith(
       friends: null == friends
@@ -74,6 +77,10 @@ class _$FriendsListStateCopyWithImpl<$Res, $Val extends FriendsListState>
           ? _value.isSearch
           : isSearch // ignore: cast_nullable_to_non_nullable
               as bool,
+      update: null == update
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -90,7 +97,8 @@ abstract class _$$_FriendsListStateCopyWith<$Res>
       {List<FriendInfo> friends,
       List<FriendInfo> friendshipRequests,
       List<GroupInfo> groups,
-      bool isSearch});
+      bool isSearch,
+      bool update});
 }
 
 /// @nodoc
@@ -108,6 +116,7 @@ class __$$_FriendsListStateCopyWithImpl<$Res>
     Object? friendshipRequests = null,
     Object? groups = null,
     Object? isSearch = null,
+    Object? update = null,
   }) {
     return _then(_$_FriendsListState(
       friends: null == friends
@@ -126,6 +135,10 @@ class __$$_FriendsListStateCopyWithImpl<$Res>
           ? _value.isSearch
           : isSearch // ignore: cast_nullable_to_non_nullable
               as bool,
+      update: null == update
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -137,7 +150,8 @@ class _$_FriendsListState implements _FriendsListState {
       {final List<FriendInfo> friends = const [],
       final List<FriendInfo> friendshipRequests = const [],
       final List<GroupInfo> groups = const [],
-      this.isSearch = false})
+      this.isSearch = false,
+      this.update = false})
       : _friends = friends,
         _friendshipRequests = friendshipRequests,
         _groups = groups;
@@ -173,10 +187,13 @@ class _$_FriendsListState implements _FriendsListState {
   @override
   @JsonKey()
   final bool isSearch;
+  @override
+  @JsonKey()
+  final bool update;
 
   @override
   String toString() {
-    return 'FriendsListState(friends: $friends, friendshipRequests: $friendshipRequests, groups: $groups, isSearch: $isSearch)';
+    return 'FriendsListState(friends: $friends, friendshipRequests: $friendshipRequests, groups: $groups, isSearch: $isSearch, update: $update)';
   }
 
   @override
@@ -189,7 +206,8 @@ class _$_FriendsListState implements _FriendsListState {
                 .equals(other._friendshipRequests, _friendshipRequests) &&
             const DeepCollectionEquality().equals(other._groups, _groups) &&
             (identical(other.isSearch, isSearch) ||
-                other.isSearch == isSearch));
+                other.isSearch == isSearch) &&
+            (identical(other.update, update) || other.update == update));
   }
 
   @override
@@ -198,7 +216,8 @@ class _$_FriendsListState implements _FriendsListState {
       const DeepCollectionEquality().hash(_friends),
       const DeepCollectionEquality().hash(_friendshipRequests),
       const DeepCollectionEquality().hash(_groups),
-      isSearch);
+      isSearch,
+      update);
 
   @JsonKey(ignore: true)
   @override
@@ -212,7 +231,8 @@ abstract class _FriendsListState implements FriendsListState {
       {final List<FriendInfo> friends,
       final List<FriendInfo> friendshipRequests,
       final List<GroupInfo> groups,
-      final bool isSearch}) = _$_FriendsListState;
+      final bool isSearch,
+      final bool update}) = _$_FriendsListState;
 
   @override
   List<FriendInfo> get friends;
@@ -222,6 +242,8 @@ abstract class _FriendsListState implements FriendsListState {
   List<GroupInfo> get groups;
   @override
   bool get isSearch;
+  @override
+  bool get update;
   @override
   @JsonKey(ignore: true)
   _$$_FriendsListStateCopyWith<_$_FriendsListState> get copyWith =>

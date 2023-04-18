@@ -9,14 +9,14 @@ abstract class AbstractScreen<S, Cubit extends BlocBase<S>>
 
   Cubit createCubit();
 
-  void initCubit(Cubit cubit) {}
+  void initCubit(Cubit cubit, BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<Cubit>(
       create: (_) {
         final cubit = createCubit();
-        initCubit(cubit);
+        initCubit(cubit, context);
         return cubit;
       },
       child: BlocBuilder<Cubit, S>(

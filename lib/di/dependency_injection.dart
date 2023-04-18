@@ -7,6 +7,7 @@ import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_screen.dart';
 import 'package:bill_share/mobile/pages/friend_profile/view/friend_profile_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
+import 'package:bill_share/mobile/pages/home/view/Home_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
@@ -76,6 +77,7 @@ class DependencyProvider {
     ExpenseListScreen.register();
     SelectItemsScreen.register();
     FriendProfileScreen.register();
+    HomeScreen.register();
   }
 
   //=========================== Register Swagger ===========================
