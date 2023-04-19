@@ -17,9 +17,9 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$SelectFriendsState {
   List<FriendInfo> get friends => throw _privateConstructorUsedError;
-  List<int> get selectedFriends => throw _privateConstructorUsedError;
+  List<FriendInfo> get selectedFriends => throw _privateConstructorUsedError;
   List<GroupInfo> get groups => throw _privateConstructorUsedError;
-  List<int> get selectedGroups => throw _privateConstructorUsedError;
+  List<GroupInfo> get selectedGroups => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $SelectFriendsStateCopyWith<SelectFriendsState> get copyWith =>
@@ -34,9 +34,9 @@ abstract class $SelectFriendsStateCopyWith<$Res> {
   @useResult
   $Res call(
       {List<FriendInfo> friends,
-      List<int> selectedFriends,
+      List<FriendInfo> selectedFriends,
       List<GroupInfo> groups,
-      List<int> selectedGroups});
+      List<GroupInfo> selectedGroups});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$SelectFriendsStateCopyWithImpl<$Res, $Val extends SelectFriendsState>
       selectedFriends: null == selectedFriends
           ? _value.selectedFriends
           : selectedFriends // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<FriendInfo>,
       groups: null == groups
           ? _value.groups
           : groups // ignore: cast_nullable_to_non_nullable
@@ -73,7 +73,7 @@ class _$SelectFriendsStateCopyWithImpl<$Res, $Val extends SelectFriendsState>
       selectedGroups: null == selectedGroups
           ? _value.selectedGroups
           : selectedGroups // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<GroupInfo>,
     ) as $Val);
   }
 }
@@ -88,9 +88,9 @@ abstract class _$$_SelectFriendsStateCopyWith<$Res>
   @useResult
   $Res call(
       {List<FriendInfo> friends,
-      List<int> selectedFriends,
+      List<FriendInfo> selectedFriends,
       List<GroupInfo> groups,
-      List<int> selectedGroups});
+      List<GroupInfo> selectedGroups});
 }
 
 /// @nodoc
@@ -117,7 +117,7 @@ class __$$_SelectFriendsStateCopyWithImpl<$Res>
       selectedFriends: null == selectedFriends
           ? _value._selectedFriends
           : selectedFriends // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<FriendInfo>,
       groups: null == groups
           ? _value._groups
           : groups // ignore: cast_nullable_to_non_nullable
@@ -125,7 +125,7 @@ class __$$_SelectFriendsStateCopyWithImpl<$Res>
       selectedGroups: null == selectedGroups
           ? _value._selectedGroups
           : selectedGroups // ignore: cast_nullable_to_non_nullable
-              as List<int>,
+              as List<GroupInfo>,
     ));
   }
 }
@@ -135,9 +135,9 @@ class __$$_SelectFriendsStateCopyWithImpl<$Res>
 class _$_SelectFriendsState implements _SelectFriendsState {
   _$_SelectFriendsState(
       {final List<FriendInfo> friends = const [],
-      final List<int> selectedFriends = const [],
+      final List<FriendInfo> selectedFriends = const [],
       final List<GroupInfo> groups = const [],
-      final List<int> selectedGroups = const []})
+      final List<GroupInfo> selectedGroups = const []})
       : _friends = friends,
         _selectedFriends = selectedFriends,
         _groups = groups,
@@ -152,10 +152,10 @@ class _$_SelectFriendsState implements _SelectFriendsState {
     return EqualUnmodifiableListView(_friends);
   }
 
-  final List<int> _selectedFriends;
+  final List<FriendInfo> _selectedFriends;
   @override
   @JsonKey()
-  List<int> get selectedFriends {
+  List<FriendInfo> get selectedFriends {
     if (_selectedFriends is EqualUnmodifiableListView) return _selectedFriends;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_selectedFriends);
@@ -170,10 +170,10 @@ class _$_SelectFriendsState implements _SelectFriendsState {
     return EqualUnmodifiableListView(_groups);
   }
 
-  final List<int> _selectedGroups;
+  final List<GroupInfo> _selectedGroups;
   @override
   @JsonKey()
-  List<int> get selectedGroups {
+  List<GroupInfo> get selectedGroups {
     if (_selectedGroups is EqualUnmodifiableListView) return _selectedGroups;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_selectedGroups);
@@ -216,18 +216,18 @@ class _$_SelectFriendsState implements _SelectFriendsState {
 abstract class _SelectFriendsState implements SelectFriendsState {
   factory _SelectFriendsState(
       {final List<FriendInfo> friends,
-      final List<int> selectedFriends,
+      final List<FriendInfo> selectedFriends,
       final List<GroupInfo> groups,
-      final List<int> selectedGroups}) = _$_SelectFriendsState;
+      final List<GroupInfo> selectedGroups}) = _$_SelectFriendsState;
 
   @override
   List<FriendInfo> get friends;
   @override
-  List<int> get selectedFriends;
+  List<FriendInfo> get selectedFriends;
   @override
   List<GroupInfo> get groups;
   @override
-  List<int> get selectedGroups;
+  List<GroupInfo> get selectedGroups;
   @override
   @JsonKey(ignore: true)
   _$$_SelectFriendsStateCopyWith<_$_SelectFriendsState> get copyWith =>

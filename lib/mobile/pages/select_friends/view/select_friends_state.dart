@@ -9,8 +9,8 @@ part 'select_friends_state.freezed.dart';
 class SelectFriendsState with _$SelectFriendsState {
   factory SelectFriendsState({
     @Default([]) List<FriendInfo> friends,
-    @Default([]) List<int> selectedFriends,
+    @Default([]) List<FriendInfo> selectedFriends,
     @Default([]) List<GroupInfo> groups,
-    @Default([]) List<int> selectedGroups,
+    @Default([]) List<GroupInfo> selectedGroups,
   }) = _SelectFriendsState;
 }

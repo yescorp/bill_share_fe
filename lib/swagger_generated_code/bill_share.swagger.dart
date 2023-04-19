@@ -604,6 +604,61 @@ abstract class BillShare extends ChopperService {
       {@Path('userId') required String? userId});
 
   ///
+  Future<chopper.Response<GroupResponse>> groupsPost(
+      {required CreateGroupRequest? body}) {
+    generatedMapping.putIfAbsent(
+        GroupResponse, () => GroupResponse.fromJsonFactory);
+
+    return _groupsPost(body: body);
+  }
+
+  ///
+  @Post(
+    path: '/Groups',
+    optionalBody: true,
+  )
+  Future<chopper.Response<GroupResponse>> _groupsPost(
+      {@Body() required CreateGroupRequest? body});
+
+  ///
+  ///@param PageNumber
+  ///@param PageSize
+  Future<chopper.Response<GroupResponsePagedResponse>> groupsGet({
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    generatedMapping.putIfAbsent(GroupResponsePagedResponse,
+        () => GroupResponsePagedResponse.fromJsonFactory);
+
+    return _groupsGet(pageNumber: pageNumber, pageSize: pageSize);
+  }
+
+  ///
+  ///@param PageNumber
+  ///@param PageSize
+  @Get(path: '/Groups')
+  Future<chopper.Response<GroupResponsePagedResponse>> _groupsGet({
+    @Query('PageNumber') int? pageNumber,
+    @Query('PageSize') int? pageSize,
+  });
+
+  ///
+  ///@param groupId
+  Future<chopper.Response<GroupResponse>> groupsGroupIdGet(
+      {required String? groupId}) {
+    generatedMapping.putIfAbsent(
+        GroupResponse, () => GroupResponse.fromJsonFactory);
+
+    return _groupsGroupIdGet(groupId: groupId);
+  }
+
+  ///
+  ///@param groupId
+  @Get(path: '/Groups/{groupId}')
+  Future<chopper.Response<GroupResponse>> _groupsGroupIdGet(
+      {@Path('groupId') required String? groupId});
+
+  ///
   Future<chopper.Response<IconResponse>> iconsPost(
       {required CreateIconDto? body}) {
     generatedMapping.putIfAbsent(
@@ -1370,6 +1425,63 @@ extension $CreateFriendshipRequestDtoExtension on CreateFriendshipRequestDto {
   CreateFriendshipRequestDto copyWithWrapped({Wrapped<String?>? userId}) {
     return CreateFriendshipRequestDto(
         userId: (userId != null ? userId.value : this.userId));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CreateGroupRequest {
+  CreateGroupRequest({
+    this.groupName,
+    this.participants,
+  });
+
+  factory CreateGroupRequest.fromJson(Map<String, dynamic> json) =>
+      _$CreateGroupRequestFromJson(json);
+
+  static const toJsonFactory = _$CreateGroupRequestToJson;
+  Map<String, dynamic> toJson() => _$CreateGroupRequestToJson(this);
+
+  @JsonKey(name: 'groupName')
+  final String? groupName;
+  @JsonKey(name: 'participants', defaultValue: <String>[])
+  final List<String>? participants;
+  static const fromJsonFactory = _$CreateGroupRequestFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CreateGroupRequest &&
+            (identical(other.groupName, groupName) ||
+                const DeepCollectionEquality()
+                    .equals(other.groupName, groupName)) &&
+            (identical(other.participants, participants) ||
+                const DeepCollectionEquality()
+                    .equals(other.participants, participants)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(groupName) ^
+      const DeepCollectionEquality().hash(participants) ^
+      runtimeType.hashCode;
+}
+
+extension $CreateGroupRequestExtension on CreateGroupRequest {
+  CreateGroupRequest copyWith({String? groupName, List<String>? participants}) {
+    return CreateGroupRequest(
+        groupName: groupName ?? this.groupName,
+        participants: participants ?? this.participants);
+  }
+
+  CreateGroupRequest copyWithWrapped(
+      {Wrapped<String?>? groupName, Wrapped<List<String>?>? participants}) {
+    return CreateGroupRequest(
+        groupName: (groupName != null ? groupName.value : this.groupName),
+        participants:
+            (participants != null ? participants.value : this.participants));
   }
 }
 
@@ -2275,6 +2387,171 @@ extension $ExpenseTypeResponseExtension on ExpenseTypeResponse {
     return ExpenseTypeResponse(
         id: (id != null ? id.value : this.id),
         name: (name != null ? name.value : this.name));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class GroupResponse {
+  GroupResponse({
+    this.groupId,
+    this.groupName,
+    this.participants,
+  });
+
+  factory GroupResponse.fromJson(Map<String, dynamic> json) =>
+      _$GroupResponseFromJson(json);
+
+  static const toJsonFactory = _$GroupResponseToJson;
+  Map<String, dynamic> toJson() => _$GroupResponseToJson(this);
+
+  @JsonKey(name: 'groupId')
+  final String? groupId;
+  @JsonKey(name: 'groupName')
+  final String? groupName;
+  @JsonKey(name: 'participants', defaultValue: <UserFriendResponse>[])
+  final List<UserFriendResponse>? participants;
+  static const fromJsonFactory = _$GroupResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GroupResponse &&
+            (identical(other.groupId, groupId) ||
+                const DeepCollectionEquality()
+                    .equals(other.groupId, groupId)) &&
+            (identical(other.groupName, groupName) ||
+                const DeepCollectionEquality()
+                    .equals(other.groupName, groupName)) &&
+            (identical(other.participants, participants) ||
+                const DeepCollectionEquality()
+                    .equals(other.participants, participants)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(groupId) ^
+      const DeepCollectionEquality().hash(groupName) ^
+      const DeepCollectionEquality().hash(participants) ^
+      runtimeType.hashCode;
+}
+
+extension $GroupResponseExtension on GroupResponse {
+  GroupResponse copyWith(
+      {String? groupId,
+      String? groupName,
+      List<UserFriendResponse>? participants}) {
+    return GroupResponse(
+        groupId: groupId ?? this.groupId,
+        groupName: groupName ?? this.groupName,
+        participants: participants ?? this.participants);
+  }
+
+  GroupResponse copyWithWrapped(
+      {Wrapped<String?>? groupId,
+      Wrapped<String?>? groupName,
+      Wrapped<List<UserFriendResponse>?>? participants}) {
+    return GroupResponse(
+        groupId: (groupId != null ? groupId.value : this.groupId),
+        groupName: (groupName != null ? groupName.value : this.groupName),
+        participants:
+            (participants != null ? participants.value : this.participants));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class GroupResponsePagedResponse {
+  GroupResponsePagedResponse({
+    this.totalCount,
+    this.firstPageUrl,
+    this.lastPageUrl,
+    this.nextPageUrl,
+    this.data,
+  });
+
+  factory GroupResponsePagedResponse.fromJson(Map<String, dynamic> json) =>
+      _$GroupResponsePagedResponseFromJson(json);
+
+  static const toJsonFactory = _$GroupResponsePagedResponseToJson;
+  Map<String, dynamic> toJson() => _$GroupResponsePagedResponseToJson(this);
+
+  @JsonKey(name: 'totalCount')
+  final int? totalCount;
+  @JsonKey(name: 'firstPageUrl')
+  final String? firstPageUrl;
+  @JsonKey(name: 'lastPageUrl')
+  final String? lastPageUrl;
+  @JsonKey(name: 'nextPageUrl')
+  final String? nextPageUrl;
+  @JsonKey(name: 'data', defaultValue: <GroupResponse>[])
+  final List<GroupResponse>? data;
+  static const fromJsonFactory = _$GroupResponsePagedResponseFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is GroupResponsePagedResponse &&
+            (identical(other.totalCount, totalCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalCount, totalCount)) &&
+            (identical(other.firstPageUrl, firstPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.firstPageUrl, firstPageUrl)) &&
+            (identical(other.lastPageUrl, lastPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.lastPageUrl, lastPageUrl)) &&
+            (identical(other.nextPageUrl, nextPageUrl) ||
+                const DeepCollectionEquality()
+                    .equals(other.nextPageUrl, nextPageUrl)) &&
+            (identical(other.data, data) ||
+                const DeepCollectionEquality().equals(other.data, data)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(totalCount) ^
+      const DeepCollectionEquality().hash(firstPageUrl) ^
+      const DeepCollectionEquality().hash(lastPageUrl) ^
+      const DeepCollectionEquality().hash(nextPageUrl) ^
+      const DeepCollectionEquality().hash(data) ^
+      runtimeType.hashCode;
+}
+
+extension $GroupResponsePagedResponseExtension on GroupResponsePagedResponse {
+  GroupResponsePagedResponse copyWith(
+      {int? totalCount,
+      String? firstPageUrl,
+      String? lastPageUrl,
+      String? nextPageUrl,
+      List<GroupResponse>? data}) {
+    return GroupResponsePagedResponse(
+        totalCount: totalCount ?? this.totalCount,
+        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+        data: data ?? this.data);
+  }
+
+  GroupResponsePagedResponse copyWithWrapped(
+      {Wrapped<int?>? totalCount,
+      Wrapped<String?>? firstPageUrl,
+      Wrapped<String?>? lastPageUrl,
+      Wrapped<String?>? nextPageUrl,
+      Wrapped<List<GroupResponse>?>? data}) {
+    return GroupResponsePagedResponse(
+        totalCount: (totalCount != null ? totalCount.value : this.totalCount),
+        firstPageUrl:
+            (firstPageUrl != null ? firstPageUrl.value : this.firstPageUrl),
+        lastPageUrl:
+            (lastPageUrl != null ? lastPageUrl.value : this.lastPageUrl),
+        nextPageUrl:
+            (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
+        data: (data != null ? data.value : this.data));
   }
 }
 

@@ -14,6 +14,7 @@ import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.da
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/accessors/current_user_accessor.dart';
+import 'package:bill_share/services/image_converter/di/image_converter_dependency.dart';
 import 'package:bill_share/services/mappers/generic.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
@@ -62,6 +63,7 @@ class DependencyProvider {
     registerCurrentUserAccessor();
     NetworkClientDependency.register();
     NavigationDependency.register();
+    ImageConverterDependency.register();
   }
 
   static void registerMobileScreens() {

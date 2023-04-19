@@ -167,6 +167,21 @@ Map<String, dynamic> _$CreateFriendshipRequestDtoToJson(
       'userId': instance.userId,
     };
 
+CreateGroupRequest _$CreateGroupRequestFromJson(Map<String, dynamic> json) =>
+    CreateGroupRequest(
+      groupName: json['groupName'] as String?,
+      participants: (json['participants'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$CreateGroupRequestToJson(CreateGroupRequest instance) =>
+    <String, dynamic>{
+      'groupName': instance.groupName,
+      'participants': instance.participants,
+    };
+
 CreateIconDto _$CreateIconDtoFromJson(Map<String, dynamic> json) =>
     CreateIconDto(
       iconImageData: json['iconImageData'] as String?,
@@ -391,6 +406,47 @@ Map<String, dynamic> _$ExpenseTypeResponseToJson(
     <String, dynamic>{
       'id': expenseTypeIdToJson(instance.id),
       'name': instance.name,
+    };
+
+GroupResponse _$GroupResponseFromJson(Map<String, dynamic> json) =>
+    GroupResponse(
+      groupId: json['groupId'] as String?,
+      groupName: json['groupName'] as String?,
+      participants: (json['participants'] as List<dynamic>?)
+              ?.map(
+                  (e) => UserFriendResponse.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$GroupResponseToJson(GroupResponse instance) =>
+    <String, dynamic>{
+      'groupId': instance.groupId,
+      'groupName': instance.groupName,
+      'participants': instance.participants?.map((e) => e.toJson()).toList(),
+    };
+
+GroupResponsePagedResponse _$GroupResponsePagedResponseFromJson(
+        Map<String, dynamic> json) =>
+    GroupResponsePagedResponse(
+      totalCount: json['totalCount'] as int?,
+      firstPageUrl: json['firstPageUrl'] as String?,
+      lastPageUrl: json['lastPageUrl'] as String?,
+      nextPageUrl: json['nextPageUrl'] as String?,
+      data: (json['data'] as List<dynamic>?)
+              ?.map((e) => GroupResponse.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$GroupResponsePagedResponseToJson(
+        GroupResponsePagedResponse instance) =>
+    <String, dynamic>{
+      'totalCount': instance.totalCount,
+      'firstPageUrl': instance.firstPageUrl,
+      'lastPageUrl': instance.lastPageUrl,
+      'nextPageUrl': instance.nextPageUrl,
+      'data': instance.data?.map((e) => e.toJson()).toList(),
     };
 
 IconResponse _$IconResponseFromJson(Map<String, dynamic> json) => IconResponse(

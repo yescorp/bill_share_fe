@@ -71,11 +71,11 @@ class FriendListTileSelect extends FriendListTile {
         padding: const EdgeInsets.all(8.0),
         child: ListTile(
           leading: AcronymAvatar(
-            name: info.name,
+            name: info.userName,
             heightWidth: 40,
           ),
           title: Text(
-            info.name,
+            info.userName,
             style: const TextStyle(
               fontSize: FontSizes.h3,
             ),

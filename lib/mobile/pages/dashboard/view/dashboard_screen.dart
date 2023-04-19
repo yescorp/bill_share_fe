@@ -28,47 +28,6 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     return Scaffold(
-      floatingActionButton: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 50,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: AppColors.mainBlue,
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            child: IconButton(
-              onPressed: cubit.onQrIconPressed,
-              icon: const Icon(
-                Icons.qr_code_scanner,
-                color: AppColors.white,
-              ),
-            ),
-          ),
-          const SizedBox(height: 10),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: const BoxDecoration(
-              color: AppColors.mainBlue,
-              borderRadius: BorderRadius.all(
-                Radius.circular(25),
-              ),
-            ),
-            child: IconButton(
-              onPressed: cubit.onQrIconPressed,
-              icon: const Icon(
-                Icons.edit_document,
-                color: AppColors.white,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-        ],
-      ),
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text('Dashboard'),

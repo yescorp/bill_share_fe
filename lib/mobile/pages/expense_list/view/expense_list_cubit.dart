@@ -1,3 +1,5 @@
+import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
+import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen_params.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_state.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen_params.dart';
@@ -138,6 +140,14 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
       params: SelectItemsParams(
         details: state.details[index],
       ),
+    );
+  }
+
+  void onQrIconPressed() {}
+
+  void onAddExpensePressed() async {
+    await navigationProvider.push<CreatePaymentScreen>(
+      params: const CreatePaymentParams(),
     );
   }
 }

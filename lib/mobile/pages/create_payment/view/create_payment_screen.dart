@@ -5,6 +5,7 @@ import 'package:bill_share/mobile/pages/create_payment/view/create_payment_cubit
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_state.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen_params.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -130,7 +131,7 @@ class CreatePaymentScreen
                       (e) => Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
                         child: AcronymAvatar(
-                          name: e.name,
+                          name: e.userName,
                           heightWidth: 40,
                         ),
                       ),
@@ -184,6 +185,7 @@ class CreatePaymentScreen
       () => CreatePaymentCubit(
         CreatePaymentState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
       ),
     );
   }

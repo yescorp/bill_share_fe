@@ -24,12 +24,16 @@ class HomeScreen extends AbstractScreen<HomeState, HomeCubit> {
     return Scaffold(
       body: state.screens[state.selectedScreen],
       bottomNavigationBar: BottomNavigationBar(
-        items: [
-          const BottomNavigationBarItem(
+        items: const [
+          BottomNavigationBarItem(
             label: 'Home',
             icon: Icon(Icons.home),
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
+            label: 'Expenses',
+            icon: Icon(Icons.payments_outlined),
+          ),
+          BottomNavigationBarItem(
             label: 'Friends',
             icon: Icon(Icons.person),
           )

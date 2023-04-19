@@ -1,61 +1,58 @@
+import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen_params.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_state.dart';
 import 'package:bill_share/models/group/group_info.dart';
 import 'package:bill_share/models/user/friend_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
   final NavigationProvider navigationProvider;
+  final BillShare client;
+  final pageSize = 1;
 
   final TextEditingController searchController = TextEditingController();
 
   SelectFriendsCubit(
     super.state, {
     required this.navigationProvider,
+    required this.client,
   });
 
-  void initialize() {
+  void initialize(SelectFriendsParams params) {
     emit(
       state.copyWith(
-        friends: [
-          const FriendInfo(
-            userId: 'userId',
-            name: 'qwe',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'asd',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'uio',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-          const FriendInfo(
-            userId: 'userId',
-            name: 'zuo',
-            surname: 'surname',
-            userName: 'userName',
-          ),
-        ],
-        groups: [
-          const GroupInfo(friends: [
-            FriendInfo(
-              userId: 'userId',
-              name: 'zuo',
-              surname: 'surname',
-              userName: 'userName',
-            ),
-          ], groupName: 'Group 1', groupId: 'Group 1'),
-        ],
+        selectedFriends: params.selectedFriends,
       ),
     );
+  }
+
+  Future<int> getFriendsCount() async {
+    final result = await client.friendsGet(pageNumber: 1, pageSize: 1);
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
+  }
+
+  Future<List<FriendInfo>> getFriends(int index) async {
+    final result = await client.friendsGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+    if (!result.isSuccessful) {
+      return [];
+    }
+
+    return result.body!.data!
+        .map((e) => FriendInfo(
+              userId: e.userId!,
+              userName: e.userName!,
+              isFriend: true,
+            ))
+        .toList();
   }
 
   void onBackButtonPressed() {
@@ -64,13 +61,11 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
 
   void onSubmit() {
     navigationProvider.pop<List<FriendInfo>>(
-      result: state.selectedFriends
-          .map<FriendInfo>((e) => state.friends[e])
-          .toList(growable: false),
+      result: state.selectedFriends,
     );
   }
 
-  onFriendSelect(int index, bool? value) {
+  onFriendSelect(FriendInfo info, bool? value) {
     if (value == null) {
       return;
     }
@@ -79,13 +74,13 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
         state.copyWith(
           selectedFriends: [
             ...state.selectedFriends,
-            index,
+            info,
           ],
         ),
       );
     } else {
       final newList = [...state.selectedFriends];
-      newList.remove(index);
+      newList.removeWhere((element) => element.userId == info.userId);
       emit(
         state.copyWith(
           selectedFriends: newList,
@@ -94,7 +89,7 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
     }
   }
 
-  onGroupSelect(int index, bool? value) {
+  onGroupSelect(GroupInfo info, bool? value) {
     if (value == null) {
       return;
     }
@@ -103,13 +98,13 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
         state.copyWith(
           selectedGroups: [
             ...state.selectedGroups,
-            index,
+            info,
           ],
         ),
       );
     } else {
       final newList = [...state.selectedGroups];
-      newList.remove(index);
+      newList.removeWhere((element) => element.groupId == info.groupId);
       emit(
         state.copyWith(
           selectedGroups: newList,

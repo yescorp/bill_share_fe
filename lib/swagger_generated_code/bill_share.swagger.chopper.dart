@@ -462,6 +462,52 @@ class _$BillShare extends BillShare {
   }
 
   @override
+  Future<Response<GroupResponse>> _groupsPost(
+      {required CreateGroupRequest? body}) {
+    final Uri $url = Uri.parse('/Groups');
+    final $body = body;
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+      body: $body,
+    );
+    return client.send<GroupResponse, GroupResponse>($request);
+  }
+
+  @override
+  Future<Response<GroupResponsePagedResponse>> _groupsGet({
+    int? pageNumber,
+    int? pageSize,
+  }) {
+    final Uri $url = Uri.parse('/Groups');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'PageNumber': pageNumber,
+      'PageSize': pageSize,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client
+        .send<GroupResponsePagedResponse, GroupResponsePagedResponse>($request);
+  }
+
+  @override
+  Future<Response<GroupResponse>> _groupsGroupIdGet(
+      {required String? groupId}) {
+    final Uri $url = Uri.parse('/Groups/${groupId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<GroupResponse, GroupResponse>($request);
+  }
+
+  @override
   Future<Response<IconResponse>> _iconsPost({required CreateIconDto? body}) {
     final Uri $url = Uri.parse('/Icons');
     final $body = body;

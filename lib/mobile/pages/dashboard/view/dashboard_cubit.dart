@@ -41,7 +41,4 @@ class DashboardCubit extends BlocBase<DashboardState> {
       ),
     ));
   }
-
-  void onQrIconPressed() {
-  }
 }

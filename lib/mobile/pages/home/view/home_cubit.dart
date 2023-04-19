@@ -1,4 +1,5 @@
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
+import 'package:bill_share/mobile/pages/expense_list/view/expense_list_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_screen.dart';
 import 'package:bill_share/mobile/pages/home/view/home_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -16,6 +17,7 @@ class HomeCubit extends BlocBase<HomeState> {
   void initCubit() {
     const screens = [
       DashboardScreen(),
+      ExpenseListScreen(),
       FriendsListScreen(),
     ];
 

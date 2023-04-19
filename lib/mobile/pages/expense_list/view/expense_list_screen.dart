@@ -30,7 +30,23 @@ class ExpenseListScreen
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text('Expenses'),
+        title: const Text('Expenses'),
+        actions: [
+          IconButton(
+            onPressed: cubit.onQrIconPressed,
+            icon: const Icon(
+              Icons.qr_code_scanner,
+              color: AppColors.white,
+            ),
+          ),
+          IconButton(
+            onPressed: cubit.onAddExpensePressed,
+            icon: const Icon(
+              Icons.add,
+              color: AppColors.white,
+            ),
+          ),
+        ],
       ),
       body: ListView.builder(
         itemCount: state.details.length,
