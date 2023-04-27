@@ -5,9 +5,12 @@ import 'package:bill_share/mobile/components/dot_separated_list_tile.dart';
 import 'package:bill_share/mobile/components/wavy_container/wavy_container.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_cubit.dart';
 import 'package:bill_share/mobile/pages/expense_list/view/expense_list_state.dart';
+import 'package:bill_share/models/payment/payment_info.dart';
+import 'package:bill_share/services/mappers/payment_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseListScreen
@@ -48,94 +51,146 @@ class ExpenseListScreen
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: state.details.length,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 20.0),
-            child: InkWell(
-              onTap: () => cubit.onExpenseTap(index),
-              onDoubleTap: () => cubit.onExpenseDoubleTap(index),
-              child: WavyContainer(
-                container: Container(
-                    color: AppColors.white,
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.circle,
-                              size: 40,
-                              color: AppColors.colorForType(
-                                  state.details[index].type),
-                            ),
-                            const SizedBox(width: 20),
-                            Expanded(
-                              child: Column(
+      body: FutureBuilder(
+        future: cubit.getExpensesCount(),
+        builder: (
+          BuildContext context,
+          AsyncSnapshot<int> snapshot,
+        ) {
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (snapshot.data == 0) {
+            return const Center(
+              child: Text('You haven\'t added any user to your friend list'),
+            );
+          }
+          return ListView.builder(
+            itemCount: snapshot.data,
+            shrinkWrap: true,
+            itemBuilder: (context, index) => FutureBuilder(
+              future: cubit.getExpenses(index),
+              builder: (
+                context,
+                AsyncSnapshot<List<PaymentInfo>> snapshot,
+              ) {
+                if (!snapshot.hasData) {
+                  return Container();
+                }
+
+                if (snapshot.hasError) {
+                  return Container();
+                }
+
+                // ignore: prefer_is_empty
+                if (snapshot.data?.length == 0) {
+                  return Container();
+                }
+
+                final expense = snapshot.data![index % cubit.pageSize];
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 20.0),
+                  child: InkWell(
+                    onTap: () => cubit.onExpenseTap(expense.id),
+                    onDoubleTap: () => cubit.onExpenseDoubleTap(expense.id),
+                    child: WavyContainer(
+                      container: Container(
+                          color: AppColors.white,
+                          padding: EdgeInsets.all(20),
+                          child: Column(
+                            children: [
+                              Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    state.details[index].name,
-                                    textAlign: TextAlign.start,
-                                    style: const TextStyle(
-                                      fontSize: FontSizes.h3,
+                                  Icon(
+                                    Icons.circle,
+                                    size: 40,
+                                    color: AppColors.colorForType(
+                                      expense.type,
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
-                                  if (state.openedExpenses
-                                          .contains(state.details[index].id) &&
-                                      state
-                                          .details[index].items.isNotEmpty) ...[
-                                    ...state.details[index].items.map(
-                                      (e) => DotSeparatedListTile(
-                                        label: e.name,
-                                        value: '${e.price} x ${e.quantity}',
-                                        style: const TextStyle(
-                                          fontSize: FontSizes.p1,
+                                  const SizedBox(width: 20),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          expense.name,
+                                          textAlign: TextAlign.start,
+                                          style: const TextStyle(
+                                            fontSize: FontSizes.h3,
+                                          ),
                                         ),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 20),
-                                  ],
-                                  DotSeparatedListTile(
-                                    label: 'Total',
-                                    value: '${state.details[index].totalPrice}',
-                                    style: const TextStyle(
-                                      fontSize: FontSizes.p1,
-                                    ),
-                                  ),
-                                  DotSeparatedListTile(
-                                    label: 'Paid',
-                                    value: '${state.details[index].paidPrice}',
-                                    style: const TextStyle(
-                                      fontSize: FontSizes.p1,
+                                        const SizedBox(height: 10),
+                                        if (state.openedExpenses
+                                                .contains(expense.id) &&
+                                            expense.items.isNotEmpty) ...[
+                                          ...expense.items.map(
+                                            (e) => DotSeparatedListTile(
+                                              label: e.name,
+                                              value:
+                                                  '${e.price} x ${e.quantity}',
+                                              style: const TextStyle(
+                                                fontSize: FontSizes.p1,
+                                              ),
+                                            ),
+                                          ),
+                                          DotSeparatedListTile(
+                                            label: 'Service',
+                                            value:
+                                                '${expense.service - 100 < 0 ? 0 : expense.service - 100} %',
+                                          ),
+                                          DotSeparatedListTile(
+                                            label: 'Taxes',
+                                            value:
+                                                '${expense.taxes - 100 < 0 ? 0 : expense.taxes - 100} %',
+                                          ),
+                                          const SizedBox(height: 20),
+                                        ],
+                                        DotSeparatedListTile(
+                                          label: 'Total',
+                                          value: '${expense.totalPrice}',
+                                          style: const TextStyle(
+                                            fontSize: FontSizes.p1,
+                                          ),
+                                        ),
+                                        DotSeparatedListTile(
+                                          label: 'Paid',
+                                          value: '${expense.paidPrice}',
+                                          style: const TextStyle(
+                                            fontSize: FontSizes.p1,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            ...state.details[index].participants.map(
-                              (e) => Padding(
-                                padding: const EdgeInsets.only(left: 4.0),
-                                child: AcronymAvatar(
-                                  name: e.name,
-                                  heightWidth: 40,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    )),
-              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ...expense.participants.map(
+                                    (e) => Padding(
+                                      padding: const EdgeInsets.only(left: 4.0),
+                                      child: AcronymAvatar(
+                                        name: e.info.userName,
+                                        heightWidth: 40,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                    ),
+                  ),
+                );
+              },
             ),
           );
         },
@@ -150,6 +205,8 @@ class ExpenseListScreen
       () => ExpenseListCubit(
         ExpenseListState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
+        paymentMapper: DependencyProvider.get<PaymentInfoMapper>(),
       ),
     );
   }

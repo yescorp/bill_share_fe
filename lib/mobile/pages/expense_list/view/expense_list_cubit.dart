@@ -8,119 +8,32 @@ import 'package:bill_share/models/payment/payment_info.dart';
 import 'package:bill_share/models/payment/payment_item.dart';
 import 'package:bill_share/models/payment/payment_type.dart';
 import 'package:bill_share/models/user/friend_info.dart';
+import 'package:bill_share/services/mappers/payment_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../swagger_generated_code/bill_share.swagger.dart';
+
 class ExpenseListCubit extends BlocBase<ExpenseListState> {
   final NavigationProvider navigationProvider;
+  final BillShare client;
+  final PaymentInfoMapper paymentMapper;
+  final pageSize = 1;
 
   ExpenseListCubit(
     super.state, {
     required this.navigationProvider,
+    required this.client,
+    required this.paymentMapper,
   });
 
-  void initialize() {
-    emit(
-      state.copyWith(
-        details: [
-          PaymentInfo(
-            id: 'unique',
-            category: PaymentCategory(
-              name: 'Restaurant',
-              id: 'Restaurant',
-            ),
-            creator: const FriendInfo(
-              userId: 'userId',
-              name: 'name',
-              surname: 'surname',
-              userName: 'userName',
-            ),
-            items: [
-              const PaymentItem(
-                id: 'id',
-                name: 'Combo Basket L',
-                quantity: 1,
-                price: 10500,
-              ),
-              const PaymentItem(
-                id: 'oid',
-                name: 'Combo Basket M',
-                quantity: 1,
-                price: 7000,
-              ),
-            ],
-            name: 'KFC Dinner',
-            participants: [
-              const FriendInfo(
-                userId: 'userId',
-                name: 'name',
-                surname: 'surname',
-                userName: 'userName',
-              ),
-              const FriendInfo(
-                userId: 'userId',
-                name: 'qwe',
-                surname: 'surname',
-                userName: 'userName',
-              ),
-            ],
-            type: PaymentType.necessary,
-            selectedItemIds: [],
-          ),
-          PaymentInfo(
-            id: 'unique2',
-            category: PaymentCategory(
-              name: 'Restaurant',
-              id: 'Restaurant',
-            ),
-            creator: const FriendInfo(
-              userId: 'userId',
-              name: 'name',
-              surname: 'surname',
-              userName: 'userName',
-            ),
-            items: [
-              const PaymentItem(
-                id: 'id',
-                name: 'Combo Basket L',
-                quantity: 1,
-                price: 10500,
-              ),
-              const PaymentItem(
-                id: 'oid',
-                name: 'Combo Basket M',
-                quantity: 1,
-                price: 7000,
-              ),
-            ],
-            name: 'KFC Dinner',
-            participants: [
-              const FriendInfo(
-                userId: 'userId',
-                name: 'name',
-                surname: 'surname',
-                userName: 'userName',
-              ),
-              const FriendInfo(
-                userId: 'userId',
-                name: 'qwe',
-                surname: 'surname',
-                userName: 'userName',
-              ),
-            ],
-            type: PaymentType.necessary,
-            selectedItemIds: [],
-          ),
-        ],
-      ),
-    );
-  }
+  void initialize() {}
 
-  onExpenseTap(int index) {
-    if (state.openedExpenses.contains(state.details[index].id)) {
+  onExpenseTap(String id) {
+    if (state.openedExpenses.contains(id)) {
       final newList = [...state.openedExpenses];
-      newList.remove(state.details[index].id);
+      newList.remove(id);
       emit(
         state.copyWith(
           openedExpenses: newList,
@@ -129,16 +42,16 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
     } else {
       emit(
         state.copyWith(
-          openedExpenses: [...state.openedExpenses, state.details[index].id],
+          openedExpenses: [...state.openedExpenses, id],
         ),
       );
     }
   }
 
-  onExpenseDoubleTap(int index) async {
+  onExpenseDoubleTap(String id) async {
     await navigationProvider.push<SelectItemsScreen>(
       params: SelectItemsParams(
-        details: state.details[index],
+        id: id,
       ),
     );
   }
@@ -149,5 +62,37 @@ class ExpenseListCubit extends BlocBase<ExpenseListState> {
     await navigationProvider.push<CreatePaymentScreen>(
       params: const CreatePaymentParams(),
     );
+  }
+
+  Future<List<PaymentInfo>> getExpenses(int index) async {
+    final result = await client.expensesGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+
+    if (!result.isSuccessful) {
+      return [];
+    }
+    final payments = <PaymentInfo>[];
+
+    for (final dto in result.body!.data!) {
+      try {
+        payments.add(await paymentMapper.fromDto(dto));
+      } on Exception catch (e, _) {
+        print(e);
+        rethrow;
+      }
+    }
+
+    return payments;
+  }
+
+  Future<int> getExpensesCount() async {
+    final result = await client.expensesGet(pageNumber: 1, pageSize: 1);
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
   }
 }

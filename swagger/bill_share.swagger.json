@@ -1667,6 +1667,47 @@
                     }
                 }
             }
+        },
+        "/Users/{userId}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "required": true,
+                        "style": "simple",
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CustomerResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1794,6 +1835,10 @@
             "CreateExpenseRequest": {
                 "type": "object",
                 "properties": {
+                    "name": {
+                        "type": "string",
+                        "nullable": true
+                    },
                     "expenseTypeId": {
                         "$ref": "#/components/schemas/ExpenseTypeId"
                     },
@@ -2035,6 +2080,10 @@
                     "id": {
                         "type": "string",
                         "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string",
+                        "nullable": true
                     },
                     "creatorId": {
                         "type": "string",

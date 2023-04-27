@@ -122,6 +122,7 @@ Map<String, dynamic> _$CreateExpenseMultiplierRequestToJson(
 CreateExpenseRequest _$CreateExpenseRequestFromJson(
         Map<String, dynamic> json) =>
     CreateExpenseRequest(
+      name: json['name'] as String?,
       expenseTypeId: expenseTypeIdFromJson(json['expenseTypeId']),
       categoryId: json['categoryId'] as String?,
       accountId: json['accountId'] as String?,
@@ -146,6 +147,7 @@ CreateExpenseRequest _$CreateExpenseRequestFromJson(
 Map<String, dynamic> _$CreateExpenseRequestToJson(
         CreateExpenseRequest instance) =>
     <String, dynamic>{
+      'name': instance.name,
       'expenseTypeId': expenseTypeIdToJson(instance.expenseTypeId),
       'categoryId': instance.categoryId,
       'accountId': instance.accountId,
@@ -333,6 +335,7 @@ Map<String, dynamic> _$ExpenseParticipantResponseToJson(
 ExpenseResponse _$ExpenseResponseFromJson(Map<String, dynamic> json) =>
     ExpenseResponse(
       id: json['id'] as String?,
+      name: json['name'] as String?,
       creatorId: json['creatorId'] as String?,
       expenseType: json['expenseType'] == null
           ? null
@@ -363,6 +366,7 @@ ExpenseResponse _$ExpenseResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$ExpenseResponseToJson(ExpenseResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'name': instance.name,
       'creatorId': instance.creatorId,
       'expenseType': instance.expenseType?.toJson(),
       'category': instance.category?.toJson(),

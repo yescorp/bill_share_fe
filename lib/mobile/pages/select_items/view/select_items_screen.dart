@@ -6,9 +6,11 @@ import 'package:bill_share/mobile/components/selectable_payment_item.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_cubit.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_state.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen_params.dart';
+import 'package:bill_share/services/mappers/payment_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 
 class SelectItemsScreen
@@ -34,7 +36,9 @@ class SelectItemsScreen
   @override
   Widget buildPage(context, cubit, state) {
     if (state.details == null) {
-      return Container();
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
     final details = state.details!;
 
@@ -67,19 +71,12 @@ class SelectItemsScreen
                       (e) => Padding(
                         padding: const EdgeInsets.only(left: 4.0),
                         child: AcronymAvatar(
-                          name: e.name,
+                          name: e.info.userName,
                           heightWidth: 40,
                         ),
                       ),
                     ),
                     const Expanded(child: SizedBox(width: 10)),
-                    IconButton(
-                      onPressed: cubit.onAddFriendPressed,
-                      icon: const Icon(
-                        Icons.group_add_outlined,
-                        size: 26,
-                      ),
-                    )
                   ],
                 ),
               ),
@@ -101,7 +98,7 @@ class SelectItemsScreen
                   child: SelectablePaymentItem(
                     item: e,
                     isSelected: state.selectedItemIds.contains(e.id),
-                    selectedBy: [details.participants.first],
+                    selectedBy: e.selectedBy,
                     onTap: () => cubit.onItemTap(e),
                   ),
                 );
@@ -140,7 +137,7 @@ class SelectItemsScreen
                   ),
                   const Expanded(child: SizedBox(width: 0)),
                   Text(
-                    '${details.service * 100} %',
+                    '${details.service.round() - 100 > 0 ? details.service.round() - 100 : 0} %',
                     style: const TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -170,7 +167,7 @@ class SelectItemsScreen
                   ),
                   const Expanded(child: SizedBox(width: 0)),
                   Text(
-                    '${details.taxes * 100} %',
+                    '${details.taxes.round() - 100 > 0 ? details.taxes.round() - 100 : 0} %',
                     style: const TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -202,12 +199,12 @@ class SelectItemsScreen
                 children: [
                   DotSeparatedListTile(
                     label: 'Total cost',
-                    value: '${details.totalPrice} T',
+                    value: '${details.totalPrice.round()} T',
                     style: const TextStyle(fontSize: FontSizes.h3),
                   ),
                   DotSeparatedListTile(
                     label: 'Your items',
-                    value: '${details.paidPrice} T',
+                    value: '${details.paidPrice.round()} T',
                     style: const TextStyle(fontSize: FontSizes.h3),
                   )
                 ],
@@ -245,6 +242,8 @@ class SelectItemsScreen
       () => SelectItemsCubit(
         SelectItemsState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
+        paymentMapper: DependencyProvider.get<PaymentInfoMapper>(),
       ),
     );
   }

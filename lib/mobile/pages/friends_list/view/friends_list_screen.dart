@@ -3,6 +3,7 @@ import 'package:bill_share/common/base_screen.dart';
 import 'package:bill_share/mobile/components/group_list_tile.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_cubit.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_state.dart';
+import 'package:bill_share/models/group/group_info.dart';
 import 'package:bill_share/models/user/friend_info.dart';
 import 'package:bill_share/models/user/user_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -36,10 +37,6 @@ class FriendsListScreen
         return Scaffold(
           backgroundColor: AppColors.background,
           appBar: AppBar(
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.arrow_back),
-            ),
             title: TextField(
               controller: cubit.searchController,
               style: const TextStyle(color: AppColors.white),
@@ -204,7 +201,7 @@ class FriendsListScreen
                         onPressed: cubit.onAddGroupPressed,
                       ),
                       body: FutureBuilder(
-                        future: cubit.getFriendsCount(),
+                        future: cubit.getGroupsCount(),
                         builder: (
                           BuildContext context,
                           AsyncSnapshot<int> snapshot,
@@ -224,10 +221,10 @@ class FriendsListScreen
                             itemCount: snapshot.data,
                             shrinkWrap: true,
                             itemBuilder: (context, index) => FutureBuilder(
-                              future: cubit.getFriends(index),
+                              future: cubit.getGroups(index),
                               builder: (
                                 context,
-                                AsyncSnapshot<List<FriendInfo>> snapshot,
+                                AsyncSnapshot<List<GroupInfo>> snapshot,
                               ) {
                                 if (!snapshot.hasData) {
                                   return Container();
@@ -242,7 +239,9 @@ class FriendsListScreen
                                   return Container();
                                 }
 
-                                return Container();
+                                return GroupListTile.view(
+                                  info: snapshot.data![index % cubit.pageSize],
+                                );
                               },
                             ),
                           );

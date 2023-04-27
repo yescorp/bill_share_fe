@@ -6,6 +6,7 @@ import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/models/user/user_info.dart';
 import 'package:bill_share/services/accessors/current_user_accessor.dart';
+import 'package:bill_share/services/mock_categories/mock_categories.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:bloc/bloc.dart';
@@ -16,10 +17,13 @@ import '../../../../swagger_generated_code/authenticator.dart';
 class SignupCubit extends BlocBase<SignupScreenState> {
   final NavigationProvider navigationProvider;
   final BillShare client;
+  final MockCategories categoriesManager;
+
   SignupCubit(
     super.state, {
     required this.navigationProvider,
     required this.client,
+    required this.categoriesManager,
   });
 
   final TextEditingController emailController = TextEditingController();
@@ -56,6 +60,10 @@ class SignupCubit extends BlocBase<SignupScreenState> {
           avatarUrl: userInfo.body!.avatarUrl,
         ),
       );
+
+      await categoriesManager.createMockCategoriesIfAbsent();
+
+      final categories = await client.expenseCategoriesGet();
 
       await navigationProvider.replaceAll<HomeScreen>();
     }

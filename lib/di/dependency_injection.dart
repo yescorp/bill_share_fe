@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bill_share/di/application_platform.dart';
+import 'package:bill_share/mobile/pages/create_group/view/create_group_screen.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen.dart';
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_screen.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_screen.dart';
@@ -16,6 +17,8 @@ import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/accessors/current_user_accessor.dart';
 import 'package:bill_share/services/image_converter/di/image_converter_dependency.dart';
 import 'package:bill_share/services/mappers/generic.dart';
+import 'package:bill_share/services/mappers/payment_info.dart';
+import 'package:bill_share/services/mock_categories/mock_categories.dart';
 import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
 import 'package:bill_share/swagger_generated_code/authenticator.dart';
@@ -64,6 +67,8 @@ class DependencyProvider {
     NetworkClientDependency.register();
     NavigationDependency.register();
     ImageConverterDependency.register();
+    MockCategories.register();
+    PaymentInfoMapper.register();
   }
 
   static void registerMobileScreens() {
@@ -80,6 +85,7 @@ class DependencyProvider {
     SelectItemsScreen.register();
     FriendProfileScreen.register();
     HomeScreen.register();
+    CreateGroupScreen.register();
   }
 
   //=========================== Register Swagger ===========================

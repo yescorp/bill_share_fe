@@ -133,24 +133,56 @@ class SelectFriendsScreen
                   );
                 },
               ),
-              ListView.separated(
-                itemCount: state.groups.length,
-                separatorBuilder: (context, index) => const Divider(
-                  height: 1,
-                  color: AppColors.grey1,
-                ),
-                itemBuilder: (context, index) => GroupListTile.select(
-                  info: state.groups[index],
-                  checked: state.selectedGroups.contains(index),
-                  onTap: (value) => cubit.onGroupSelect(
-                    const GroupInfo(
-                      friends: [],
-                      groupName: 'groupName',
-                      groupId: '',
+              FutureBuilder(
+                future: cubit.getGroupsCount(),
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<int> snapshot,
+                ) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  if (snapshot.data == 0) {
+                    return const Center(
+                      child: Text('You don\'t have any groups yet.'),
+                    );
+                  }
+                  return ListView.builder(
+                    itemCount: snapshot.data,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) => FutureBuilder(
+                      future: cubit.getGroups(index),
+                      builder: (
+                        context,
+                        AsyncSnapshot<List<GroupInfo>> snapshot,
+                      ) {
+                        if (!snapshot.hasData) {
+                          return Container();
+                        }
+
+                        if (snapshot.hasError) {
+                          return Container();
+                        }
+
+                        // ignore: prefer_is_empty
+                        if (snapshot.data?.length == 0) {
+                          return Container();
+                        }
+
+                        final info = snapshot.data![index % cubit.pageSize];
+
+                        return GroupListTile.select(
+                          info: info,
+                          checked: state.selectedGroups.any(
+                              (element) => element.groupId == info.groupId),
+                          onTap: (value) => cubit.onGroupSelect(info, value),
+                        );
+                      },
                     ),
-                    value,
-                  ),
-                ),
+                  );
+                },
               ),
             ],
           ),

@@ -2,6 +2,7 @@ import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/common/base_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_cubit.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
+import 'package:bill_share/services/mock_categories/mock_categories.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 
@@ -210,6 +211,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
         SignupScreenState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
         client: DependencyProvider.get<BillShare>(),
+        categoriesManager: DependencyProvider.get<MockCategories>(),
       ),
     );
   }

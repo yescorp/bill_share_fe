@@ -163,7 +163,7 @@ void handleWeb(String screenName, bool bool) {}
 
 String getClassName(String screenName) {
   return screenName.split('_').reduce((value, element) {
-    return value.capitalize() + element.capitalize();
+    return (value.capitalize() + element.capitalize()).capitalize();
   });
 }
 

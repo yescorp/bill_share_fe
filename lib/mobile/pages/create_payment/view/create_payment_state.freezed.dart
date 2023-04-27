@@ -16,10 +16,13 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CreatePaymentState {
-  String? get selectedCategory => throw _privateConstructorUsedError;
-  String? get selectedPaymentType => throw _privateConstructorUsedError;
+  PaymentCategory? get selectedCategory => throw _privateConstructorUsedError;
+  ExpenseTypeId? get selectedPaymentType => throw _privateConstructorUsedError;
+  bool get isServiceEnabled => throw _privateConstructorUsedError;
+  bool get isTaxesEnabled => throw _privateConstructorUsedError;
   List<FriendInfo> get friends => throw _privateConstructorUsedError;
   List<PaymentItem> get items => throw _privateConstructorUsedError;
+  List<PaymentCategory> get categories => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CreatePaymentStateCopyWith<CreatePaymentState> get copyWith =>
@@ -33,10 +36,13 @@ abstract class $CreatePaymentStateCopyWith<$Res> {
       _$CreatePaymentStateCopyWithImpl<$Res, CreatePaymentState>;
   @useResult
   $Res call(
-      {String? selectedCategory,
-      String? selectedPaymentType,
+      {PaymentCategory? selectedCategory,
+      ExpenseTypeId? selectedPaymentType,
+      bool isServiceEnabled,
+      bool isTaxesEnabled,
       List<FriendInfo> friends,
-      List<PaymentItem> items});
+      List<PaymentItem> items,
+      List<PaymentCategory> categories});
 }
 
 /// @nodoc
@@ -54,18 +60,29 @@ class _$CreatePaymentStateCopyWithImpl<$Res, $Val extends CreatePaymentState>
   $Res call({
     Object? selectedCategory = freezed,
     Object? selectedPaymentType = freezed,
+    Object? isServiceEnabled = null,
+    Object? isTaxesEnabled = null,
     Object? friends = null,
     Object? items = null,
+    Object? categories = null,
   }) {
     return _then(_value.copyWith(
       selectedCategory: freezed == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PaymentCategory?,
       selectedPaymentType: freezed == selectedPaymentType
           ? _value.selectedPaymentType
           : selectedPaymentType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ExpenseTypeId?,
+      isServiceEnabled: null == isServiceEnabled
+          ? _value.isServiceEnabled
+          : isServiceEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTaxesEnabled: null == isTaxesEnabled
+          ? _value.isTaxesEnabled
+          : isTaxesEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       friends: null == friends
           ? _value.friends
           : friends // ignore: cast_nullable_to_non_nullable
@@ -74,6 +91,10 @@ class _$CreatePaymentStateCopyWithImpl<$Res, $Val extends CreatePaymentState>
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<PaymentItem>,
+      categories: null == categories
+          ? _value.categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<PaymentCategory>,
     ) as $Val);
   }
 }
@@ -87,10 +108,13 @@ abstract class _$$_CreatePaymentStateCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String? selectedCategory,
-      String? selectedPaymentType,
+      {PaymentCategory? selectedCategory,
+      ExpenseTypeId? selectedPaymentType,
+      bool isServiceEnabled,
+      bool isTaxesEnabled,
       List<FriendInfo> friends,
-      List<PaymentItem> items});
+      List<PaymentItem> items,
+      List<PaymentCategory> categories});
 }
 
 /// @nodoc
@@ -106,18 +130,29 @@ class __$$_CreatePaymentStateCopyWithImpl<$Res>
   $Res call({
     Object? selectedCategory = freezed,
     Object? selectedPaymentType = freezed,
+    Object? isServiceEnabled = null,
+    Object? isTaxesEnabled = null,
     Object? friends = null,
     Object? items = null,
+    Object? categories = null,
   }) {
     return _then(_$_CreatePaymentState(
       selectedCategory: freezed == selectedCategory
           ? _value.selectedCategory
           : selectedCategory // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as PaymentCategory?,
       selectedPaymentType: freezed == selectedPaymentType
           ? _value.selectedPaymentType
           : selectedPaymentType // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as ExpenseTypeId?,
+      isServiceEnabled: null == isServiceEnabled
+          ? _value.isServiceEnabled
+          : isServiceEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isTaxesEnabled: null == isTaxesEnabled
+          ? _value.isTaxesEnabled
+          : isTaxesEnabled // ignore: cast_nullable_to_non_nullable
+              as bool,
       friends: null == friends
           ? _value._friends
           : friends // ignore: cast_nullable_to_non_nullable
@@ -126,6 +161,10 @@ class __$$_CreatePaymentStateCopyWithImpl<$Res>
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<PaymentItem>,
+      categories: null == categories
+          ? _value._categories
+          : categories // ignore: cast_nullable_to_non_nullable
+              as List<PaymentCategory>,
     ));
   }
 }
@@ -136,15 +175,25 @@ class _$_CreatePaymentState implements _CreatePaymentState {
   _$_CreatePaymentState(
       {this.selectedCategory,
       this.selectedPaymentType,
+      this.isServiceEnabled = false,
+      this.isTaxesEnabled = false,
       final List<FriendInfo> friends = const [],
-      final List<PaymentItem> items = const []})
+      final List<PaymentItem> items = const [],
+      final List<PaymentCategory> categories = const []})
       : _friends = friends,
-        _items = items;
+        _items = items,
+        _categories = categories;
 
   @override
-  final String? selectedCategory;
+  final PaymentCategory? selectedCategory;
   @override
-  final String? selectedPaymentType;
+  final ExpenseTypeId? selectedPaymentType;
+  @override
+  @JsonKey()
+  final bool isServiceEnabled;
+  @override
+  @JsonKey()
+  final bool isTaxesEnabled;
   final List<FriendInfo> _friends;
   @override
   @JsonKey()
@@ -163,9 +212,18 @@ class _$_CreatePaymentState implements _CreatePaymentState {
     return EqualUnmodifiableListView(_items);
   }
 
+  final List<PaymentCategory> _categories;
+  @override
+  @JsonKey()
+  List<PaymentCategory> get categories {
+    if (_categories is EqualUnmodifiableListView) return _categories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categories);
+  }
+
   @override
   String toString() {
-    return 'CreatePaymentState(selectedCategory: $selectedCategory, selectedPaymentType: $selectedPaymentType, friends: $friends, items: $items)';
+    return 'CreatePaymentState(selectedCategory: $selectedCategory, selectedPaymentType: $selectedPaymentType, isServiceEnabled: $isServiceEnabled, isTaxesEnabled: $isTaxesEnabled, friends: $friends, items: $items, categories: $categories)';
   }
 
   @override
@@ -177,8 +235,14 @@ class _$_CreatePaymentState implements _CreatePaymentState {
                 other.selectedCategory == selectedCategory) &&
             (identical(other.selectedPaymentType, selectedPaymentType) ||
                 other.selectedPaymentType == selectedPaymentType) &&
+            (identical(other.isServiceEnabled, isServiceEnabled) ||
+                other.isServiceEnabled == isServiceEnabled) &&
+            (identical(other.isTaxesEnabled, isTaxesEnabled) ||
+                other.isTaxesEnabled == isTaxesEnabled) &&
             const DeepCollectionEquality().equals(other._friends, _friends) &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            const DeepCollectionEquality()
+                .equals(other._categories, _categories));
   }
 
   @override
@@ -186,8 +250,11 @@ class _$_CreatePaymentState implements _CreatePaymentState {
       runtimeType,
       selectedCategory,
       selectedPaymentType,
+      isServiceEnabled,
+      isTaxesEnabled,
       const DeepCollectionEquality().hash(_friends),
-      const DeepCollectionEquality().hash(_items));
+      const DeepCollectionEquality().hash(_items),
+      const DeepCollectionEquality().hash(_categories));
 
   @JsonKey(ignore: true)
   @override
@@ -199,19 +266,28 @@ class _$_CreatePaymentState implements _CreatePaymentState {
 
 abstract class _CreatePaymentState implements CreatePaymentState {
   factory _CreatePaymentState(
-      {final String? selectedCategory,
-      final String? selectedPaymentType,
+      {final PaymentCategory? selectedCategory,
+      final ExpenseTypeId? selectedPaymentType,
+      final bool isServiceEnabled,
+      final bool isTaxesEnabled,
       final List<FriendInfo> friends,
-      final List<PaymentItem> items}) = _$_CreatePaymentState;
+      final List<PaymentItem> items,
+      final List<PaymentCategory> categories}) = _$_CreatePaymentState;
 
   @override
-  String? get selectedCategory;
+  PaymentCategory? get selectedCategory;
   @override
-  String? get selectedPaymentType;
+  ExpenseTypeId? get selectedPaymentType;
+  @override
+  bool get isServiceEnabled;
+  @override
+  bool get isTaxesEnabled;
   @override
   List<FriendInfo> get friends;
   @override
   List<PaymentItem> get items;
+  @override
+  List<PaymentCategory> get categories;
   @override
   @JsonKey(ignore: true)
   _$$_CreatePaymentStateCopyWith<_$_CreatePaymentState> get copyWith =>

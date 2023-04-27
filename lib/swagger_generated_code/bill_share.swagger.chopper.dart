@@ -624,4 +624,16 @@ class _$BillShare extends BillShare {
     );
     return client.send<dynamic, dynamic>($request);
   }
+
+  @override
+  Future<Response<CustomerResponse>> _usersUserIdGet(
+      {required String? userId}) {
+    final Uri $url = Uri.parse('/Users/${userId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<CustomerResponse, CustomerResponse>($request);
+  }
 }

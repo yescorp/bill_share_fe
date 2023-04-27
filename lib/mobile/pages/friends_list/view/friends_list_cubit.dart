@@ -1,5 +1,6 @@
 import 'package:bill_share/common/base_cubit.dart';
 import 'package:bill_share/di/dependency_injection.dart';
+import 'package:bill_share/mobile/pages/create_group/view/create_group_screen.dart';
 import 'package:bill_share/mobile/pages/friends_list/view/friends_list_state.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/models/user/user_info.dart';
@@ -173,5 +174,41 @@ class FriendsListCubit extends BaseCubit<FriendsListState> {
         .toList();
   }
 
-  void onAddGroupPressed() {}
+  void onAddGroupPressed() async {
+    await navigationProvider.push<CreateGroupScreen>();
+  }
+
+  Future<int> getGroupsCount() async {
+    final result = await client.groupsGet(pageNumber: 1, pageSize: 1);
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
+  }
+
+  Future<List<GroupInfo>> getGroups(int index) async {
+    final result = await client.groupsGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+
+    if (!result.isSuccessful) {
+      return [];
+    }
+
+    return result.body!.data!
+        .map(
+          (e) => GroupInfo(
+            groupId: e.groupId!,
+            groupName: e.groupName!,
+            friends: e.participants
+                    ?.map<FriendInfo>((e) =>
+                        FriendInfo(userId: e.userId!, userName: e.userName!))
+                    .toList() ??
+                [],
+          ),
+        )
+        .toList();
+  }
 }

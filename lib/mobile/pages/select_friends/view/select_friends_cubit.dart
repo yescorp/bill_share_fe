@@ -60,8 +60,12 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
   }
 
   void onSubmit() {
+    final friends = <FriendInfo>{
+      ...state.selectedFriends,
+      ...state.selectedGroups.expand((element) => element.friends),
+    };
     navigationProvider.pop<List<FriendInfo>>(
-      result: state.selectedFriends,
+      result: friends.toList(),
     );
   }
 
@@ -111,5 +115,44 @@ class SelectFriendsCubit extends BlocBase<SelectFriendsState> {
         ),
       );
     }
+  }
+
+  Future<int> getGroupsCount() async {
+    final result = await client.groupsGet(pageNumber: 1, pageSize: 1);
+    if (!result.isSuccessful) {
+      return 0;
+    }
+
+    return result.body!.totalCount!;
+  }
+
+  Future<List<GroupInfo>> getGroups(int index) async {
+    final result = await client.groupsGet(
+      pageNumber: (index / pageSize).floor() + 1,
+      pageSize: pageSize,
+    );
+
+    if (!result.isSuccessful) {
+      return [];
+    }
+
+    return result.body!.data!
+        .map(
+          (e) => GroupInfo(
+            groupId: e.groupId!,
+            groupName: e.groupName!,
+            friends: e.participants
+                    ?.map<FriendInfo>(
+                      (e) => FriendInfo(
+                        userId: e.userId!,
+                        userName: e.userName!,
+                        isFriend: true,
+                      ),
+                    )
+                    .toList() ??
+                [],
+          ),
+        )
+        .toList();
   }
 }

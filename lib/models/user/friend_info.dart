@@ -16,4 +16,16 @@ class FriendInfo {
     this.avatarUrl,
     this.isFriend = false,
   });
+
+  @override
+  int get hashCode => userId.hashCode;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is! FriendInfo) {
+      return false;
+    }
+
+    return userId == other.userId;
+  }
 }

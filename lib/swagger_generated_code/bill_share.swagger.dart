@@ -795,6 +795,22 @@ abstract class BillShare extends ChopperService {
   ///
   @Delete(path: '/Users/me/avatar')
   Future<chopper.Response> _usersMeAvatarDelete();
+
+  ///
+  ///@param userId
+  Future<chopper.Response<CustomerResponse>> usersUserIdGet(
+      {required String? userId}) {
+    generatedMapping.putIfAbsent(
+        CustomerResponse, () => CustomerResponse.fromJsonFactory);
+
+    return _usersUserIdGet(userId: userId);
+  }
+
+  ///
+  ///@param userId
+  @Get(path: '/Users/{userId}')
+  Future<chopper.Response<CustomerResponse>> _usersUserIdGet(
+      {@Path('userId') required String? userId});
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -1268,6 +1284,7 @@ extension $CreateExpenseMultiplierRequestExtension
 @JsonSerializable(explicitToJson: true)
 class CreateExpenseRequest {
   CreateExpenseRequest({
+    this.name,
     this.expenseTypeId,
     this.categoryId,
     this.accountId,
@@ -1283,6 +1300,8 @@ class CreateExpenseRequest {
   static const toJsonFactory = _$CreateExpenseRequestToJson;
   Map<String, dynamic> toJson() => _$CreateExpenseRequestToJson(this);
 
+  @JsonKey(name: 'name')
+  final String? name;
   @JsonKey(
     name: 'expenseTypeId',
     toJson: expenseTypeIdToJson,
@@ -1308,6 +1327,8 @@ class CreateExpenseRequest {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is CreateExpenseRequest &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.expenseTypeId, expenseTypeId) ||
                 const DeepCollectionEquality()
                     .equals(other.expenseTypeId, expenseTypeId)) &&
@@ -1334,6 +1355,7 @@ class CreateExpenseRequest {
 
   @override
   int get hashCode =>
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(expenseTypeId) ^
       const DeepCollectionEquality().hash(categoryId) ^
       const DeepCollectionEquality().hash(accountId) ^
@@ -1346,7 +1368,8 @@ class CreateExpenseRequest {
 
 extension $CreateExpenseRequestExtension on CreateExpenseRequest {
   CreateExpenseRequest copyWith(
-      {enums.ExpenseTypeId? expenseTypeId,
+      {String? name,
+      enums.ExpenseTypeId? expenseTypeId,
       String? categoryId,
       String? accountId,
       int? amount,
@@ -1354,6 +1377,7 @@ extension $CreateExpenseRequestExtension on CreateExpenseRequest {
       List<AddExpenseItemRequest>? items,
       List<CreateExpenseMultiplierRequest>? multipliers}) {
     return CreateExpenseRequest(
+        name: name ?? this.name,
         expenseTypeId: expenseTypeId ?? this.expenseTypeId,
         categoryId: categoryId ?? this.categoryId,
         accountId: accountId ?? this.accountId,
@@ -1364,7 +1388,8 @@ extension $CreateExpenseRequestExtension on CreateExpenseRequest {
   }
 
   CreateExpenseRequest copyWithWrapped(
-      {Wrapped<enums.ExpenseTypeId?>? expenseTypeId,
+      {Wrapped<String?>? name,
+      Wrapped<enums.ExpenseTypeId?>? expenseTypeId,
       Wrapped<String?>? categoryId,
       Wrapped<String?>? accountId,
       Wrapped<int?>? amount,
@@ -1372,6 +1397,7 @@ extension $CreateExpenseRequestExtension on CreateExpenseRequest {
       Wrapped<List<AddExpenseItemRequest>?>? items,
       Wrapped<List<CreateExpenseMultiplierRequest>?>? multipliers}) {
     return CreateExpenseRequest(
+        name: (name != null ? name.value : this.name),
         expenseTypeId:
             (expenseTypeId != null ? expenseTypeId.value : this.expenseTypeId),
         categoryId: (categoryId != null ? categoryId.value : this.categoryId),
@@ -2115,6 +2141,7 @@ extension $ExpenseParticipantResponseExtension on ExpenseParticipantResponse {
 class ExpenseResponse {
   ExpenseResponse({
     this.id,
+    this.name,
     this.creatorId,
     this.expenseType,
     this.category,
@@ -2132,6 +2159,8 @@ class ExpenseResponse {
 
   @JsonKey(name: 'id')
   final String? id;
+  @JsonKey(name: 'name')
+  final String? name;
   @JsonKey(name: 'creatorId')
   final String? creatorId;
   @JsonKey(name: 'expenseType')
@@ -2154,6 +2183,8 @@ class ExpenseResponse {
         (other is ExpenseResponse &&
             (identical(other.id, id) ||
                 const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.name, name) ||
+                const DeepCollectionEquality().equals(other.name, name)) &&
             (identical(other.creatorId, creatorId) ||
                 const DeepCollectionEquality()
                     .equals(other.creatorId, creatorId)) &&
@@ -2183,6 +2214,7 @@ class ExpenseResponse {
   @override
   int get hashCode =>
       const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(name) ^
       const DeepCollectionEquality().hash(creatorId) ^
       const DeepCollectionEquality().hash(expenseType) ^
       const DeepCollectionEquality().hash(category) ^
@@ -2196,6 +2228,7 @@ class ExpenseResponse {
 extension $ExpenseResponseExtension on ExpenseResponse {
   ExpenseResponse copyWith(
       {String? id,
+      String? name,
       String? creatorId,
       ExpenseTypeResponse? expenseType,
       ExpenseCategoryResponse? category,
@@ -2205,6 +2238,7 @@ extension $ExpenseResponseExtension on ExpenseResponse {
       List<ExpenseMultiplierResponse>? multipliers}) {
     return ExpenseResponse(
         id: id ?? this.id,
+        name: name ?? this.name,
         creatorId: creatorId ?? this.creatorId,
         expenseType: expenseType ?? this.expenseType,
         category: category ?? this.category,
@@ -2216,6 +2250,7 @@ extension $ExpenseResponseExtension on ExpenseResponse {
 
   ExpenseResponse copyWithWrapped(
       {Wrapped<String?>? id,
+      Wrapped<String?>? name,
       Wrapped<String?>? creatorId,
       Wrapped<ExpenseTypeResponse?>? expenseType,
       Wrapped<ExpenseCategoryResponse?>? category,
@@ -2225,6 +2260,7 @@ extension $ExpenseResponseExtension on ExpenseResponse {
       Wrapped<List<ExpenseMultiplierResponse>?>? multipliers}) {
     return ExpenseResponse(
         id: (id != null ? id.value : this.id),
+        name: (name != null ? name.value : this.name),
         creatorId: (creatorId != null ? creatorId.value : this.creatorId),
         expenseType:
             (expenseType != null ? expenseType.value : this.expenseType),

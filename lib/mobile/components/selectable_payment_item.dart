@@ -1,6 +1,7 @@
 import 'package:bill_share/mobile/components/acronym_avatar.dart';
 import 'package:bill_share/models/payment/payment_item.dart';
 import 'package:bill_share/models/user/friend_info.dart';
+import 'package:bill_share/models/user/payment_participant.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 class SelectablePaymentItem extends StatelessWidget {
   final PaymentItem item;
   final bool isSelected;
-  final List<FriendInfo> selectedBy;
+  final List<PaymentParticipant> selectedBy;
   final VoidCallback? onTap;
 
   const SelectablePaymentItem({
@@ -86,7 +87,7 @@ class SelectablePaymentItem extends StatelessWidget {
                 children: [
                   ...selectedBy.map(
                     (e) => AcronymAvatar(
-                      name: e.name,
+                      name: e.info.userName,
                       heightWidth: 40,
                     ),
                   ),
