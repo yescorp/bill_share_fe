@@ -7,5 +7,6 @@ part 'dashboard_state.freezed.dart';
 class DashboardState with _$DashboardState {
   factory DashboardState({
     SpendingsDetails? spendingsDetails,
+    @Default(false) bool update,
   }) = _DashboardState;
 }

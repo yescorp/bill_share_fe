@@ -25,7 +25,7 @@ class CreatePaymentItemCubit extends BlocBase<CreatePaymentItemState> {
   void onSubmit() {
     navigationProvider.pop<PaymentItem>(
       result: PaymentItem(
-        id: 'id',
+        id: '',
         name: itemNameController.text,
         quantity: int.parse(itemCountController.text),
         price: double.parse(itemPriceController.text),

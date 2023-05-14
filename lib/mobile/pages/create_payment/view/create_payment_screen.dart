@@ -34,7 +34,7 @@ class CreatePaymentScreen
 
   @override
   void initCubit(CreatePaymentCubit cubit, BuildContext context) {
-    cubit.initialize(context);
+    cubit.initialize(context, params);
     super.initCubit(cubit, context);
   }
 

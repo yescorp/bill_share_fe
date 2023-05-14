@@ -40,5 +40,5 @@ class AppColors {
     }
   }
 
-  static Color get randomAvatar => avatarColors[Random(2425).nextInt(10)];
+  static Color get randomAvatar => avatarColors[Random().nextInt(10)];
 }

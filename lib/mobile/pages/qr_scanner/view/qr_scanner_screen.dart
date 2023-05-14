@@ -34,7 +34,7 @@ class QrScannerScreen extends AbstractScreen<QrScannerState, QrScannerCubit> {
         controller: MobileScannerController(
           detectionSpeed: DetectionSpeed.noDuplicates,
         ),
-        onDetect: (BarcodeCapture barcodes) {},
+        onDetect: cubit.onDetected,
       ),
       bottomSheet: Container(
         padding: const EdgeInsets.all(20),

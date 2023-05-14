@@ -43,6 +43,9 @@ dependencies:
   graphic: ^1.0.1
   intl: ^0.17.0
   chopper: ^6.1.1
+  http: ^0.13.6
+  html: ^0.15.2
+  webview_flutter: ^4.2.0
 
 dev_dependencies:
   flutter_test:

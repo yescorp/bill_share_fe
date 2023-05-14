@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bill_share/di/dependency_injection.dart';
+import 'package:bill_share/mobile/pages/create_payment/view/create_payment_screen_params.dart';
 import 'package:bill_share/mobile/pages/create_payment/view/create_payment_state.dart';
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_screen.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
@@ -42,7 +43,15 @@ class CreatePaymentCubit extends BlocBase<CreatePaymentState> {
         ExpenseTypeId.unexpected,
       ];
 
-  void initialize(BuildContext context) {
+  void initialize(BuildContext context, CreatePaymentParams params) {
+    if (params.initialPaymentInfo != null) {
+      emit(state.copyWith(
+        items: params.initialPaymentInfo!.items,
+        isTaxesEnabled: params.initialPaymentInfo!.taxes,
+      ));
+      paymentNameController.text = params.initialPaymentInfo?.sellerName ?? '';
+    }
+
     client.expenseCategoriesGet().then((value) {
       if (!value.isSuccessful) {
         return;

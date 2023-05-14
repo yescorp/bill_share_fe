@@ -63,6 +63,20 @@ Map<String, dynamic> _$AuthenticationTokenToJson(
       'refreshToken': instance.refreshToken,
     };
 
+CategorySpend _$CategorySpendFromJson(Map<String, dynamic> json) =>
+    CategorySpend(
+      categoryId: json['categoryId'] as String?,
+      categoryName: json['categoryName'] as String?,
+      total: (json['total'] as num?)?.toDouble(),
+    );
+
+Map<String, dynamic> _$CategorySpendToJson(CategorySpend instance) =>
+    <String, dynamic>{
+      'categoryId': instance.categoryId,
+      'categoryName': instance.categoryName,
+      'total': instance.total,
+    };
+
 ChangeAccountAmountRequest _$ChangeAccountAmountRequestFromJson(
         Map<String, dynamic> json) =>
     ChangeAccountAmountRequest(
@@ -514,6 +528,22 @@ Map<String, dynamic> _$RelatedCustomerResponsePagedResponseToJson(
       'lastPageUrl': instance.lastPageUrl,
       'nextPageUrl': instance.nextPageUrl,
       'data': instance.data?.map((e) => e.toJson()).toList(),
+    };
+
+Report _$ReportFromJson(Map<String, dynamic> json) => Report(
+      totalSpendings: (json['totalSpendings'] as num?)?.toDouble(),
+      expenseCount: json['expenseCount'] as int?,
+      categoriesSpendings: (json['categoriesSpendings'] as List<dynamic>?)
+              ?.map((e) => CategorySpend.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+
+Map<String, dynamic> _$ReportToJson(Report instance) => <String, dynamic>{
+      'totalSpendings': instance.totalSpendings,
+      'expenseCount': instance.expenseCount,
+      'categoriesSpendings':
+          instance.categoriesSpendings?.map((e) => e.toJson()).toList(),
     };
 
 ShortExpenseResponse _$ShortExpenseResponseFromJson(

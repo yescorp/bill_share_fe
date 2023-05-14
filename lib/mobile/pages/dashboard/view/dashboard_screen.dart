@@ -7,6 +7,7 @@ import 'package:bill_share/mobile/pages/dashboard/view/dashboard_cubit.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/styles/text_styles.dart';
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../styles/colors.dart';
@@ -45,7 +46,8 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
               ),
               const SizedBox(height: 20),
               CategoriesChart(
-                details: state.spendingsDetails!.spendingCategories,
+                key: UniqueKey(),
+                details: state.spendingsDetails?.spendingCategories,
                 width: MediaQuery.of(context).size.width / 2.2,
               ),
               const SizedBox(height: 5),
@@ -65,40 +67,44 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                   ),
                 ),
                 child: Column(
-                  children: [
-                    ...state.spendingsDetails!.spendingCategories.keys
-                        .map<Widget>(
-                      (category) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 3.0),
-                          child: Container(
-                            decoration: const BoxDecoration(
-                              color: AppColors.white,
-                            ),
-                            child: ListTile(
-                              leading: Icon(
-                                Icons.circle,
-                                color: category.color,
-                                size: 40,
-                              ),
-                              title: Text(
-                                category.name,
-                                style: const TextStyle(
-                                  fontSize: FontSizes.h3,
+                  children: state.spendingsDetails != null
+                      ? [
+                          ...state.spendingsDetails!.spendingCategories.keys
+                              .map<Widget>(
+                            (category) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 3.0),
+                                child: Container(
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.white,
+                                  ),
+                                  child: ListTile(
+                                    leading: Icon(
+                                      Icons.circle,
+                                      color: category.color,
+                                      size: 40,
+                                    ),
+                                    title: Text(
+                                      category.name,
+                                      style: const TextStyle(
+                                        fontSize: FontSizes.h3,
+                                      ),
+                                    ),
+                                    subtitle: Text(
+                                      '${state.spendingsDetails!.spendingCategories[category]} T',
+                                      style: const TextStyle(
+                                        fontSize: FontSizes.h3,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              subtitle: Text(
-                                '${state.spendingsDetails!.spendingCategories[category]} T',
-                                style: const TextStyle(
-                                  fontSize: FontSizes.h3,
-                                ),
-                              ),
-                            ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ],
+                        ]
+                      : [
+                          const CircularProgressIndicator(),
+                        ],
                 ),
               )
             ],
@@ -115,6 +121,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
       () => DashboardCubit(
         DashboardState(),
         navigationProvider: DependencyProvider.get<NavigationProvider>(),
+        client: DependencyProvider.get<BillShare>(),
       ),
     );
   }

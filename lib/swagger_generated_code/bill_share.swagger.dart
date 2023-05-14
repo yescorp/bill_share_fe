@@ -704,6 +704,42 @@ abstract class BillShare extends ChopperService {
       {@Path('iconId') required String? iconId});
 
   ///
+  ///@param StartDate
+  ///@param EndDate
+  Future<chopper.Response<Report>> reportsPersonalGet({
+    String? startDate,
+    String? endDate,
+  }) {
+    generatedMapping.putIfAbsent(Report, () => Report.fromJsonFactory);
+
+    return _reportsPersonalGet(startDate: startDate, endDate: endDate);
+  }
+
+  ///
+  ///@param StartDate
+  ///@param EndDate
+  @Get(path: '/Reports/personal')
+  Future<chopper.Response<Report>> _reportsPersonalGet({
+    @Query('StartDate') String? startDate,
+    @Query('EndDate') String? endDate,
+  });
+
+  ///
+  ///@param userId
+  Future<chopper.Response<Report>> reportsSharedWithUserIdGet(
+      {required String? userId}) {
+    generatedMapping.putIfAbsent(Report, () => Report.fromJsonFactory);
+
+    return _reportsSharedWithUserIdGet(userId: userId);
+  }
+
+  ///
+  ///@param userId
+  @Get(path: '/Reports/shared_with/{userId}')
+  Future<chopper.Response<Report>> _reportsSharedWithUserIdGet(
+      {@Path('userId') required String? userId});
+
+  ///
   Future<chopper.Response> apiTokenChallengeGet() {
     return _apiTokenChallengeGet();
   }
@@ -1051,6 +1087,74 @@ extension $AuthenticationTokenExtension on AuthenticationToken {
             (accessToken != null ? accessToken.value : this.accessToken),
         refreshToken:
             (refreshToken != null ? refreshToken.value : this.refreshToken));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class CategorySpend {
+  CategorySpend({
+    this.categoryId,
+    this.categoryName,
+    this.total,
+  });
+
+  factory CategorySpend.fromJson(Map<String, dynamic> json) =>
+      _$CategorySpendFromJson(json);
+
+  static const toJsonFactory = _$CategorySpendToJson;
+  Map<String, dynamic> toJson() => _$CategorySpendToJson(this);
+
+  @JsonKey(name: 'categoryId')
+  final String? categoryId;
+  @JsonKey(name: 'categoryName')
+  final String? categoryName;
+  @JsonKey(name: 'total')
+  final double? total;
+  static const fromJsonFactory = _$CategorySpendFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is CategorySpend &&
+            (identical(other.categoryId, categoryId) ||
+                const DeepCollectionEquality()
+                    .equals(other.categoryId, categoryId)) &&
+            (identical(other.categoryName, categoryName) ||
+                const DeepCollectionEquality()
+                    .equals(other.categoryName, categoryName)) &&
+            (identical(other.total, total) ||
+                const DeepCollectionEquality().equals(other.total, total)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(categoryId) ^
+      const DeepCollectionEquality().hash(categoryName) ^
+      const DeepCollectionEquality().hash(total) ^
+      runtimeType.hashCode;
+}
+
+extension $CategorySpendExtension on CategorySpend {
+  CategorySpend copyWith(
+      {String? categoryId, String? categoryName, double? total}) {
+    return CategorySpend(
+        categoryId: categoryId ?? this.categoryId,
+        categoryName: categoryName ?? this.categoryName,
+        total: total ?? this.total);
+  }
+
+  CategorySpend copyWithWrapped(
+      {Wrapped<String?>? categoryId,
+      Wrapped<String?>? categoryName,
+      Wrapped<double?>? total}) {
+    return CategorySpend(
+        categoryId: (categoryId != null ? categoryId.value : this.categoryId),
+        categoryName:
+            (categoryName != null ? categoryName.value : this.categoryName),
+        total: (total != null ? total.value : this.total));
   }
 }
 
@@ -2860,6 +2964,80 @@ extension $RelatedCustomerResponsePagedResponseExtension
         nextPageUrl:
             (nextPageUrl != null ? nextPageUrl.value : this.nextPageUrl),
         data: (data != null ? data.value : this.data));
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
+class Report {
+  Report({
+    this.totalSpendings,
+    this.expenseCount,
+    this.categoriesSpendings,
+  });
+
+  factory Report.fromJson(Map<String, dynamic> json) => _$ReportFromJson(json);
+
+  static const toJsonFactory = _$ReportToJson;
+  Map<String, dynamic> toJson() => _$ReportToJson(this);
+
+  @JsonKey(name: 'totalSpendings')
+  final double? totalSpendings;
+  @JsonKey(name: 'expenseCount')
+  final int? expenseCount;
+  @JsonKey(name: 'categoriesSpendings', defaultValue: <CategorySpend>[])
+  final List<CategorySpend>? categoriesSpendings;
+  static const fromJsonFactory = _$ReportFromJson;
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is Report &&
+            (identical(other.totalSpendings, totalSpendings) ||
+                const DeepCollectionEquality()
+                    .equals(other.totalSpendings, totalSpendings)) &&
+            (identical(other.expenseCount, expenseCount) ||
+                const DeepCollectionEquality()
+                    .equals(other.expenseCount, expenseCount)) &&
+            (identical(other.categoriesSpendings, categoriesSpendings) ||
+                const DeepCollectionEquality()
+                    .equals(other.categoriesSpendings, categoriesSpendings)));
+  }
+
+  @override
+  String toString() => jsonEncode(this);
+
+  @override
+  int get hashCode =>
+      const DeepCollectionEquality().hash(totalSpendings) ^
+      const DeepCollectionEquality().hash(expenseCount) ^
+      const DeepCollectionEquality().hash(categoriesSpendings) ^
+      runtimeType.hashCode;
+}
+
+extension $ReportExtension on Report {
+  Report copyWith(
+      {double? totalSpendings,
+      int? expenseCount,
+      List<CategorySpend>? categoriesSpendings}) {
+    return Report(
+        totalSpendings: totalSpendings ?? this.totalSpendings,
+        expenseCount: expenseCount ?? this.expenseCount,
+        categoriesSpendings: categoriesSpendings ?? this.categoriesSpendings);
+  }
+
+  Report copyWithWrapped(
+      {Wrapped<double?>? totalSpendings,
+      Wrapped<int?>? expenseCount,
+      Wrapped<List<CategorySpend>?>? categoriesSpendings}) {
+    return Report(
+        totalSpendings: (totalSpendings != null
+            ? totalSpendings.value
+            : this.totalSpendings),
+        expenseCount:
+            (expenseCount != null ? expenseCount.value : this.expenseCount),
+        categoriesSpendings: (categoriesSpendings != null
+            ? categoriesSpendings.value
+            : this.categoriesSpendings));
   }
 }
 

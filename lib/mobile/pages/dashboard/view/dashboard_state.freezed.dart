@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DashboardState {
   SpendingsDetails? get spendingsDetails => throw _privateConstructorUsedError;
+  bool get update => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DashboardStateCopyWith<DashboardState> get copyWith =>
@@ -29,7 +30,7 @@ abstract class $DashboardStateCopyWith<$Res> {
           DashboardState value, $Res Function(DashboardState) then) =
       _$DashboardStateCopyWithImpl<$Res, DashboardState>;
   @useResult
-  $Res call({SpendingsDetails? spendingsDetails});
+  $Res call({SpendingsDetails? spendingsDetails, bool update});
 }
 
 /// @nodoc
@@ -46,12 +47,17 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   @override
   $Res call({
     Object? spendingsDetails = freezed,
+    Object? update = null,
   }) {
     return _then(_value.copyWith(
       spendingsDetails: freezed == spendingsDetails
           ? _value.spendingsDetails
           : spendingsDetails // ignore: cast_nullable_to_non_nullable
               as SpendingsDetails?,
+      update: null == update
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -64,7 +70,7 @@ abstract class _$$_DashboardStateCopyWith<$Res>
       __$$_DashboardStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SpendingsDetails? spendingsDetails});
+  $Res call({SpendingsDetails? spendingsDetails, bool update});
 }
 
 /// @nodoc
@@ -79,12 +85,17 @@ class __$$_DashboardStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? spendingsDetails = freezed,
+    Object? update = null,
   }) {
     return _then(_$_DashboardState(
       spendingsDetails: freezed == spendingsDetails
           ? _value.spendingsDetails
           : spendingsDetails // ignore: cast_nullable_to_non_nullable
               as SpendingsDetails?,
+      update: null == update
+          ? _value.update
+          : update // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -92,14 +103,17 @@ class __$$_DashboardStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DashboardState implements _DashboardState {
-  _$_DashboardState({this.spendingsDetails});
+  _$_DashboardState({this.spendingsDetails, this.update = false});
 
   @override
   final SpendingsDetails? spendingsDetails;
+  @override
+  @JsonKey()
+  final bool update;
 
   @override
   String toString() {
-    return 'DashboardState(spendingsDetails: $spendingsDetails)';
+    return 'DashboardState(spendingsDetails: $spendingsDetails, update: $update)';
   }
 
   @override
@@ -108,11 +122,12 @@ class _$_DashboardState implements _DashboardState {
         (other.runtimeType == runtimeType &&
             other is _$_DashboardState &&
             (identical(other.spendingsDetails, spendingsDetails) ||
-                other.spendingsDetails == spendingsDetails));
+                other.spendingsDetails == spendingsDetails) &&
+            (identical(other.update, update) || other.update == update));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, spendingsDetails);
+  int get hashCode => Object.hash(runtimeType, spendingsDetails, update);
 
   @JsonKey(ignore: true)
   @override
@@ -122,11 +137,14 @@ class _$_DashboardState implements _DashboardState {
 }
 
 abstract class _DashboardState implements DashboardState {
-  factory _DashboardState({final SpendingsDetails? spendingsDetails}) =
-      _$_DashboardState;
+  factory _DashboardState(
+      {final SpendingsDetails? spendingsDetails,
+      final bool update}) = _$_DashboardState;
 
   @override
   SpendingsDetails? get spendingsDetails;
+  @override
+  bool get update;
   @override
   @JsonKey(ignore: true)
   _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>

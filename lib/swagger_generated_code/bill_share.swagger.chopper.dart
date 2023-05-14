@@ -543,6 +543,37 @@ class _$BillShare extends BillShare {
   }
 
   @override
+  Future<Response<Report>> _reportsPersonalGet({
+    String? startDate,
+    String? endDate,
+  }) {
+    final Uri $url = Uri.parse('/Reports/personal');
+    final Map<String, dynamic> $params = <String, dynamic>{
+      'StartDate': startDate,
+      'EndDate': endDate,
+    };
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+      parameters: $params,
+    );
+    return client.send<Report, Report>($request);
+  }
+
+  @override
+  Future<Response<Report>> _reportsSharedWithUserIdGet(
+      {required String? userId}) {
+    final Uri $url = Uri.parse('/Reports/shared_with/${userId}');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<Report, Report>($request);
+  }
+
+  @override
   Future<Response<dynamic>> _apiTokenChallengeGet() {
     final Uri $url = Uri.parse('/api/Token/challenge');
     final Request $request = Request(
