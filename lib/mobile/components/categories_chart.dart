@@ -39,7 +39,7 @@ class CategoriesChart extends StatelessWidget {
                   //       textAlign: TextAlign.center,
                   //     ),
                   //   ),
-                  // ),
+                  // ), 
                   color: ColorAttr(
                     encoder: (map) => Color(map['color'] as int),
                   ),
