@@ -64,7 +64,7 @@ class ExpenseListScreen
           }
           if (snapshot.data == 0) {
             return const Center(
-              child: Text('You haven\'t added any user to your friend list'),
+              child: Text('There are no expenses yet.'),
             );
           }
           return ListView.builder(

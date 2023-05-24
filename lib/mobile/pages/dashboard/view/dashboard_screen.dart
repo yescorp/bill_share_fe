@@ -45,68 +45,75 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                 details: state.spendingsDetails,
               ),
               const SizedBox(height: 20),
-              CategoriesChart(
-                key: UniqueKey(),
-                details: state.spendingsDetails?.spendingCategories,
-                width: MediaQuery.of(context).size.width / 2.2,
-              ),
-              const SizedBox(height: 5),
-              const Text(
-                'Categories',
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                  fontSize: FontSizes.h2,
+              if (state.spendingsDetails != null &&
+                  state.spendingsDetails!.totalSpendings > 0) ...[
+                CategoriesChart(
+                  key: UniqueKey(),
+                  details: state.spendingsDetails?.spendingCategories,
+                  width: MediaQuery.of(context).size.width / 2.2,
                 ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
+                const SizedBox(height: 5),
+                const Text(
+                  'Categories',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    fontSize: FontSizes.h2,
                   ),
                 ),
-                child: Column(
-                  children: state.spendingsDetails != null
-                      ? [
-                          ...state.spendingsDetails!.spendingCategories.keys
-                              .map<Widget>(
-                            (category) {
-                              return Padding(
-                                padding: const EdgeInsets.only(bottom: 3.0),
-                                child: Container(
-                                  decoration: const BoxDecoration(
-                                    color: AppColors.white,
-                                  ),
-                                  child: ListTile(
-                                    leading: Icon(
-                                      Icons.circle,
-                                      color: category.color,
-                                      size: 40,
-                                    ),
-                                    title: Text(
-                                      category.name,
-                                      style: const TextStyle(
-                                        fontSize: FontSizes.h3,
-                                      ),
-                                    ),
-                                    subtitle: Text(
-                                      '${state.spendingsDetails!.spendingCategories[category]} T',
-                                      style: const TextStyle(
-                                        fontSize: FontSizes.h3,
-                                      ),
-                                    ),
+                const SizedBox(height: 5),
+                Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      ...state.spendingsDetails!.spendingCategories.keys
+                          .map<Widget>(
+                        (category) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 3.0),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: AppColors.white,
+                              ),
+                              child: ListTile(
+                                leading: Icon(
+                                  Icons.circle,
+                                  color: category.color,
+                                  size: 40,
+                                ),
+                                title: Text(
+                                  category.name,
+                                  style: const TextStyle(
+                                    fontSize: FontSizes.h3,
                                   ),
                                 ),
-                              );
-                            },
-                          ),
-                        ]
-                      : [
-                          const CircularProgressIndicator(),
-                        ],
+                                subtitle: Text(
+                                  '${state.spendingsDetails!.spendingCategories[category]} T',
+                                  style: const TextStyle(
+                                    fontSize: FontSizes.h3,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                )
+              ] else if (state.spendingsDetails == null) ...[
+                const Center(
+                  child: CircularProgressIndicator(),
                 ),
-              )
+              ] else ...[
+                const Center(
+                  child: Text('There is no information yet...'),
+                )
+              ]
             ],
           ),
         ),

@@ -740,6 +740,32 @@ abstract class BillShare extends ChopperService {
       {@Path('userId') required String? userId});
 
   ///
+  ///@param userId
+  ///@param StartDate
+  ///@param EndDate
+  Future<chopper.Response<Report>> reportsForUserUserIdGet({
+    required String? userId,
+    String? startDate,
+    String? endDate,
+  }) {
+    generatedMapping.putIfAbsent(Report, () => Report.fromJsonFactory);
+
+    return _reportsForUserUserIdGet(
+        userId: userId, startDate: startDate, endDate: endDate);
+  }
+
+  ///
+  ///@param userId
+  ///@param StartDate
+  ///@param EndDate
+  @Get(path: '/Reports/for_user/{userId}')
+  Future<chopper.Response<Report>> _reportsForUserUserIdGet({
+    @Path('userId') required String? userId,
+    @Query('StartDate') String? startDate,
+    @Query('EndDate') String? endDate,
+  });
+
+  ///
   Future<chopper.Response> apiTokenChallengeGet() {
     return _apiTokenChallengeGet();
   }
@@ -847,6 +873,18 @@ abstract class BillShare extends ChopperService {
   @Get(path: '/Users/{userId}')
   Future<chopper.Response<CustomerResponse>> _usersUserIdGet(
       {@Path('userId') required String? userId});
+
+  ///
+  Future<chopper.Response<List<CustomerResponse>>> usersAllGet() {
+    generatedMapping.putIfAbsent(
+        CustomerResponse, () => CustomerResponse.fromJsonFactory);
+
+    return _usersAllGet();
+  }
+
+  ///
+  @Get(path: '/Users/all')
+  Future<chopper.Response<List<CustomerResponse>>> _usersAllGet();
 }
 
 @JsonSerializable(explicitToJson: true)

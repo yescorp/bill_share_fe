@@ -36,23 +36,27 @@ class PaymentInfo {
   });
 
   double get totalPrice {
-    double sum = items
+    double sum = 0;
+    double initial = items
         .map((e) => e.price * e.quantity)
         .reduce((value, element) => value + element);
 
+    sum += initial;
+
     if (service != 0) {
-      sum += sum * (service - 100) / 100;
+      sum += initial * (service - 100) / 100;
     }
 
     if (taxes != 0) {
-      sum += sum * (taxes - 100) / 100;
+      sum += initial * (taxes - 100) / 100;
     }
 
     return sum;
   }
 
   double get paidPrice {
-    double sum = selectedItemIds.isNotEmpty
+    double sum = 0;
+    double initial = selectedItemIds.isNotEmpty
         ? items
             .where((element) => selectedItemIds.contains(element.id))
             .map((e) =>
@@ -62,12 +66,14 @@ class PaymentInfo {
             .reduce((value, element) => value + element)
         : 0;
 
+    sum += initial;
+
     if (service != 0) {
-      sum += sum * (service - 100) / 100;
+      sum += initial * (service - 100) / 100;
     }
 
     if (taxes != 0) {
-      sum += sum * (taxes - 100) / 100;
+      sum += initial * (taxes - 100) / 100;
     }
 
     return sum;

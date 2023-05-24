@@ -23,12 +23,16 @@ import 'package:bill_share/services/navigation/di/navigation_dependency.dart';
 import 'package:bill_share/services/network_client/di/network_client_dependency.dart';
 import 'package:bill_share/swagger_generated_code/authenticator.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
+import 'package:bill_share/web/pages/admin_dashboard/view/admin_dashboard_cubit.dart';
+import 'package:bill_share/web/pages/admin_dashboard/view/admin_dashboard_screen.dart';
+import 'package:bill_share/web/pages/login/view/login_screen.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 
 import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
 import '../models/user/user_info.dart';
+import '../web/pages/admin_user_details/view/admin_user_details_screen.dart';
 import 'http_overrides.dart';
 
 void kSetCurrentUser(UserInfo info) {
@@ -42,18 +46,20 @@ UserInfo? kGetCurrentUser() {
 class DependencyProvider {
   static final container = GetIt.instance;
   static final navigatorKey = GlobalKey<NavigatorState>();
-  static const baseUrl = 'http://localhost:5135/';
+  static const baseUrl = 'http://localhost:5135';
+  // static const baseUrl =  'https://api.devartz.kz';
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies({
     ApplicationPlatform platform = ApplicationPlatform.mobile,
   }) {
-    HttpOverrides.global = BadCertHttpOverrides();
+    // HttpOverrides.global = BadCertHttpOverrides();
     switch (platform) {
       case ApplicationPlatform.mobile:
         registerMobileScreens();
         break;
       case ApplicationPlatform.web:
+        registerWebScreens();
         break;
     }
 
@@ -86,6 +92,12 @@ class DependencyProvider {
     FriendProfileScreen.register();
     HomeScreen.register();
     CreateGroupScreen.register();
+  }
+
+  static void registerWebScreens() {
+    LoginScreen.register();
+    AdminDashboardScreen.register();
+    AdminUserDetailsScreen.register();
   }
 
   //=========================== Register Swagger ===========================
