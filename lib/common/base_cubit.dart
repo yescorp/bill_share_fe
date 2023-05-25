@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
@@ -8,24 +9,37 @@ class BaseCubit<T> extends BlocBase<T> {
 
   BaseCubit(super.state);
 
-  initialize(BuildContext context) {
+  initialize(
+    BuildContext context, {
+    dynamic params,
+  }) {
     this.context = context;
   }
 
-  void showSnackbar(
-    String message, {
-    Color? color,
+  void showSnackbar({
+    required String title,
+    required String message,
+    required ContentType type,
   }) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: color ?? Colors.black,
-          ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        behavior: SnackBarBehavior.floating,
+        content: AwesomeSnackbarContent(
+          title: title,
+          message: message,
+          contentType: type,
         ),
       ),
+    );
+  }
+
+  void showSomethingWentWrong() {
+    showSnackbar(
+      title: 'Something went wrong...',
+      message: 'Please try again',
+      type: ContentType.warning,
     );
   }
 }

@@ -189,6 +189,15 @@ abstract class BillShare extends ChopperService {
       {@Body() required SignInUserCredentials? body});
 
   ///
+  Future<chopper.Response> authenticationIsAdminGet() {
+    return _authenticationIsAdminGet();
+  }
+
+  ///
+  @Get(path: '/Authentication/is_admin')
+  Future<chopper.Response> _authenticationIsAdminGet();
+
+  ///
   Future<chopper.Response<ExpenseCategoryResponse>> expenseCategoriesPost(
       {required CreateExpenseCategoryRequest? body}) {
     generatedMapping.putIfAbsent(

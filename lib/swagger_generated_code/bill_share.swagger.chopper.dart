@@ -135,6 +135,17 @@ class _$BillShare extends BillShare {
   }
 
   @override
+  Future<Response<dynamic>> _authenticationIsAdminGet() {
+    final Uri $url = Uri.parse('/Authentication/is_admin');
+    final Request $request = Request(
+      'GET',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<dynamic, dynamic>($request);
+  }
+
+  @override
   Future<Response<ExpenseCategoryResponse>> _expenseCategoriesPost(
       {required CreateExpenseCategoryRequest? body}) {
     final Uri $url = Uri.parse('/expense-categories');

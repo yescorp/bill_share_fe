@@ -26,7 +26,10 @@ class FriendsListCubit extends BaseCubit<FriendsListState> {
   });
 
   @override
-  void initialize(BuildContext context) {
+  void initialize(
+    BuildContext context, {
+    dynamic params,
+  }) {
     if (kGetCurrentUser() == null) {
       navigationProvider.replaceAll<LoginIntroScreen>();
       return;

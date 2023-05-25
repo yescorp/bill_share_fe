@@ -46,8 +46,8 @@ UserInfo? kGetCurrentUser() {
 class DependencyProvider {
   static final container = GetIt.instance;
   static final navigatorKey = GlobalKey<NavigatorState>();
-  static const baseUrl = 'http://localhost:5135';
-  // static const baseUrl =  'https://api.devartz.kz';
+  // static const baseUrl = 'http://localhost:5135';
+  static const baseUrl = 'https://api.devartz.kz';
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies({

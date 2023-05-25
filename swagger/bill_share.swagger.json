@@ -367,6 +367,18 @@
                 }
             }
         },
+        "/Authentication/is_admin": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            }
+        },
         "/expense-categories": {
             "post": {
                 "tags": [

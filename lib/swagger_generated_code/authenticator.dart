@@ -22,7 +22,7 @@ class BillShareAuthenticator extends Authenticator {
   @override
   FutureOr<Request?> authenticate(Request request, Response response,
       [Request? originalRequest]) async {
-    if (response.statusCode != 401 && response.statusCode != 403) {
+    if (response.statusCode != 401) {
       return null;
     }
 

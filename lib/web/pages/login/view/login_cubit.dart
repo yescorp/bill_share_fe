@@ -1,3 +1,5 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:bill_share/common/base_cubit.dart';
 import 'package:bill_share/web/pages/admin_dashboard/view/admin_dashboard_screen.dart';
 import 'package:bill_share/web/pages/login/view/login_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -9,7 +11,7 @@ import '../../../../models/user/user_info.dart';
 import '../../../../swagger_generated_code/authenticator.dart';
 import '../../../../swagger_generated_code/bill_share.swagger.dart';
 
-class LoginCubit extends BlocBase<LoginState> {
+class LoginCubit extends BaseCubit<LoginState> {
   final NavigationProvider navigationProvider;
   final BillShare client;
   final usernameController = TextEditingController();
@@ -29,6 +31,10 @@ class LoginCubit extends BlocBase<LoginState> {
       ),
     );
 
+    if (!result.isSuccessful) {
+      showSomethingWentWrong();
+    }
+
     if (result.isSuccessful) {
       DependencyProvider.get<BillShareAuthenticator>()
           .setCredentials(result.body!);
@@ -41,6 +47,16 @@ class LoginCubit extends BlocBase<LoginState> {
           avatarUrl: userInfo.body!.avatarUrl,
         ),
       );
+
+      final isAdmin = await client.authenticationIsAdminGet();
+      if (isAdmin.isSuccessful == false) {
+        showSnackbar(
+          title: 'Access Denied!',
+          message: 'You are not an Administrator!',
+          type: ContentType.failure,
+        );
+        return;
+      }
 
       await navigationProvider.replaceAll<AdminDashboardScreen>();
     }
