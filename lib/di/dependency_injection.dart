@@ -53,7 +53,7 @@ class DependencyProvider {
   static void registerDependencies({
     ApplicationPlatform platform = ApplicationPlatform.mobile,
   }) {
-    // HttpOverrides.global = BadCertHttpOverrides();
+    HttpOverrides.global = BadCertHttpOverrides();
     switch (platform) {
       case ApplicationPlatform.mobile:
         registerMobileScreens();

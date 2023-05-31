@@ -32,11 +32,15 @@ class SelectablePaymentItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  item.name,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: FontSizes.h3,
+                Expanded(
+                  child: Text(
+                    item.name,
+                    // softWrap: true,
+                    overflow: TextOverflow.fade,
+                    style: TextStyle(
+                      color: textColor,
+                      fontSize: FontSizes.h3,
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),

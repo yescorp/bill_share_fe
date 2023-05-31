@@ -18,9 +18,12 @@ class DotSeparatedListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          label,
-          style: style,
+        Expanded(
+          child: Text(
+            label,
+            softWrap: true,
+            style: style,
+          ),
         ),
         const SizedBox(width: 5),
         Expanded(

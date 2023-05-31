@@ -22,9 +22,10 @@ class AdminUserDetailsCubit extends BlocBase<AdminUserDetailsState> {
   void initialize(AdminUserDetailsParams params) {
     client
         .reportsForUserUserIdGet(
-            userId: params.userInfo.userId,
-            startDate: '1.1.2023',
-            endDate: '1.1.2024')
+      userId: params.userInfo.userId,
+      startDate: '1.1.2023',
+      endDate: '1.1.2024',
+    )
         .then((value) {
       List<Color> was = [];
       final details = SpendingsDetails(

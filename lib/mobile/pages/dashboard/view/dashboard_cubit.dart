@@ -18,7 +18,12 @@ class DashboardCubit extends BlocBase<DashboardState> {
   });
 
   void initialize() {
-    client.reportsPersonalGet(startDate: '1.1.2023', endDate: '1.12.2023').then(
+    client
+        .reportsPersonalGet(
+      startDate: '1.1.2023',
+      endDate: '1.1.2024',
+    )
+        .then(
       (value) {
         final was = [];
         final details = SpendingsDetails(
