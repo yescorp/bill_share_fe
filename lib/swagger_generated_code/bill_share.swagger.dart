@@ -354,6 +354,21 @@ abstract class BillShare extends ChopperService {
       {@Path('expenseId') required String? expenseId});
 
   ///
+  Future<chopper.Response<List<ExpenseResponse>>> expensesAllPost() {
+    generatedMapping.putIfAbsent(
+        ExpenseResponse, () => ExpenseResponse.fromJsonFactory);
+
+    return _expensesAllPost();
+  }
+
+  ///
+  @Post(
+    path: '/Expenses/all',
+    optionalBody: true,
+  )
+  Future<chopper.Response<List<ExpenseResponse>>> _expensesAllPost();
+
+  ///
   ///@param expenseId
   Future<chopper.Response> expensesExpenseIdParticipantsPost({
     required String? expenseId,

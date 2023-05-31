@@ -109,13 +109,31 @@ class SettingsScreen extends AbstractScreen<SettingsState, SettingsCubit> {
                       if (value == null) {
                         return;
                       }
-                      
+
                       MyApp.of(context)?.setLocale(Locale(value));
                     },
                   ),
                 ],
               ),
             ),
+      bottomSheet: Row(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(
+                    AppColors.rejectRed,
+                  ),
+                ),
+                onPressed: cubit.onQuit,
+                child: Text(l.settings_5),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 

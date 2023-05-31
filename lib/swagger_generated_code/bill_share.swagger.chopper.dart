@@ -272,6 +272,17 @@ class _$BillShare extends BillShare {
   }
 
   @override
+  Future<Response<List<ExpenseResponse>>> _expensesAllPost() {
+    final Uri $url = Uri.parse('/Expenses/all');
+    final Request $request = Request(
+      'POST',
+      $url,
+      client.baseUrl,
+    );
+    return client.send<List<ExpenseResponse>, ExpenseResponse>($request);
+  }
+
+  @override
   Future<Response<dynamic>> _expensesExpenseIdParticipantsPost({
     required String? expenseId,
     required AddExpenseParticipantRequest? body,
