@@ -33,6 +33,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.10.0"
+  awesome_dropdown:
+    dependency: "direct main"
+    description:
+      name: awesome_dropdown
+      sha256: db3a2438c5974358a2a01b60376693f59dbd95e314f818fd8ad99e1c1968899f
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   awesome_snackbar_content:
     dependency: "direct main"
     description:

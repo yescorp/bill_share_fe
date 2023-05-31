@@ -121,7 +121,7 @@ class CreatePaymentScreen
                       .map<DropdownMenuItem<ExpenseTypeId>>(
                         (e) => DropdownMenuItem<ExpenseTypeId>(
                           value: e,
-                          child: Text(e.name),
+                          child: Text(getExpenseTypeName(e)),
                         ),
                       )
                       .toList(),
@@ -254,5 +254,18 @@ class CreatePaymentScreen
         paymentInfoMapper: DependencyProvider.get<PaymentInfoMapper>(),
       ),
     );
+  }
+}
+
+String getExpenseTypeName(ExpenseTypeId type) {
+  switch (type) {
+    case ExpenseTypeId.necessary:
+      return "Necessary";
+    case ExpenseTypeId.selfexpenses:
+      return "Self Expenses";
+    case ExpenseTypeId.unexpected:
+      return "Unexpected";
+    case ExpenseTypeId.swaggerGeneratedUnknown:
+      return "Unknown";
   }
 }

@@ -72,6 +72,7 @@ class SettingsScreen extends AbstractScreen<SettingsState, SettingsCubit> {
                   const SizedBox(height: 10),
                   TextField(
                     controller: cubit.monthlyLimitController,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: l.settings_2,
                       enabledBorder: OutlineInputBorder(
