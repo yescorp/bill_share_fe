@@ -9,6 +9,7 @@ import 'package:bill_share/models/user/user_info.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../styles/colors.dart';
 import '../../../../styles/text_styles.dart';
@@ -31,6 +32,8 @@ class FriendsListScreen
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 3,
       child: Builder(builder: (context) {
@@ -59,12 +62,12 @@ class FriendsListScreen
                 ),
               ]
             ],
-            bottom: const TabBar(
+            bottom: TabBar(
               isScrollable: true,
               tabs: [
                 Tab(
                   child: Text(
-                    'Friends',
+                    l.friends_1,
                     style: TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -72,7 +75,7 @@ class FriendsListScreen
                 ),
                 Tab(
                   child: Text(
-                    'Groups',
+                    l.friends_2,
                     style: TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -80,7 +83,7 @@ class FriendsListScreen
                 ),
                 Tab(
                   child: Text(
-                    'Friendship Requests',
+                    l.friends_3,
                     style: TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -109,8 +112,8 @@ class FriendsListScreen
                           }
 
                           if (snapshot.data == 0) {
-                            return const Center(
-                              child: Text('No matches found.'),
+                            return Center(
+                              child: Text(l.friends_4),
                             );
                           }
 
@@ -158,9 +161,10 @@ class FriendsListScreen
                             );
                           }
                           if (snapshot.data == 0) {
-                            return const Center(
+                            return Center(
                               child: Text(
-                                  'You haven\'t added any user to your friend list'),
+                                l.friends_5,
+                              ),
                             );
                           }
                           return ListView.builder(
@@ -212,9 +216,8 @@ class FriendsListScreen
                             );
                           }
                           if (snapshot.data == 0) {
-                            return const Center(
-                              child: Text(
-                                  'You haven\'t added any user to your friend list'),
+                            return Center(
+                              child: Text(l.friends_6),
                             );
                           }
                           return ListView.builder(
@@ -260,9 +263,8 @@ class FriendsListScreen
                           );
                         }
                         if (snapshot.data == 0) {
-                          return const Center(
-                            child:
-                                Text('You don\'t have any friendship requests'),
+                          return Center(
+                            child: Text(l.friends_7),
                           );
                         }
                         return ListView.builder(

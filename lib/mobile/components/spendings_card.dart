@@ -7,6 +7,8 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 class SpendingsCard extends StatelessWidget {
   final SpendingsDetails? details;
 
@@ -17,6 +19,8 @@ class SpendingsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+
     if (details == null) {
       return Container(
         padding: EdgeInsets.all(20),
@@ -90,7 +94,7 @@ class SpendingsCard extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Left to limit: ...',
+                  l.dashboard_2,
                   style: TextStyle(
                     color: AppColors.white.withAlpha(200),
                     fontSize: FontSizes.h3,
@@ -126,7 +130,7 @@ class SpendingsCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'T ${details!.totalSpendings}',
+                  '${details!.totalSpendings} ₸',
                   style: const TextStyle(
                     color: AppColors.white,
                     fontSize: FontSizes.h1,
@@ -156,9 +160,7 @@ class SpendingsCard extends StatelessWidget {
                     Divider(
                       height: 10,
                       thickness: 5,
-                      endIndent: MediaQuery.of(context).size.width *
-                          (details!.limit - details!.totalSpendings) /
-                          details!.limit,
+                      endIndent: getEndIndent(context),
                       color: AppColors.white,
                     )
                   ],
@@ -166,7 +168,7 @@ class SpendingsCard extends StatelessWidget {
               ),
               const SizedBox(width: 10),
               Text(
-                '${details!.totalSpendings * 100 / details!.limit} %',
+                '${getPercent()} %',
                 style: const TextStyle(
                   color: AppColors.white,
                   fontSize: FontSizes.h3,
@@ -177,7 +179,7 @@ class SpendingsCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Left to limit: T ${details!.limit - details!.totalSpendings}',
+                '${AppLocalizations.of(context).dashboard_2}: ${details!.limit - details!.totalSpendings} ₸',
                 style: TextStyle(
                   color: AppColors.white.withAlpha(200),
                   fontSize: FontSizes.h3,
@@ -188,5 +190,28 @@ class SpendingsCard extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  double getEndIndent(BuildContext context) {
+    if (details!.limit == 0) {
+      return 1;
+    }
+
+    final indent = (MediaQuery.of(context).size.width / 1.8) *
+        (details!.limit - details!.totalSpendings) /
+        details!.limit;
+    if (indent < 0) {
+      return 0;
+    }
+
+    return indent;
+  }
+
+  double getPercent() {
+    if (details!.limit == 0) {
+      return 100;
+    }
+
+    return details!.totalSpendings * 100 / details!.limit;
   }
 }

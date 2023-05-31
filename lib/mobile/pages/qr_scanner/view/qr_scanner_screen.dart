@@ -36,69 +36,69 @@ class QrScannerScreen extends AbstractScreen<QrScannerState, QrScannerCubit> {
         ),
         onDetect: cubit.onDetected,
       ),
-      bottomSheet: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
-          ),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Choose mode',
-                    style: TextStyle(
-                      fontSize: FontSizes.h3,
-                    ),
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          icon: Transform.rotate(
-                              angle: math.pi / 2,
-                              child: Icon(Icons.format_align_center)),
-                          onPressed: cubit.onModeChange,
-                          label: Text('Scan text'),
-                        ),
-                      ),
-                      const SizedBox(width: 30),
-                      Expanded(
-                        child: ElevatedButton.icon(
-                          icon: Icon(Icons.table_rows_outlined),
-                          onPressed: cubit.onModeChange,
-                          label: Text('Fill manually'),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  const Divider(
-                    color: AppColors.grey1,
-                  ),
-                  Row(
-                    children: [
-                      const Expanded(child: Text('Turn on flash')),
-                      Switch(
-                        value: false,
-                        onChanged: (value) => cubit.onFlashToggle(value),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+      // bottomSheet: Container(
+      //   padding: const EdgeInsets.all(20),
+      //   decoration: const BoxDecoration(
+      //     borderRadius: BorderRadius.only(
+      //       topLeft: Radius.circular(20),
+      //       topRight: Radius.circular(20),
+      //     ),
+      //   ),
+      //   child: Row(
+      //     mainAxisSize: MainAxisSize.min,
+      //     children: [
+      //       Expanded(
+      //         child: Column(
+      //           mainAxisSize: MainAxisSize.min,
+      //           crossAxisAlignment: CrossAxisAlignment.start,
+      //           children: [
+      //             const Text(
+      //               'Choose mode',
+      //               style: TextStyle(
+      //                 fontSize: FontSizes.h3,
+      //               ),
+      //             ),
+      //             Row(
+      //               mainAxisSize: MainAxisSize.min,
+      //               children: [
+      //                 Expanded(
+      //                   child: ElevatedButton.icon(
+      //                     icon: Transform.rotate(
+      //                         angle: math.pi / 2,
+      //                         child: Icon(Icons.format_align_center)),
+      //                     onPressed: cubit.onModeChange,
+      //                     label: Text('Scan text'),
+      //                   ),
+      //                 ),
+      //                 const SizedBox(width: 30),
+      //                 Expanded(
+      //                   child: ElevatedButton.icon(
+      //                     icon: Icon(Icons.table_rows_outlined),
+      //                     onPressed: cubit.onModeChange,
+      //                     label: Text('Fill manually'),
+      //                   ),
+      //                 ),
+      //               ],
+      //             ),
+      //             const SizedBox(height: 10),
+      //             const Divider(
+      //               color: AppColors.grey1,
+      //             ),
+      //             Row(
+      //               children: [
+      //                 const Expanded(child: Text('Turn on flash')),
+      //                 Switch(
+      //                   value: false,
+      //                   onChanged: (value) => cubit.onFlashToggle(value),
+      //                 ),
+      //               ],
+      //             )
+      //           ],
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
     );
   }
 

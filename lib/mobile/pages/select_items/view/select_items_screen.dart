@@ -72,6 +72,7 @@ class SelectItemsScreen
                         padding: const EdgeInsets.only(left: 4.0),
                         child: AcronymAvatar(
                           name: e.info.userName,
+                          userId: e.info.userId,
                           heightWidth: 40,
                         ),
                       ),

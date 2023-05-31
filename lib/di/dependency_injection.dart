@@ -12,6 +12,7 @@ import 'package:bill_share/mobile/pages/home/view/Home_screen.dart';
 import 'package:bill_share/mobile/pages/login_intro/login_intro_screen.dart';
 import 'package:bill_share/mobile/pages/select_friends/view/select_friends_screen.dart';
 import 'package:bill_share/mobile/pages/select_items/view/select_items_screen.dart';
+import 'package:bill_share/mobile/pages/settings/view/settings_screen.dart';
 import 'package:bill_share/mobile/pages/sign_in/view/sign_in_screen.dart';
 import 'package:bill_share/mobile/pages/sign_up/view/sign_up_screen.dart';
 import 'package:bill_share/services/accessors/current_user_accessor.dart';
@@ -48,6 +49,8 @@ class DependencyProvider {
   static final navigatorKey = GlobalKey<NavigatorState>();
   // static const baseUrl = 'http://localhost:5135';
   static const baseUrl = 'https://api.devartz.kz';
+
+  static const monthlyLimitKey = 'monthlyLimit';
 
   /// Every Dependency should be registered inside this 1 method.
   static void registerDependencies({
@@ -92,6 +95,7 @@ class DependencyProvider {
     FriendProfileScreen.register();
     HomeScreen.register();
     CreateGroupScreen.register();
+    SettingsScreen.register();
   }
 
   static void registerWebScreens() {

@@ -92,6 +92,7 @@ class SelectablePaymentItem extends StatelessWidget {
                   ...selectedBy.map(
                     (e) => AcronymAvatar(
                       name: e.info.userName,
+                      userId: e.info.userId,
                       heightWidth: 40,
                     ),
                   ),

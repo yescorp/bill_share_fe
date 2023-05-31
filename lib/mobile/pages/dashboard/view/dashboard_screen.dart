@@ -9,6 +9,7 @@ import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../styles/colors.dart';
 
@@ -28,10 +29,20 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         title: Text('Dashboard'),
+        actions: [
+          IconButton(
+            onPressed: cubit.onGearPressed,
+            icon: const Icon(
+              Icons.settings,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -53,8 +64,8 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                   width: MediaQuery.of(context).size.width / 2.2,
                 ),
                 const SizedBox(height: 5),
-                const Text(
-                  'Categories',
+                Text(
+                  l.dashboard_1,
                   textAlign: TextAlign.start,
                   style: TextStyle(
                     fontSize: FontSizes.h2,
@@ -92,7 +103,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  '${state.spendingsDetails!.spendingCategories[category]} T',
+                                  '${state.spendingsDetails!.spendingCategories[category]} ₸',
                                   style: const TextStyle(
                                     fontSize: FontSizes.h3,
                                   ),

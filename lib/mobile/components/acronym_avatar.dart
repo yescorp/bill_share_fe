@@ -1,9 +1,11 @@
+import 'package:bill_share/services/maps/user_id_color.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../styles/colors.dart';
 
 class AcronymAvatar extends StatelessWidget {
   final String name;
+  final String userId;
   final Color? borderColor;
   final double? heightWidth;
   final TextStyle? style;
@@ -11,6 +13,7 @@ class AcronymAvatar extends StatelessWidget {
   const AcronymAvatar({
     super.key,
     required this.name,
+    required this.userId,
     this.borderColor,
     this.heightWidth,
     this.style,
@@ -18,6 +21,10 @@ class AcronymAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (userIdColor[userId] == null) {
+      userIdColor[userId] = AppColors.randomAvatar;
+    }
+
     return Container(
       padding: EdgeInsets.all(5),
       width: heightWidth,
@@ -26,7 +33,7 @@ class AcronymAvatar extends StatelessWidget {
         border: Border.all(
           color: borderColor ?? AppColors.grey1,
         ),
-        color: AppColors.randomAvatar,
+        color: userIdColor[userId],
         borderRadius: BorderRadius.all(Radius.circular((heightWidth ?? 0) / 2)),
       ),
       child: Center(

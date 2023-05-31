@@ -4,6 +4,7 @@ import 'package:bill_share/mobile/pages/home/view/home_cubit.dart';
 import 'package:bill_share/mobile/pages/home/view/home_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeScreen extends AbstractScreen<HomeState, HomeCubit> {
   const HomeScreen({super.key});
@@ -21,20 +22,22 @@ class HomeScreen extends AbstractScreen<HomeState, HomeCubit> {
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
       body: state.screens[state.selectedScreen],
       bottomNavigationBar: BottomNavigationBar(
-        items: const [
+        items: [
           BottomNavigationBarItem(
-            label: 'Home',
+            label: l.nav1,
             icon: Icon(Icons.home),
           ),
           BottomNavigationBarItem(
-            label: 'Expenses',
+            label: l.nav2,
             icon: Icon(Icons.payments_outlined),
           ),
           BottomNavigationBarItem(
-            label: 'Friends',
+            label: l.nav3,
             icon: Icon(Icons.person),
           )
         ],

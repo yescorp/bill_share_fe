@@ -6,7 +6,7 @@ import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:flutter_svg/svg.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../styles/colors.dart';
 
 class LoginIntroScreen
@@ -21,6 +21,7 @@ class LoginIntroScreen
   @override
   Widget buildPage(context, cubit, state) {
     final width = MediaQuery.of(context).size.width / 3;
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -72,9 +73,9 @@ class LoginIntroScreen
                     ),
                   ),
                 ),
-                const Center(
+                Center(
                   child: Text(
-                    'Keep your expences under control',
+                    l.loginIntro_1,
                     style: TextStyle(
                       fontSize: FontSizes.p1,
                       color: Colors.white,
@@ -91,9 +92,9 @@ class LoginIntroScreen
                   padding: const EdgeInsets.all(20),
                   child: Column(
                     children: [
-                      const Center(
+                      Center(
                         child: Text(
-                          'Welcome',
+                          l.loginIntro_2,
                           style: TextStyle(
                             fontSize: FontSizes.h1,
                             color: Colors.black,
@@ -103,9 +104,9 @@ class LoginIntroScreen
                       const SizedBox(
                         height: 10,
                       ),
-                      const Center(
+                      Center(
                           child: Text(
-                        'Managing expenses was never easier! \nHurry! Create an account or login to organize your spendings!',
+                        l.loginIntro_3,
                         style: TextStyle(
                           fontSize: FontSizes.p1,
                           color: Colors.black,
@@ -127,7 +128,7 @@ class LoginIntroScreen
                                 )),
                               ),
                               onPressed: cubit.onSigninPressed,
-                              child: const Text('Login'),
+                              child: Text(l.loginIntro_4),
                             ),
                           ),
                         ],
@@ -143,7 +144,7 @@ class LoginIntroScreen
                                 textStyle: const TextStyle(),
                               ),
                               onPressed: cubit.onSignupPressed,
-                              child: const Text('Signup'),
+                              child: Text(l.loginIntro_5),
                             ),
                           ),
                         ],

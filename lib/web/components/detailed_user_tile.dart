@@ -21,6 +21,7 @@ class DetailedUserTile extends StatelessWidget {
       child: Row(
         children: [
           AcronymAvatar(
+            userId: userInfo.userId,
             name: userInfo.userName,
             heightWidth: 40,
           ),

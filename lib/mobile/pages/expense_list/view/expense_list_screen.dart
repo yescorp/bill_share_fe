@@ -12,6 +12,7 @@ import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ExpenseListScreen
     extends AbstractScreen<ExpenseListState, ExpenseListCubit> {
@@ -30,10 +31,12 @@ class ExpenseListScreen
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Expenses'),
+        title: Text(l.expenseList_1),
         actions: [
           IconButton(
             onPressed: cubit.onQrIconPressed,
@@ -63,8 +66,8 @@ class ExpenseListScreen
             );
           }
           if (snapshot.data == 0) {
-            return const Center(
-              child: Text('There are no expenses yet.'),
+            return Center(
+              child: Text(l.expenseList_6),
             );
           }
           return ListView.builder(
@@ -130,36 +133,40 @@ class ExpenseListScreen
                                                 .contains(expense.id) &&
                                             expense.items.isNotEmpty) ...[
                                           ...expense.items.map(
-                                            (e) => DotSeparatedListTile(
-                                              label: e.name,
-                                              value:
-                                                  '${e.price} x ${e.quantity}',
-                                              style: const TextStyle(
-                                                fontSize: FontSizes.p1,
+                                            (e) => Padding(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 5),
+                                              child: DotSeparatedListTile(
+                                                label: e.name,
+                                                value:
+                                                    '${e.price} x ${e.quantity}',
+                                                style: const TextStyle(
+                                                  fontSize: FontSizes.p1,
+                                                ),
                                               ),
                                             ),
                                           ),
                                           DotSeparatedListTile(
-                                            label: 'Service',
+                                            label: l.expenseList_4,
                                             value:
                                                 '${expense.service - 100 < 0 ? 0 : expense.service - 100} %',
                                           ),
                                           DotSeparatedListTile(
-                                            label: 'Taxes',
+                                            label: l.expenseList_5,
                                             value:
                                                 '${expense.taxes - 100 < 0 ? 0 : expense.taxes - 100} %',
                                           ),
                                           const SizedBox(height: 20),
                                         ],
                                         DotSeparatedListTile(
-                                          label: 'Total',
+                                          label: l.expenseList_2,
                                           value: '${expense.totalPrice}',
                                           style: const TextStyle(
                                             fontSize: FontSizes.p1,
                                           ),
                                         ),
                                         DotSeparatedListTile(
-                                          label: 'Paid',
+                                          label: l.expenseList_3,
                                           value: '${expense.paidPrice}',
                                           style: const TextStyle(
                                             fontSize: FontSizes.p1,
@@ -179,6 +186,7 @@ class ExpenseListScreen
                                       padding: const EdgeInsets.only(left: 4.0),
                                       child: AcronymAvatar(
                                         name: e.info.userName,
+                                        userId: e.info.userId,
                                         heightWidth: 40,
                                       ),
                                     ),

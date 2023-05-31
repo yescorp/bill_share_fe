@@ -9,6 +9,7 @@ import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../models/user/friend_info.dart';
 import '../../../components/group_list_tile.dart';
@@ -36,6 +37,8 @@ class SelectFriendsScreen
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return DefaultTabController(
       length: 2,
       child: Builder(builder: (context) {
@@ -46,8 +49,8 @@ class SelectFriendsScreen
               onPressed: cubit.onBackButtonPressed,
               icon: const Icon(Icons.arrow_back),
             ),
-            title: const Text(
-              'Select Friends',
+            title: Text(
+              l.sfr_1,
               style: TextStyle(fontSize: FontSizes.h2),
             ),
             // TextField(
@@ -56,13 +59,13 @@ class SelectFriendsScreen
             //     suffixIcon: Icon(Icons.search),
             //   ),
             // ),
-            bottom: const TabBar(
+            bottom: TabBar(
               labelPadding: EdgeInsets.symmetric(horizontal: 50),
               isScrollable: true,
               tabs: [
                 Tab(
                   child: Text(
-                    'Friends',
+                    l.sfr_2,
                     style: TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -70,7 +73,7 @@ class SelectFriendsScreen
                 ),
                 Tab(
                   child: Text(
-                    'Groups',
+                    l.sfr_3,
                     style: TextStyle(
                       fontSize: FontSizes.h3,
                     ),
@@ -93,9 +96,8 @@ class SelectFriendsScreen
                     );
                   }
                   if (snapshot.data == 0) {
-                    return const Center(
-                      child: Text(
-                          'You haven\'t added any user to your friend list'),
+                    return Center(
+                      child: Text(l.sfr_4),
                     );
                   }
                   return ListView.builder(
@@ -145,8 +147,8 @@ class SelectFriendsScreen
                     );
                   }
                   if (snapshot.data == 0) {
-                    return const Center(
-                      child: Text('You don\'t have any groups yet.'),
+                    return Center(
+                      child: Text(l.sfr_5),
                     );
                   }
                   return ListView.builder(
@@ -193,7 +195,7 @@ class SelectFriendsScreen
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    child: Text('Submit'),
+                    child: Text(l.sfr_6),
                     onPressed: cubit.onSubmit,
                   ),
                 ),

@@ -8,5 +8,6 @@ class DashboardState with _$DashboardState {
   factory DashboardState({
     SpendingsDetails? spendingsDetails,
     @Default(false) bool update,
+    @Default(100000) int monthlyLimit,
   }) = _DashboardState;
 }

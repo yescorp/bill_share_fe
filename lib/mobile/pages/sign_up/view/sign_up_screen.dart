@@ -5,6 +5,7 @@ import 'package:bill_share/mobile/pages/sign_up/view/sign_up_state.dart';
 import 'package:bill_share/services/mock_categories/mock_categories.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../styles/colors.dart';
 import '../../../../styles/text_styles.dart';
@@ -21,6 +22,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     final width = MediaQuery.of(context).size.width / 3;
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -36,8 +38,8 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               onPressed: cubit.onSigninPressed,
-              child: const Text(
-                'Sign in',
+              child: Text(
+                l.signUp_1,
                 style: TextStyle(color: Colors.white, fontSize: FontSizes.p1),
               ),
             ),
@@ -62,9 +64,9 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'Sign Up',
+                    l.signUp_2,
                     style: TextStyle(
                       fontSize: FontSizes.h1,
                       color: Colors.white,
@@ -76,9 +78,9 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'Please enter the necessary information\nto create an account.',
+                    l.signUp_3,
                     style: TextStyle(
                       fontSize: FontSizes.p1,
                       color: Colors.white,
@@ -110,8 +112,8 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                       ),
                       TextField(
                         controller: cubit.emailController,
-                        decoration: const InputDecoration(
-                          labelText: 'Email',
+                        decoration: InputDecoration(
+                          labelText: l.signUp_4,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -125,8 +127,8 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                       const SizedBox(height: 10),
                       TextField(
                         controller: cubit.usernameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Username',
+                        decoration: InputDecoration(
+                          labelText: l.signUp_5,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -141,8 +143,8 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                       TextField(
                         controller: cubit.passwordController,
                         obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
+                        decoration: InputDecoration(
+                          labelText: l.signUp_6,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -158,8 +160,8 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                       TextField(
                         controller: cubit.confirmPasswordController,
                         obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Re-enter password',
+                        decoration: InputDecoration(
+                          labelText: l.signUp_7,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -189,7 +191,7 @@ class SignupScreen extends AbstractScreen<SignupScreenState, SignupCubit> {
                           await cubit.onSubmit();
                           entry.remove();
                         },
-                        child: const Text('Sign Up'),
+                        child: Text(l.signUp_8),
                       ),
                       const SizedBox(height: 40),
                     ],

@@ -101,9 +101,9 @@ class QrScannerCubit extends BlocBase<QrScannerState> {
 
       var taxes = false;
 
-      if (json['taxes'] is List && json['taxes'].isNotEmpty) {
-        taxes = true;
-      }
+      // if (json['taxes'] is List && json['taxes'].isNotEmpty) {
+      //   taxes = true;
+      // }
 
       final params = CreatePaymentParams(
         initialPaymentInfo: ParsedPayment(

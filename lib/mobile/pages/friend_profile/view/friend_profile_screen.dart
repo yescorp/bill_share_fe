@@ -88,6 +88,7 @@ class FriendProfileScreen
                     Expanded(
                       child: AcronymAvatar(
                         name: state.info.name,
+                        userId: state.info.userId,
                         heightWidth: 120,
                         style: const TextStyle(
                           fontSize: FontSizes.h2,

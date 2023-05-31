@@ -13,6 +13,7 @@ import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../services/accessors/current_user_accessor.dart';
 import '../../../../styles/colors.dart';
@@ -40,10 +41,12 @@ class CreatePaymentScreen
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: Text('Payment info'),
+        title: Text(l.crp_1),
         leading: IconButton(
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -57,8 +60,8 @@ class CreatePaymentScreen
         child: ListView(
           children: [
             TextField(
-              decoration: const InputDecoration(
-                labelText: 'Payment Name',
+              decoration: InputDecoration(
+                labelText: l.crp_2,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.grey1,
@@ -83,7 +86,7 @@ class CreatePaymentScreen
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: DropdownButton<PaymentCategory>(
-                  hint: Text('Category'),
+                  hint: Text(l.crp_3),
                   value: state.selectedCategory,
                   isExpanded: true,
                   items: state.categories
@@ -112,7 +115,7 @@ class CreatePaymentScreen
                 child: DropdownButton<ExpenseTypeId>(
                   iconEnabledColor: AppColors.grey1,
                   value: state.selectedPaymentType,
-                  hint: Text('Payment type'),
+                  hint: Text(l.crp_4),
                   isExpanded: true,
                   items: cubit.paymentTypes
                       .map<DropdownMenuItem<ExpenseTypeId>>(
@@ -130,7 +133,7 @@ class CreatePaymentScreen
             const SizedBox(height: 10),
             ElevatedButton.icon(
               icon: Icon(Icons.add),
-              label: Text('Friends'),
+              label: Text(l.crp_5),
               onPressed: cubit.onAddFriendsPressed,
             ),
             if (state.friends.isNotEmpty) ...[
@@ -146,6 +149,7 @@ class CreatePaymentScreen
                         padding: const EdgeInsets.symmetric(horizontal: 1.0),
                         child: AcronymAvatar(
                           name: e.userName,
+                          userId: e.userId,
                           heightWidth: 40,
                         ),
                       ),
@@ -157,7 +161,7 @@ class CreatePaymentScreen
             const SizedBox(height: 10),
             ElevatedButton.icon(
               icon: Icon(Icons.add),
-              label: Text('Products'),
+              label: Text(l.crp_6),
               onPressed: cubit.onAddProductPressed,
             ),
             if (state.items.isNotEmpty) ...[
@@ -183,9 +187,9 @@ class CreatePaymentScreen
           children: [
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: DotSeparatedListTile(
-                    label: 'Service',
+                    label: l.crp_7,
                     value: '10%',
                     style: TextStyle(fontSize: FontSizes.h3),
                   ),
@@ -203,9 +207,9 @@ class CreatePaymentScreen
             ),
             Row(
               children: [
-                const Expanded(
+                Expanded(
                   child: DotSeparatedListTile(
-                    label: 'Taxes',
+                    label: l.crp8,
                     value: '12%',
                     style: TextStyle(fontSize: FontSizes.h3),
                   ),
@@ -225,7 +229,7 @@ class CreatePaymentScreen
               children: [
                 Expanded(
                   child: ElevatedButton(
-                    child: Text('Create Payment'),
+                    child: Text(l.crp_9),
                     onPressed: cubit.onSubmit,
                   ),
                 ),

@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$DashboardState {
   SpendingsDetails? get spendingsDetails => throw _privateConstructorUsedError;
   bool get update => throw _privateConstructorUsedError;
+  int get monthlyLimit => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DashboardStateCopyWith<DashboardState> get copyWith =>
@@ -30,7 +31,8 @@ abstract class $DashboardStateCopyWith<$Res> {
           DashboardState value, $Res Function(DashboardState) then) =
       _$DashboardStateCopyWithImpl<$Res, DashboardState>;
   @useResult
-  $Res call({SpendingsDetails? spendingsDetails, bool update});
+  $Res call(
+      {SpendingsDetails? spendingsDetails, bool update, int monthlyLimit});
 }
 
 /// @nodoc
@@ -48,6 +50,7 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
   $Res call({
     Object? spendingsDetails = freezed,
     Object? update = null,
+    Object? monthlyLimit = null,
   }) {
     return _then(_value.copyWith(
       spendingsDetails: freezed == spendingsDetails
@@ -58,6 +61,10 @@ class _$DashboardStateCopyWithImpl<$Res, $Val extends DashboardState>
           ? _value.update
           : update // ignore: cast_nullable_to_non_nullable
               as bool,
+      monthlyLimit: null == monthlyLimit
+          ? _value.monthlyLimit
+          : monthlyLimit // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -70,7 +77,8 @@ abstract class _$$_DashboardStateCopyWith<$Res>
       __$$_DashboardStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({SpendingsDetails? spendingsDetails, bool update});
+  $Res call(
+      {SpendingsDetails? spendingsDetails, bool update, int monthlyLimit});
 }
 
 /// @nodoc
@@ -86,6 +94,7 @@ class __$$_DashboardStateCopyWithImpl<$Res>
   $Res call({
     Object? spendingsDetails = freezed,
     Object? update = null,
+    Object? monthlyLimit = null,
   }) {
     return _then(_$_DashboardState(
       spendingsDetails: freezed == spendingsDetails
@@ -96,6 +105,10 @@ class __$$_DashboardStateCopyWithImpl<$Res>
           ? _value.update
           : update // ignore: cast_nullable_to_non_nullable
               as bool,
+      monthlyLimit: null == monthlyLimit
+          ? _value.monthlyLimit
+          : monthlyLimit // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -103,17 +116,21 @@ class __$$_DashboardStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DashboardState implements _DashboardState {
-  _$_DashboardState({this.spendingsDetails, this.update = false});
+  _$_DashboardState(
+      {this.spendingsDetails, this.update = false, this.monthlyLimit = 100000});
 
   @override
   final SpendingsDetails? spendingsDetails;
   @override
   @JsonKey()
   final bool update;
+  @override
+  @JsonKey()
+  final int monthlyLimit;
 
   @override
   String toString() {
-    return 'DashboardState(spendingsDetails: $spendingsDetails, update: $update)';
+    return 'DashboardState(spendingsDetails: $spendingsDetails, update: $update, monthlyLimit: $monthlyLimit)';
   }
 
   @override
@@ -123,11 +140,14 @@ class _$_DashboardState implements _DashboardState {
             other is _$_DashboardState &&
             (identical(other.spendingsDetails, spendingsDetails) ||
                 other.spendingsDetails == spendingsDetails) &&
-            (identical(other.update, update) || other.update == update));
+            (identical(other.update, update) || other.update == update) &&
+            (identical(other.monthlyLimit, monthlyLimit) ||
+                other.monthlyLimit == monthlyLimit));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, spendingsDetails, update);
+  int get hashCode =>
+      Object.hash(runtimeType, spendingsDetails, update, monthlyLimit);
 
   @JsonKey(ignore: true)
   @override
@@ -139,12 +159,15 @@ class _$_DashboardState implements _DashboardState {
 abstract class _DashboardState implements DashboardState {
   factory _DashboardState(
       {final SpendingsDetails? spendingsDetails,
-      final bool update}) = _$_DashboardState;
+      final bool update,
+      final int monthlyLimit}) = _$_DashboardState;
 
   @override
   SpendingsDetails? get spendingsDetails;
   @override
   bool get update;
+  @override
+  int get monthlyLimit;
   @override
   @JsonKey(ignore: true)
   _$$_DashboardStateCopyWith<_$_DashboardState> get copyWith =>

@@ -72,6 +72,7 @@ class FriendListTileSelect extends FriendListTile {
         child: ListTile(
           leading: AcronymAvatar(
             name: info.userName,
+            userId: info.userId,
             heightWidth: 40,
           ),
           title: Text(
@@ -114,6 +115,7 @@ class FriendListTileView extends FriendListTile {
       child: ListTile(
         leading: AcronymAvatar(
           name: info.userName,
+          userId: info.userId,
           heightWidth: 40,
         ),
         title: Text(
@@ -154,6 +156,7 @@ class FriendshipRequestListTile extends FriendListTile {
       child: ListTile(
         leading: AcronymAvatar(
           name: info.userName,
+          userId: info.userId,
           heightWidth: 40,
         ),
         title: Text(

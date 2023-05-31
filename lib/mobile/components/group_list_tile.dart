@@ -58,6 +58,7 @@ class GroupListTileSelect extends GroupListTile {
           leading: AcronymAvatar(
             name: info.groupName,
             heightWidth: 40,
+            userId: info.groupId,
           ),
           title: Text(
             info.groupName,
@@ -97,6 +98,7 @@ class GroupListTileView extends GroupListTile {
       child: ListTile(
         leading: AcronymAvatar(
           name: info.groupName,
+          userId: info.groupId,
           heightWidth: 40,
         ),
         title: Text(

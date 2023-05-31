@@ -7,6 +7,7 @@ import 'package:bill_share/styles/text_styles.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../styles/colors.dart';
 
@@ -21,6 +22,7 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
   @override
   Widget buildPage(context, cubit, state) {
     final width = MediaQuery.of(context).size.width / 3;
+    final l = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: AppColors.background,
@@ -36,8 +38,8 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
             padding: const EdgeInsets.all(8.0),
             child: TextButton(
               onPressed: cubit.onSignupPressed,
-              child: const Text(
-                'Sign up',
+              child: Text(
+                l.signIn_1,
                 style: TextStyle(color: Colors.white, fontSize: FontSizes.p1),
               ),
             ),
@@ -62,9 +64,9 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'Sign In',
+                    l.signIn_2,
                     style: TextStyle(
                       fontSize: FontSizes.h1,
                       color: Colors.white,
@@ -76,9 +78,9 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Text(
-                    'If you already have an account, \nplease enter your username and password to login.',
+                    l.signIn_3,
                     style: TextStyle(
                       fontSize: FontSizes.p1,
                       color: Colors.white,
@@ -110,8 +112,8 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
                       ),
                       TextField(
                         controller: cubit.usernameController,
-                        decoration: const InputDecoration(
-                          labelText: 'Username',
+                        decoration: InputDecoration(
+                          labelText: l.signIn_4,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -126,8 +128,8 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
                       TextField(
                         controller: cubit.passwordController,
                         obscureText: true,
-                        decoration: const InputDecoration(
-                          labelText: 'Password',
+                        decoration: InputDecoration(
+                          labelText: l.signIn_5,
                           enabledBorder: OutlineInputBorder(
                             borderSide:
                                 BorderSide(color: AppColors.borderColor),
@@ -157,11 +159,11 @@ class SigninScreen extends AbstractScreen<SigninScreenState, SigninCubit> {
                           await cubit.onSubmit();
                           entry.remove();
                         },
-                        child: const Text('Sign In'),
+                        child: Text(l.signIn_6),
                       ),
                       TextButton(
                         onPressed: cubit.onForgotPassword,
-                        child: const Text('Forgot password?'),
+                        child: Text(l.signIn_7),
                       ),
                     ],
                   ),

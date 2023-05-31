@@ -4,6 +4,7 @@ import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_
 import 'package:bill_share/mobile/pages/create_payment_item/view/create_payment_item_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../styles/colors.dart';
 
@@ -18,6 +19,8 @@ class CreatePaymentItemScreen
 
   @override
   Widget buildPage(context, cubit, state) {
+    final l = AppLocalizations.of(context);
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -25,7 +28,7 @@ class CreatePaymentItemScreen
           icon: Icon(Icons.arrow_back_ios),
           onPressed: cubit.onBackButtonPressed,
         ),
-        title: Text('Create payment item'),
+        title: Text(l.crpi_1),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -33,8 +36,8 @@ class CreatePaymentItemScreen
           children: [
             TextField(
               controller: cubit.itemNameController,
-              decoration: const InputDecoration(
-                labelText: 'Name',
+              decoration: InputDecoration(
+                labelText: l.crpi_2,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.grey1,
@@ -50,8 +53,8 @@ class CreatePaymentItemScreen
             const SizedBox(height: 10),
             TextField(
               controller: cubit.itemPriceController,
-              decoration: const InputDecoration(
-                labelText: 'Price',
+              decoration: InputDecoration(
+                labelText: l.crpi_3,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.grey1,
@@ -67,8 +70,8 @@ class CreatePaymentItemScreen
             const SizedBox(height: 10),
             TextField(
               controller: cubit.itemCountController,
-              decoration: const InputDecoration(
-                labelText: 'Quantity',
+              decoration: InputDecoration(
+                labelText: l.crpi_4,
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(
                     color: AppColors.grey1,
@@ -84,7 +87,7 @@ class CreatePaymentItemScreen
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: cubit.onSubmit,
-              child: Text('Create'),
+              child: Text(l.crpi_5),
             ),
           ],
         ),

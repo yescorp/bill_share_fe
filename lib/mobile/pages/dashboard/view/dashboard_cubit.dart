@@ -1,9 +1,12 @@
+import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/mobile/pages/dashboard/view/dashboard_state.dart';
+import 'package:bill_share/mobile/pages/settings/view/settings_screen.dart';
 import 'package:bill_share/models/payment/payment_category.dart';
 import 'package:bill_share/models/spendings/spendings_details.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:bloc/bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../styles/colors.dart';
 
@@ -24,12 +27,13 @@ class DashboardCubit extends BlocBase<DashboardState> {
       endDate: '1.1.2024',
     )
         .then(
-      (value) {
+      (value) async {
+        final sp = await SharedPreferences.getInstance();
         final was = [];
         final details = SpendingsDetails(
           month: DateTime.now(),
           totalSpendings: value.body!.totalSpendings!,
-          limit: 2000000,
+          limit: sp.getInt(DependencyProvider.monthlyLimitKey) ?? 100000,
           spendingCategories: Map.fromIterable(
             value.body!.categoriesSpendings!,
             key: (item) {
@@ -62,7 +66,9 @@ class DashboardCubit extends BlocBase<DashboardState> {
 
         emit(state.copyWith(update: !state.update));
       },
-    ).onError((error, stackTrace) {});
+    ).onError((error, stackTrace) {
+      int a = 0;
+    });
     // emit(state.copyWith(
     //   spendingsDetails: SpendingsDetails(
     //     limit: 100000,
@@ -87,5 +93,57 @@ class DashboardCubit extends BlocBase<DashboardState> {
     //     },
     //   ),
     // ));
+  }
+
+  Future<void> onGearPressed() async {
+    await navigationProvider.push<SettingsScreen>();
+    client
+        .reportsPersonalGet(
+      startDate: '1.1.2023',
+      endDate: '1.1.2024',
+    )
+        .then(
+      (value) async {
+        final sp = await SharedPreferences.getInstance();
+        final was = [];
+        final details = SpendingsDetails(
+          month: DateTime.now(),
+          totalSpendings: value.body!.totalSpendings!,
+          limit: sp.getInt(DependencyProvider.monthlyLimitKey) ?? 100000,
+          spendingCategories: Map.fromIterable(
+            value.body!.categoriesSpendings!,
+            key: (item) {
+              final temp = (item as CategorySpend);
+              var color = AppColors.randomAvatar;
+              while (was.contains(color) &&
+                  was.length < AppColors.avatarColors.length) {
+                color = AppColors.randomAvatar;
+              }
+              was.add(color);
+              return PaymentCategory(
+                id: temp.categoryId!,
+                name: temp.categoryName!,
+                color: color,
+              );
+            },
+            value: (item) {
+              {
+                final temp = (item as CategorySpend);
+                return temp.total!;
+              }
+            },
+          ),
+        );
+        emit(
+          state.copyWith(
+            spendingsDetails: details,
+          ),
+        );
+
+        emit(state.copyWith(update: !state.update));
+      },
+    ).onError((error, stackTrace) {
+      int a = 0;
+    });
   }
 }
