@@ -1,5 +1,7 @@
+import 'package:bill_share/models/payment/payment_info.dart';
 import 'package:bill_share/models/user/detailed_user_info.dart';
 import 'package:bill_share/models/user/user_info.dart';
+import 'package:bill_share/services/mappers/payment_info.dart';
 import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
 import 'package:bill_share/web/pages/admin_dashboard/view/admin_dashboard_state.dart';
 import 'package:bill_share/services/navigation/api/navigation_provider.dart';
@@ -37,10 +39,41 @@ class AdminDashboardCubit extends BlocBase<AdminDashboardState> {
     }).onError((error, stackTrace) {
       int a = 0;
     });
+
+    client.expensesAllPost().then((value) async {
+      List<PaymentInfo> payments = [];
+      for (final payment in value.body!) {
+        payments.add(await PaymentInfoMapper(client: client).forAdmin(payment));
+      }
+
+      emit(state.copyWith(payments: payments));
+    }).onError((error, stackTrace) {
+      int a = 0;
+    });
   }
 
   Future<void> onUserDetailsClick(DetailedUserInfo e) async {
     await navigationProvider.push<AdminUserDetailsScreen>(
         params: AdminUserDetailsParams(userInfo: e));
   }
+
+  onExpenseTap(String id) {
+    if (state.openedExpenses.contains(id)) {
+      final newList = [...state.openedExpenses];
+      newList.remove(id);
+      emit(
+        state.copyWith(
+          openedExpenses: newList,
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(
+          openedExpenses: [...state.openedExpenses, id],
+        ),
+      );
+    }
+  }
+
+  onExpenseDoubleTap(String id) {}
 }

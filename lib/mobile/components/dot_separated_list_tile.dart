@@ -6,12 +6,14 @@ class DotSeparatedListTile extends StatelessWidget {
   final String label;
   final String value;
   final TextStyle? style;
+  final double maxWidth;
 
   const DotSeparatedListTile({
     super.key,
     required this.label,
     required this.value,
     this.style,
+    this.maxWidth = 170,
   });
 
   @override
@@ -19,8 +21,8 @@ class DotSeparatedListTile extends StatelessWidget {
     return Row(
       children: [
         Container(
-          constraints: const BoxConstraints(
-            maxWidth: 170,
+          constraints: BoxConstraints(
+            maxWidth: maxWidth,
           ),
           child: Text(
             label,
@@ -31,7 +33,7 @@ class DotSeparatedListTile extends StatelessWidget {
         const SizedBox(width: 5),
         Expanded(
           child: Text(
-            '.' * 100,
+            '.' * 1000,
             overflow: TextOverflow.fade,
             softWrap: false,
           ),
