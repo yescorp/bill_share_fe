@@ -1,3 +1,4 @@
+import 'package:bill_share/di/dependency_injection.dart';
 import 'package:bill_share/models/payment/payment_item.dart';
 import 'package:bill_share/styles/colors.dart';
 import 'package:bill_share/styles/text_styles.dart';
@@ -70,7 +71,7 @@ class PaymentItemDetails1 extends PaymentItemDetails {
             Row(
               children: [
                 Text(
-                  '${details.price} ₸',
+                  '${details.price} ${tenge}',
                   style: const TextStyle(
                     fontSize: FontSizes.h3,
                   ),
@@ -85,7 +86,7 @@ class PaymentItemDetails1 extends PaymentItemDetails {
                   ),
                 ),
                 Text(
-                  '${details.total} ₸',
+                  '${details.total} $tenge',
                   style: const TextStyle(
                     fontSize: FontSizes.h3,
                   ),

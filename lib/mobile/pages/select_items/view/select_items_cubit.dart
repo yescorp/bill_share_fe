@@ -69,6 +69,8 @@ class SelectItemsCubit extends BlocBase<SelectItemsState> {
     }
 
     initialize(SelectItemsParams(id: state.details!.id));
+
+    navigationProvider.pop();
   }
 
   onItemTap(PaymentItem item) {

@@ -9,6 +9,8 @@ import 'dart:math' as math;
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../di/dependency_injection.dart';
+
 class SpendingsCard extends StatelessWidget {
   final SpendingsDetails? details;
 
@@ -130,7 +132,7 @@ class SpendingsCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  '${details!.totalSpendings} ₸',
+                  '${details!.totalSpendings} $tenge',
                   style: const TextStyle(
                     color: AppColors.white,
                     fontSize: FontSizes.h1,
@@ -179,7 +181,7 @@ class SpendingsCard extends StatelessWidget {
           Row(
             children: [
               Text(
-                '${AppLocalizations.of(context).dashboard_2}: ${details!.limit - details!.totalSpendings} ₸',
+                '${AppLocalizations.of(context).dashboard_2}: ${details!.limit - details!.totalSpendings} $tenge',
                 style: TextStyle(
                   color: AppColors.white.withAlpha(200),
                   fontSize: FontSizes.h3,

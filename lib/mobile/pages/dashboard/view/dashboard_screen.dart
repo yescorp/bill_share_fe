@@ -103,7 +103,7 @@ class DashboardScreen extends AbstractScreen<DashboardState, DashboardCubit> {
                                   ),
                                 ),
                                 subtitle: Text(
-                                  '${state.spendingsDetails!.spendingCategories[category]} ₸',
+                                  '${state.spendingsDetails!.spendingCategories[category]} $tenge',
                                   style: const TextStyle(
                                     fontSize: FontSizes.h3,
                                   ),

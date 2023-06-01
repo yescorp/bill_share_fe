@@ -30,11 +30,16 @@ import 'package:bill_share/web/pages/login/view/login_screen.dart';
 import 'package:chopper/chopper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:intl/intl.dart';
 
 import '../mobile/pages/qr_scanner/view/qr_scanner_screen.dart';
 import '../models/user/user_info.dart';
 import '../web/pages/admin_user_details/view/admin_user_details_screen.dart';
 import 'http_overrides.dart';
+
+final _locale = Locale('kk_Kz');
+final _format = NumberFormat.simpleCurrency(locale: _locale.toString());
+final tenge = _format.currencySymbol;
 
 void kSetCurrentUser(UserInfo info) {
   DependencyProvider.get<CurrentUserAccessor>().user = info;
@@ -56,6 +61,7 @@ class DependencyProvider {
   static void registerDependencies({
     ApplicationPlatform platform = ApplicationPlatform.mobile,
   }) {
+    print(tenge);
     HttpOverrides.global = BadCertHttpOverrides();
     switch (platform) {
       case ApplicationPlatform.mobile:
