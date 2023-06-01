@@ -1,0 +1,59 @@
+import 'dart:async';
+
+import 'package:bill_share/swagger_generated_code/bill_share.swagger.dart';
+import 'package:chopper/chopper.dart';
+
+const authorizationHeader = 'Authorization';
+
+class BillShareAuthenticator extends Authenticator {
+  final BillShare Function() clientAccessor;
+  String accessToken = '';
+  String refreshToken = '';
+
+  BillShareAuthenticator({
+    required this.clientAccessor,
+  });
+
+  void setCredentials(AuthenticationToken token) {
+    accessToken = token.accessToken!;
+    refreshToken = token.refreshToken!;
+  }
+
+  @override
+  FutureOr<Request?> authenticate(Request request, Response response,
+      [Request? originalRequest]) async {
+    if (response.statusCode != 401) {
+      return null;
+    }
+
+    if (!request.headers.containsKey(authorizationHeader) &&
+        accessToken.isNotEmpty) {
+      request.headers
+          .putIfAbsent(authorizationHeader, () => 'Bearer $accessToken');
+      return request;
+    }
+
+    if (refreshToken.isEmpty) {
+      return null;
+    }
+
+    final tokensResponse = await clientAccessor().apiTokenRefreshPost(
+      body: RefreshJwtTokenDto(
+        refreshToken: refreshToken,
+      ),
+    );
+
+    if (!tokensResponse.isSuccessful) {
+      return null;
+    }
+
+    accessToken = tokensResponse.body!.accessToken!;
+    refreshToken = tokensResponse.body!.refreshToken!;
+
+    request.headers.remove(authorizationHeader);
+    request.headers
+        .putIfAbsent(authorizationHeader, () => 'Bearer $accessToken');
+
+    return request;
+  }
+}
